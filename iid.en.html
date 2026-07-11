@@ -1,0 +1,3333 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>Internet Identity Protocol (IID)</title>
+<meta content="Várnagy Zoltán" name="author">
+<meta content="
+       This document specifies the IID protocol, which defines
+message formats and operations for managing personal data,
+permissions, and attributes associated with internet identities, 
+including natural persons, organizations and artificial intelligence 
+agents. 
+       The protocol is designed to be simple, extensible, platform-independent,
+and human readable. It is transport-agnostic and supports arbitrary
+cryptographic algorithms. 
+    " name="description">
+<meta content="xml2rfc 3.34.0" name="generator">
+<meta content="identity" name="keyword">
+<meta content="authentication" name="keyword">
+<meta content="message" name="keyword">
+<meta content="signature" name="keyword">
+<meta content="draft-varnagy-iid-protocol-00" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.34.0
+    Python 3.13.5
+    ConfigArgParse 1.7.5
+    google-i18n-address 3.1.1
+    intervaltree 3.2.1
+    Jinja2 3.1.6
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.10.0
+    pycountry 26.2.16
+    PyYAML 6.0.3
+    requests 2.34.2
+    wcwidth 0.8.2
+-->
+<link href="iid.en.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">/*
+
+  NOTE: Changes at the bottom of this file overrides some earlier settings.
+
+  Once the style has stabilized and has been adopted as an official RFC style,
+  this can be consolidated so that style settings occur only in one place, but
+  for now the contents of this file consists first of the initial CSS work as
+  provided to the RFC Formatter (xml2rfc) work, followed by itemized and
+  commented changes found necessary during the development of the v3
+  formatters.
+
+*/
+
+/* fonts */
+@import url('https://static.ietf.org/fonts/noto-sans/import.css'); /* Sans-serif */
+@import url('https://static.ietf.org/fonts/noto-serif/import.css'); /* Serif (print) */
+@import url('https://static.ietf.org/fonts/roboto-mono/import.css'); /* Monospace */
+
+:root {
+  --font-sans: 'Noto Sans', Arial, Helvetica, sans-serif;
+  --font-serif: 'Noto Serif', 'Times', 'Times New Roman', serif;
+  --font-mono: 'Roboto Mono', Courier, 'Courier New', monospace;
+}
+
+@viewport {
+  zoom: 1.0;
+}
+@-ms-viewport {
+  width: extend-to-zoom;
+  zoom: 1.0;
+}
+/* general and mobile first */
+html {
+}
+body {
+  max-width: 90%;
+  margin: 1.5em auto;
+  color: #222;
+  background-color: #fff;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  overflow-wrap: break-word;
+}
+.ears {
+  display: none;
+}
+
+/* headings */
+#title, h1, h2, h3, h4, h5, h6 {
+  margin: 1em 0 0.5em;
+  font-weight: bold;
+  line-height: 1.3;
+}
+#title {
+  clear: both;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 0.5em 0;
+  padding: 1em 0 0.5em;
+}
+.author {
+  padding-bottom: 4px;
+}
+h1 {
+  font-size: 26px;
+  margin: 1em 0;
+}
+h2 {
+  font-size: 22px;
+  margin-top: -20px;  /* provide offset for in-page anchors */
+  padding-top: 33px;
+}
+h3 {
+  font-size: 18px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h4 {
+  font-size: 16px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h5, h6 {
+  font-size: 14px;
+}
+#n-copyright-notice {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+/* general structure */
+p {
+  padding: 0;
+  margin: 0 0 1em 0;
+  text-align: left;
+}
+div, span {
+  position: relative;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+@media print {
+  svg {
+    max-height: 850px;
+    max-width: 660px;
+  }
+}
+svg[font-family~="serif" i], svg [font-family~="serif" i] {
+  font-family: var(--font-serif);
+}
+svg[font-family~="sans-serif" i], svg [font-family~="sans-serif" i] {
+  font-family: var(--font-sans);
+}
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  display: table;
+  border: none;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 1em 2em;
+}
+ol ol, ul ul, ol ul, ul ol {
+  margin-left: 1em;
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+ul.ulBare, li.ulBare {
+  margin-left: 0em !important;
+}
+ul.compact, .ulCompact,
+ol.compact, .olCompact {
+  line-height: 100%;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+/* 
+dl.nohang > dt {
+  float: none;
+}
+*/
+dl > dd {
+  margin-bottom: .8em;
+  min-height: 1.3em;
+}
+dl.compact > dd, .dlCompact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+
+/* links */
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #22e; /* Arlen: WCAG 2019 */
+}
+a[href]:hover {
+  background-color: #f2f2f2;
+}
+figcaption a[href],
+a[href].selfRef {
+  color: #222;
+}
+/* XXX probably not this:
+a.selfRef:hover {
+  background-color: transparent;
+  cursor: default;
+} */
+
+/* Figures */
+tt, code, pre {
+  background-color: #f9f9f9;
+  font-family: var(--font-mono);
+}
+pre {
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 1em;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption {
+  font-style: italic;
+  margin: 0 0 1em 0;
+}
+@media screen {
+  pre {
+    overflow-x: auto;
+    max-width: 100%;
+    max-width: calc(100% - 22px);
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 1.2em 2em;
+}
+blockquote {
+  background-color: #f9f9f9;
+  color: #111; /* Arlen: WCAG 2019 */
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin: 1em 0;
+}
+blockquote > *:last-child {
+  margin-bottom: 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+.xref {
+  overflow-wrap: normal;
+}
+
+/* tables */
+table {
+  width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5em 0.75em;
+}
+th {
+  text-align: left;
+  background-color: #e9e9e9;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f5f5f5;
+}
+table caption {
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+table p {
+  /* XXX to avoid bottom margin on table row signifiers. If paragraphs should
+     be allowed within tables more generally, it would be far better to select on a class. */
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  color: #666; /* Arlen: AHDJ 2019 */
+  text-decoration: none;
+  visibility: hidden;
+  user-select: none;
+  -ms-user-select: none;
+  -o-user-select:none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+@media screen {
+  aside:hover > a.pilcrow,
+  p:hover > a.pilcrow,
+  blockquote:hover > a.pilcrow,
+  div:hover > a.pilcrow,
+  li:hover > a.pilcrow,
+  pre:hover > a.pilcrow {
+    visibility: visible;
+  }
+  a.pilcrow:hover {
+    background-color: transparent;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+.bcp14 {
+  font-variant: small-caps;
+}
+
+.role {
+  font-variant: all-small-caps;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: 0.9em;
+}
+#identifiers dt {
+  width: 3em;
+  clear: left;
+}
+#identifiers dd {
+  float: left;
+  margin-bottom: 0;
+}
+/* Fix PDF info block run off issue */
+@media print {
+  #identifiers dd {
+    max-width: 100%;
+  }
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #666; /* Arlen: WCAG 2019 */
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc  {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+nav.toc ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+nav.toc li {
+  line-height: 1.3em;
+  margin: 0.75em 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 7em;
+}
+.references dd {
+  margin-left: 8em;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.refSubseries {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+.index ul {
+  margin: 0 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+.index ul ul {
+  margin: 0;
+}
+.index li {
+  margin: 0;
+  text-indent: -2em;
+  padding-left: 2em;
+  padding-bottom: 5px;
+}
+.indexIndex {
+  margin: 0.5em 0 1em;
+}
+.index a {
+  font-weight: 700;
+}
+/* make the index two-column on all but the smallest screens */
+@media (min-width: 600px) {
+  .index ul {
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+  }
+  .index ul ul {
+    -moz-column-count: 1;
+    -moz-column-gap: 0;
+  }
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  font-family: var(--font-sans);
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+
+/* temporary notes */
+.rfcEditorRemove::before {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+  padding: 0.2em;
+  content: "The RFC Editor will remove this note";
+  color: #9e2a00; /* Arlen: WCAG 2019 */
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+}
+.rfcEditorRemove {
+  position: relative;
+  padding-top: 1.8em;
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  border-radius: 3px;
+}
+.cref {
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 1023px) {
+  body {
+    padding-top: 2em;
+  }
+  #title {
+    padding: 1em 0;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
+    margin-top: -18px;  /* provide offset for in-page anchors */
+    padding-top: 38px;
+  }
+  #identifiers dd {
+    max-width: 60%;
+  }
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    background-color: inherit;
+    border-bottom: 1px solid #ccc;
+  }
+  #toc h2 {
+    margin: -1px 0 0 0;
+    padding: 4px 0 4px 6px;
+    padding-right: 1em;
+    min-width: 190px;
+    font-size: 1.1em;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 6px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 1024px) {
+  body {
+    max-width: 724px;
+    margin: 42px auto;
+    padding-left: 1.5em;
+    padding-right: 29em;
+  }
+  #toc {
+    position: fixed;
+    top: 42px;
+    right: 42px;
+    width: 25%;
+    margin: 0;
+    padding: 0 1em;
+    z-index: 1;
+  }
+  #toc h2 {
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 0;
+    overflow: auto;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre {
+    page-break-inside: avoid;
+  }
+  figure {
+    overflow: scroll;
+  }
+  .breakable pre {
+    break-inside: auto;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  h2+*, h3+*, h4+*, h5+*, h6+* {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+/* This is commented out here, as the string-set: doesn't
+   pass W3C validation currently */
+/*
+.ears thead .left {
+  string-set: ears-top-left content();
+}
+
+.ears thead .center {
+  string-set: ears-top-center content();
+}
+
+.ears thead .right {
+  string-set: ears-top-right content();
+}
+
+.ears tfoot .left {
+  string-set: ears-bottom-left content();
+}
+
+.ears tfoot .center {
+  string-set: ears-bottom-center content();
+}
+
+.ears tfoot .right {
+  string-set: ears-bottom-right content();
+}
+*/
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+  /* The following is commented out here, but set appropriately by in code, as
+     the content depends on the document */
+  /*
+  @top-left {
+    content: 'Internet-Draft';
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-left {
+    content: string(ears-top-left);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-center {
+    content: string(ears-top-center);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-right {
+    content: string(ears-top-right);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @bottom-left {
+    content: string(ears-bottom-left);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-center {
+    content: string(ears-bottom-center);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-right {
+      content: '[Page ' counter(page) ']';
+      vertical-align: top;
+      border-top: solid 1px #ccc;
+  }
+  */
+
+}
+
+/* Changes introduced to fix issues found during implementation */
+/* Make sure links are clickable even if overlapped by following H* */
+a {
+  z-index: 2;
+}
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Leave room in document info to show Internet-Draft on one line */
+#identifiers dt {
+  width: 8em;
+}
+
+/* Don't waste quite as much whitespace between label and value in doc info */
+#identifiers dd {
+  margin-left: 1em;
+}
+
+/* Give floating toc a background color (needed when it's a div inside section */
+#toc {
+  background-color: white;
+}
+
+/* Make the collapsed ToC header render white on gray also when it's a link */
+@media screen and (max-width: 1023px) {
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+}
+
+/* Give the bottom of the ToC some whitespace */
+@media screen and (min-width: 1024px) {
+  #toc {
+    padding: 0 0 1em 1em;
+  }
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* prevent monospace from becoming overly large */
+tt, code, pre {
+  font-size: 95%;
+}
+
+/* Fix the height/width aspect for ascii art*/
+.sourcecode pre,
+.art-text pre {
+  line-height: 1.12;
+}
+
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin-right: 0.5em;
+}
+
+/* Fix the dl styling to match the RFC 7992 attributes */
+dl > dt,
+dl.dlParallel > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+
+/* Provide styling for table cell text alignment */
+table td.text-left,
+table th.text-left {
+  text-align: left;
+}
+table td.text-center,
+table th.text-center {
+  text-align: center;
+}
+table td.text-right,
+table th.text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact information look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 30em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Provide table alignment support.  We can't use the alignX classes above
+   since they do unwanted things with caption and other styling. */
+table.right {
+ margin-left: auto;
+ margin-right: 0;
+}
+table.center {
+ margin-left: auto;
+ margin-right: auto;
+}
+table.left {
+ margin-left: 0;
+ margin-right: auto;
+}
+
+/* Give the table caption label the same styling as the figcaption */
+caption a[href] {
+  color: #222;
+}
+
+@media print {
+  .toplink {
+    display: none;
+  }
+
+  /* avoid overwriting the top border line with the ToC header */
+  #toc {
+    padding-top: 1px;
+  }
+
+  /* Avoid page breaks inside dl and author address entries */
+  .vcard {
+    page-break-inside: avoid;
+  }
+
+}
+/* Tweak the bcp14 keyword presentation */
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+/* Tweak the invisible space above H* in order not to overlay links in text above */
+ h2 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 31px;
+ }
+ h3 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+ h4 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+/* Float artwork pilcrow to the right */
+@media screen {
+  .artwork a.pilcrow {
+    display: block;
+    line-height: 0.7;
+    margin-top: 0.15em;
+  }
+}
+/* Make pilcrows on dd visible */
+@media screen {
+  dd:hover > a.pilcrow {
+    visibility: visible;
+  }
+}
+/* Make the placement of figcaption match that of a table's caption
+   by removing the figure's added bottom margin */
+.alignLeft.art-text,
+.alignCenter.art-text,
+.alignRight.art-text {
+   margin-bottom: 0;
+}
+.alignLeft,
+.alignCenter,
+.alignRight {
+  margin: 1em 0 0 0;
+}
+/* In print, the pilcrow won't show on hover, so prevent it from taking up space,
+   possibly even requiring a new line */
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+/* Styling for the external metadata */
+div#external-metadata {
+  background-color: #eee;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  display: none;
+}
+div#internal-metadata {
+  padding: 0.5em;                       /* to match the external-metadata padding */
+}
+/* Styling for title RFC Number */
+h1#rfcnum {
+  clear: both;
+  margin: 0 0 -1em;
+  padding: 1em 0 0 0;
+}
+/* Make .olPercent look the same as <ol><li> */
+dl.olPercent > dd {
+  margin-bottom: 0.25em;
+  min-height: initial;
+}
+/* Give aside some styling to set it apart */
+aside {
+  border-left: 1px solid #ddd;
+  margin: 1em 0 1em 2em;
+  padding: 0.2em 2em;
+}
+aside > dl,
+aside > ol,
+aside > ul,
+aside > table,
+aside > p {
+  margin-bottom: 0.5em;
+}
+/* Additional page break settings */
+@media print {
+  figcaption, table caption {
+    page-break-before: avoid;
+  }
+}
+/* Font size adjustments for print */
+@media print {
+  body  { font-size: 10pt;      line-height: normal; max-width: 96%; }
+  h1    { font-size: 1.72em;    padding-top: 1.5em; } /* 1*1.2*1.2*1.2 */
+  h2    { font-size: 1.44em;    padding-top: 1.5em; } /* 1*1.2*1.2 */
+  h3    { font-size: 1.2em;     padding-top: 1.5em; } /* 1*1.2 */
+  h4    { font-size: 1em;       padding-top: 1.5em; }
+  h5, h6 { font-size: 1em;      margin: initial; padding: 0.5em 0 0.3em; }
+}
+/* Sourcecode margin in print, when there's no pilcrow */
+@media print {
+  .artwork,
+  .artwork > pre,
+  .sourcecode {
+    margin-bottom: 1em;
+  }
+}
+/* Avoid narrow tables forcing too narrow table captions, which may render badly */
+table {
+  min-width: 20em;
+}
+/* ol type a */
+ol.type-a { list-style-type: lower-alpha; }
+ol.type-A { list-style-type: upper-alpha; }
+ol.type-i { list-style-type: lower-roman; }
+ol.type-I { list-style-type: upper-roman; }
+/* Apply the print table and row borders in general, on request from the RPC,
+and increase the contrast between border and odd row background slightly */
+table {
+  border: 1px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+}
+tr {
+  break-inside: avoid;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f8f8f8;
+}
+/* Use style rules to govern display of the TOC. */
+@media screen and (max-width: 1023px) {
+  #toc nav { display: none; }
+  #toc.active nav { display: block; }
+}
+/* Add support for keepWithNext */
+.keepWithNext {
+  break-after: avoid-page;
+  break-after: avoid-page;
+}
+/* Add support for keepWithPrevious */
+.keepWithPrevious {
+  break-before: avoid-page;
+}
+/* Change the approach to avoiding breaks inside artwork etc. */
+figure, pre, table, .artwork, .sourcecode  {
+  break-before: auto;
+  break-after: auto;
+}
+/* Avoid breaks between <dt> and <dd> */
+dl {
+  break-before: auto;
+  break-inside: auto;
+}
+dt {
+  break-before: auto;
+  break-after: avoid-page;
+}
+dd {
+  break-before: avoid-page;
+  break-after: auto;
+  orphans: 3;
+  widows: 3
+}
+span.break, dd.break {
+  margin-bottom: 0;
+  min-height: 0;
+  break-before: auto;
+  break-inside: auto;
+  break-after: auto;
+}
+/* Undo break-before ToC */
+@media print {
+  #toc {
+    break-before: auto;
+  }
+}
+/* Text in compact lists should not get extra bottom margin space,
+   since that would makes the list not compact */
+ul.compact p, .ulCompact p,
+ol.compact p, .olCompact p {
+ margin: 0;
+}
+/* But the list as a whole needs the extra space at the end */
+section ul.compact,
+section .ulCompact,
+section ol.compact,
+section .olCompact {
+  margin-bottom: 1em;                    /* same as p not within ul.compact etc. */
+}
+/* The tt and code background above interferes with for instance table cell
+   backgrounds.  Changed to something a bit more selective. */
+tt, code {
+  background-color: transparent;
+}
+p tt, p code, li tt, li code, dt tt, dt code {
+  background-color: #f8f8f8;
+}
+/* Tweak the pre margin -- 0px doesn't come out well */
+pre {
+   margin-top: 0.5px;
+}
+/* Tweak the compact list text */
+ul.compact, .ulCompact,
+ol.compact, .olCompact,
+dl.compact, .dlCompact {
+  line-height: normal;
+}
+/* Don't add top margin for nested lists */
+li > ul, li > ol, li > dl,
+dd > ul, dd > ol, dd > dl,
+dl > dd > dl {
+  margin-top: initial;
+}
+/* Elements that should not be rendered on the same line as a <dt> */
+/* This should match the element list in writer.text.TextWriter.render_dl() */
+dd > div.artwork:first-child,
+dd > aside:first-child,
+dd > blockquote:first-child,
+dd > figure:first-child,
+dd > ol:first-child,
+dd > div.sourcecode:first-child,
+dd > table:first-child,
+dd > ul:first-child {
+  clear: left;
+}
+/* fix for weird browser behaviour when <dd/> is empty */
+dt+dd:empty::before{
+  content: "\00a0";
+}
+/* Make paragraph spacing inside <li> smaller than in body text, to fit better within the list */
+li > p {
+  margin-bottom: 0.5em
+}
+/* Don't let p margin spill out from inside list items */
+li > p:last-of-type:only-child {
+  margin-bottom: 0;
+}
+</style>
+<link href="rfc-local.css" rel="stylesheet" type="text/css">
+<script type="application/javascript">async function addMetadata(){try{const e=document.styleSheets[0].cssRules;for(let t=0;t<e.length;t++)if(/#identifiers/.exec(e[t].selectorText)){const a=e[t].cssText.replace("#identifiers","#external-updates");document.styleSheets[0].insertRule(a,document.styleSheets[0].cssRules.length)}}catch(e){console.log(e)}const e=document.getElementById("external-metadata");if(e)try{var t,a="",o=function(e){const t=document.getElementsByTagName("meta");for(let a=0;a<t.length;a++)if(t[a].getAttribute("name")===e)return t[a].getAttribute("content");return""}("rfc.number");if(o){t="https://www.rfc-editor.org/rfc/rfc"+o+".json";try{const e=await fetch(t);a=await e.json()}catch(e){t=document.URL.indexOf("html")>=0?document.URL.replace(/html$/,"json"):document.URL+".json";const o=await fetch(t);a=await o.json()}}if(!a)return;e.style.display="block";const s="",d="https://datatracker.ietf.org/doc",n="https://datatracker.ietf.org/ipr/search",c="https://www.rfc-editor.org/info",l=a.doc_id.toLowerCase(),i=a.doc_id.slice(0,3).toLowerCase(),f=a.doc_id.slice(3).replace(/^0+/,""),u={status:"Status",obsoletes:"Obsoletes",obsoleted_by:"Obsoleted By",updates:"Updates",updated_by:"Updated By",see_also:"See Also",errata_url:"Errata"};let h="<dl style='overflow:hidden' id='external-updates'>";["status","obsoletes","obsoleted_by","updates","updated_by","see_also","errata_url"].forEach(e=>{if("status"==e){a[e]=a[e].toLowerCase();var t=a[e].split(" "),o=t.length,w="",p=1;for(let e=0;e<o;e++)p<o?w=w+r(t[e])+" ":w+=r(t[e]),p++;a[e]=w}else if("obsoletes"==e||"obsoleted_by"==e||"updates"==e||"updated_by"==e){var g,m="",b=1;g=a[e].length;for(let t=0;t<g;t++)a[e][t]&&(a[e][t]=String(a[e][t]).toLowerCase(),m=b<g?m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>, ":m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>",b++);a[e]=m}else if("see_also"==e){var y,L="",C=1;y=a[e].length;for(let t=0;t<y;t++)if(a[e][t]){a[e][t]=String(a[e][t]);var _=a[e][t].slice(0,3),v=a[e][t].slice(3).replace(/^0+/,"");L=C<y?"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>, ":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>, ":"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>",C++}a[e]=L}else if("errata_url"==e){var R="";R=a[e]?R+"<a href='"+a[e]+"'>Errata exist</a> | <a href='"+d+"/"+l+"'>Datatracker</a>| <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>":"<a href='"+d+"/"+l+"'>Datatracker</a> | <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>",a[e]=R}""!=a[e]?"Errata"==u[e]?h+=`<dt>More info:</dt><dd>${a[e]}</dd>`:h+=`<dt>${u[e]}:</dt><dd>${a[e]}</dd>`:"Errata"==u[e]&&(h+=`<dt>More info:</dt><dd>${a[e]}</dd>`)}),h+="</dl>",e.innerHTML=h}catch(e){console.log(e)}else console.log("Could not locate metadata <div> element");function r(e){return e.charAt(0).toUpperCase()+e.slice(1)}}window.removeEventListener("load",addMetadata),window.addEventListener("load",addMetadata);</script>
+</head>
+<body class="xml2rfc">
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">IID Protocol</td>
+<td class="right">July 2026</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Varnagy</td>
+<td class="center">Expires 12 January 2027</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">Independent Submission</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-varnagy-iid-protocol-00</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2026-07-11" class="published">11 July 2026</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Informational</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2027-01-12">12 January 2027</time></dd>
+<dt class="label-authors">Author:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">Z. Varnagy</div>
+<div class="org">Independent</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">Internet Identity Protocol (IID)</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">This document specifies the IID protocol, which defines
+message formats and operations for managing personal data,
+permissions, and attributes associated with internet identities, 
+including natural persons, organizations and artificial intelligence 
+agents.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">The protocol is designed to be simple, extensible, platform-independent,
+and human readable. It is transport-agnostic and supports arbitrary
+cryptographic algorithms.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 12 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2026 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-requirements-language" class="internal xref">Requirements Language</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-objectives" class="internal xref">Objectives</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-basic-idea" class="internal xref">Basic idea</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-terminology" class="internal xref">Terminology</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-protocol" class="internal xref">Protocol</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-protocol-scheme" class="internal xref">Protocol scheme</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-special-json-strings" class="internal xref">Special JSON strings</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-json-objects" class="internal xref">JSON objects</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4">
+                <p id="section-toc.1-1.7.2.4.1"><a href="#section-7.4" class="auto internal xref">7.4</a>.  <a href="#name-type-syntax" class="internal xref">Type syntax</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4.2.1">
+                    <p id="section-toc.1-1.7.2.4.2.1.1"><a href="#section-7.4.1" class="auto internal xref">7.4.1</a>.  <a href="#name-basic-types" class="internal xref">Basic types</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4.2.2">
+                    <p id="section-toc.1-1.7.2.4.2.2.1"><a href="#section-7.4.2" class="auto internal xref">7.4.2</a>.  <a href="#name-union" class="internal xref">Union</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4.2.3">
+                    <p id="section-toc.1-1.7.2.4.2.3.1"><a href="#section-7.4.3" class="auto internal xref">7.4.3</a>.  <a href="#name-array" class="internal xref">Array</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4.2.4">
+                    <p id="section-toc.1-1.7.2.4.2.4.1"><a href="#section-7.4.4" class="auto internal xref">7.4.4</a>.  <a href="#name-array-or-item" class="internal xref">Array or item</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4.2.5">
+                    <p id="section-toc.1-1.7.2.4.2.5.1"><a href="#section-7.4.5" class="auto internal xref">7.4.5</a>.  <a href="#name-inheritance" class="internal xref">Inheritance</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5">
+                <p id="section-toc.1-1.7.2.5.1"><a href="#section-7.5" class="auto internal xref">7.5</a>.  <a href="#name-iid-types" class="internal xref">IID types</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.1">
+                    <p id="section-toc.1-1.7.2.5.2.1.1"><a href="#section-7.5.1" class="auto internal xref">7.5.1</a>.  <a href="#name-identity-iid" class="internal xref">Identity (%iid%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.2">
+                    <p id="section-toc.1-1.7.2.5.2.2.1"><a href="#section-7.5.2" class="auto internal xref">7.5.2</a>.  <a href="#name-message-iidmessage" class="internal xref">Message (%iid.message%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.3">
+                    <p id="section-toc.1-1.7.2.5.2.3.1"><a href="#section-7.5.3" class="auto internal xref">7.5.3</a>.  <a href="#name-subject-iidsubject" class="internal xref">Subject (%iid.subject%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.4">
+                    <p id="section-toc.1-1.7.2.5.2.4.1"><a href="#section-7.5.4" class="auto internal xref">7.5.4</a>.  <a href="#name-error-iiderror" class="internal xref">Error (%iid.error%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.5">
+                    <p id="section-toc.1-1.7.2.5.2.5.1"><a href="#section-7.5.5" class="auto internal xref">7.5.5</a>.  <a href="#name-signature-iidsign" class="internal xref">Signature (%iid.sign%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.6">
+                    <p id="section-toc.1-1.7.2.5.2.6.1"><a href="#section-7.5.6" class="auto internal xref">7.5.6</a>.  <a href="#name-encrypted-data-iidencrypted" class="internal xref">Encrypted data (%iid.encrypted%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.7">
+                    <p id="section-toc.1-1.7.2.5.2.7.1"><a href="#section-7.5.7" class="auto internal xref">7.5.7</a>.  <a href="#name-key-iidkey" class="internal xref">Key (%iid.key%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.8">
+                    <p id="section-toc.1-1.7.2.5.2.8.1"><a href="#section-7.5.8" class="auto internal xref">7.5.8</a>.  <a href="#name-reference-iidref" class="internal xref">Reference (%iid.ref%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.9">
+                    <p id="section-toc.1-1.7.2.5.2.9.1"><a href="#section-7.5.9" class="auto internal xref">7.5.9</a>.  <a href="#name-data-reference-iiddataref" class="internal xref">Data reference (%iid.dataref%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.10">
+                    <p id="section-toc.1-1.7.2.5.2.10.1"><a href="#section-7.5.10" class="auto internal xref">7.5.10</a>. <a href="#name-algorithm-iidalgo" class="internal xref">Algorithm (%iid.algo%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.11">
+                    <p id="section-toc.1-1.7.2.5.2.11.1"><a href="#section-7.5.11" class="auto internal xref">7.5.11</a>. <a href="#name-request-iidrequest" class="internal xref">Request (%iid.request%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.12">
+                    <p id="section-toc.1-1.7.2.5.2.12.1"><a href="#section-7.5.12" class="auto internal xref">7.5.12</a>. <a href="#name-response-iidresponse" class="internal xref">Response (%iid.response%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.13">
+                    <p id="section-toc.1-1.7.2.5.2.13.1"><a href="#section-7.5.13" class="auto internal xref">7.5.13</a>. <a href="#name-hash-value-iidhash" class="internal xref">Hash value (%iid.hash%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.14">
+                    <p id="section-toc.1-1.7.2.5.2.14.1"><a href="#section-7.5.14" class="auto internal xref">7.5.14</a>. <a href="#name-requirement-iidrequirement" class="internal xref">Requirement (%iid.requirement%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.15">
+                    <p id="section-toc.1-1.7.2.5.2.15.1"><a href="#section-7.5.15" class="auto internal xref">7.5.15</a>. <a href="#name-identity-kind-iididkind" class="internal xref">Identity kind (%iid.idkind%)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5.2.16">
+                    <p id="section-toc.1-1.7.2.5.2.16.1"><a href="#section-7.5.16" class="auto internal xref">7.5.16</a>. <a href="#name-image-iidimage" class="internal xref">Image (%iid.image%)</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6">
+                <p id="section-toc.1-1.7.2.6.1"><a href="#section-7.6" class="auto internal xref">7.6</a>.  <a href="#name-tokens" class="internal xref">Tokens</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6.2.1">
+                    <p id="section-toc.1-1.7.2.6.2.1.1"><a href="#section-7.6.1" class="auto internal xref">7.6.1</a>.  <a href="#name-error-tokens" class="internal xref">Error tokens</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6.2.2">
+                    <p id="section-toc.1-1.7.2.6.2.2.1"><a href="#section-7.6.2" class="auto internal xref">7.6.2</a>.  <a href="#name-action-method-tokens" class="internal xref">Action (method) tokens</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6.2.3">
+                    <p id="section-toc.1-1.7.2.6.2.3.1"><a href="#section-7.6.3" class="auto internal xref">7.6.3</a>.  <a href="#name-algorithm-tokens" class="internal xref">Algorithm tokens</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6.2.4">
+                    <p id="section-toc.1-1.7.2.6.2.4.1"><a href="#section-7.6.4" class="auto internal xref">7.6.4</a>.  <a href="#name-data-tokens" class="internal xref">Data tokens</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6.2.5">
+                    <p id="section-toc.1-1.7.2.6.2.5.1"><a href="#section-7.6.5" class="auto internal xref">7.6.5</a>.  <a href="#name-value-tokens" class="internal xref">Value tokens</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6.2.6">
+                    <p id="section-toc.1-1.7.2.6.2.6.1"><a href="#section-7.6.6" class="auto internal xref">7.6.6</a>.  <a href="#name-requirement-tokens" class="internal xref">Requirement tokens</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.7">
+                <p id="section-toc.1-1.7.2.7.1"><a href="#section-7.7" class="auto internal xref">7.7</a>.  <a href="#name-examples" class="internal xref">Examples</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.7.2.1">
+                    <p id="section-toc.1-1.7.2.7.2.1.1"><a href="#section-7.7.1" class="auto internal xref">7.7.1</a>.  <a href="#name-web-login" class="internal xref">Web login</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.7.2.2">
+                    <p id="section-toc.1-1.7.2.7.2.2.1"><a href="#section-7.7.2" class="auto internal xref">7.7.2</a>.  <a href="#name-fetch-personal-data" class="internal xref">Fetch personal data</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.7.2.3">
+                    <p id="section-toc.1-1.7.2.7.2.3.1"><a href="#section-7.7.3" class="auto internal xref">7.7.3</a>.  <a href="#name-consent" class="internal xref">Consent</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.7.2.4">
+                    <p id="section-toc.1-1.7.2.7.2.4.1"><a href="#section-7.7.4" class="auto internal xref">7.7.4</a>.  <a href="#name-revoking-consent" class="internal xref">Revoking consent</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.7.2.5">
+                    <p id="section-toc.1-1.7.2.7.2.5.1"><a href="#section-7.7.5" class="auto internal xref">7.7.5</a>.  <a href="#name-key-fetch-and-attest" class="internal xref">Key fetch and attest</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.7.2.6">
+                    <p id="section-toc.1-1.7.2.7.2.6.1"><a href="#section-7.7.6" class="auto internal xref">7.7.6</a>.  <a href="#name-instant-message" class="internal xref">Instant message</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-implementation" class="internal xref">Implementation</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-dns-resolution" class="internal xref">DNS resolution</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-well-known" class="internal xref">.well-known</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-security-considerations" class="internal xref">Security considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-altered-sender-identity" class="internal xref">Altered sender identity</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-altered-recipient-identity" class="internal xref">Altered recipient identity</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
+                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-request-replay" class="internal xref">Request replay</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-response-replay" class="internal xref">Response replay</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.5">
+                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-response-injection" class="internal xref">Response injection</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.6">
+                <p id="section-toc.1-1.9.2.6.1"><a href="#section-9.6" class="auto internal xref">9.6</a>.  <a href="#name-key-compromise" class="internal xref">Key compromise</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.7">
+                <p id="section-toc.1-1.9.2.7.1"><a href="#section-9.7" class="auto internal xref">9.7</a>.  <a href="#name-man-in-the-middle-attack" class="internal xref">Man in the middle attack</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.8">
+                <p id="section-toc.1-1.9.2.8.1"><a href="#section-9.8" class="auto internal xref">9.8</a>.  <a href="#name-confidentiality" class="internal xref">Confidentiality</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.9">
+                <p id="section-toc.1-1.9.2.9.1"><a href="#section-9.9" class="auto internal xref">9.9</a>.  <a href="#name-flooding-attacks" class="internal xref">Flooding attacks</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-trust-chain-discovery" class="internal xref">Trust chain discovery</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="auto internal xref">11.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="requirements-language">
+<section id="section-1">
+      <h2 id="name-requirements-language">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-requirements-language" class="section-name selfRef">Requirements Language</a>
+      </h2>
+<p id="section-1-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", 
+"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in 
+this document are to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span>
+when, and only when, they appear in all capitals, as shown here.<a href="#section-1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="iana-considerations">
+<section id="section-2">
+      <h2 id="name-iana-considerations">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<p id="section-2-1">This document requests no IANA actions. Future standards-track versions of 
+this protocol MAY request registration of the /.well-known/iid URI in accordance 
+with <span>[<a href="#RFC8615" class="cite xref">RFC8615</a>]</span>.<a href="#section-2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="introduction">
+<section id="section-3">
+      <h2 id="name-introduction">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-3-1">Currently, there is no single, unified protocol designed to manage
+comprehensive internet identity functions in a general and uniform manner.
+Existing methods for distinct identity-related tasks - such as 
+authentication, personal data sharing, consent management, and digital
+signatures - rely on disparate, ad-hoc solutions. These separate systems
+offer only partial compatibility and limited interoperability with one another.<a href="#section-3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="objectives">
+<section id="section-4">
+      <h2 id="name-objectives">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-objectives" class="section-name selfRef">Objectives</a>
+      </h2>
+<p id="section-4-1">The primary objective of the protocol is to provide a uniform framework for
+the identity-related operations, including:<a href="#section-4-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4-2.1">
+          <p id="section-4-2.1.1">Authentication (sign-in, SSO)<a href="#section-4-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-2.2">
+          <p id="section-4-2.2.1">Personal data sharing<a href="#section-4-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-2.3">
+          <p id="section-4-2.3.1">Consent management (granting and revoking permissions)<a href="#section-4-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-2.4">
+          <p id="section-4-2.4.1">Data attestation and third-party verification<a href="#section-4-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-2.5">
+          <p id="section-4-2.5.1">Digital signatures<a href="#section-4-2.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-2.6">
+          <p id="section-4-2.6.1">Future protocol extensions<a href="#section-4-2.6.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-4-3">The protocol is designed to be inherently simple and human-readable.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-4">It must remain platform-independent, ensuring straightforward implementation
+across any programming language.<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-5">To remain adaptable to both current and future environments, the protocol
+must not impose restrictions on the specific transport layer or cryptographic
+algorithm used.<a href="#section-4-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="basic-idea">
+<section id="section-5">
+      <h2 id="name-basic-idea">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-basic-idea" class="section-name selfRef">Basic idea</a>
+      </h2>
+<p id="section-5-1">The fundamental idea is to define the messages in a JSON-based format <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span>.
+The exact method of transporting these messages (such as HTTPS <span>[<a href="#RFC9110" class="cite xref">RFC9110</a>]</span> <span>[<a href="#RFC9112" class="cite xref">RFC9112</a>]</span> 
+or TCP <span>[<a href="#RFC9293" class="cite xref">RFC9293</a>]</span>) is outside the scope of this protocol.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">Messages are exchanged between internet identities. They MAY contain
+a timestamp indicating when they were sent, the identifiers of the sender and recipient, 
+and data required to verify their digital authenticity.<a href="#section-5-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="terminology">
+<section id="section-6">
+      <h2 id="name-terminology">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
+      </h2>
+<span class="break"></span><dl class="dlParallel" id="section-6-1">
+        <dt id="section-6-1.1">internet identity</dt>
+        <dd style="margin-left: 1.5em" id="section-6-1.2">
+          <p id="section-6-1.2.1">An entity capable of communicating over the internet, 
+ such as a natural person, organization, server, web crawler or AI agent.<a href="#section-6-1.2.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-6-1.3">identity server (IID server)</dt>
+        <dd style="margin-left: 1.5em" id="section-6-1.4">
+          <p id="section-6-1.4.1">A server that manages the data and operations associated with an internet identity.<a href="#section-6-1.4.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-6-1.5">internet identifier (IID)</dt>
+        <dd style="margin-left: 1.5em" id="section-6-1.6">
+          <p id="section-6-1.6.1">A globally unique identifier consisting of a local name and a domain 
+ name separated by <code>@</code>. Similar to an e-mail address. (for example <code>foo@bar.org</code>)<a href="#section-6-1.6.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-6-1.7">IID message</dt>
+        <dd style="margin-left: 1.5em" id="section-6-1.8">
+          <p id="section-6-1.8.1">A request or response exchanged between internet identities.<a href="#section-6-1.8.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-6-1.9">sender</dt>
+        <dd style="margin-left: 1.5em" id="section-6-1.10">
+          <p id="section-6-1.10.1">Depending on the context, either the IID in the from field of a message, 
+ or the identity server acting on behalf of that identity.<a href="#section-6-1.10.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-6-1.11">receiver</dt>
+        <dd style="margin-left: 1.5em" id="section-6-1.12">
+          <p id="section-6-1.12.1">The identity server that receives and processes an IID message.<a href="#section-6-1.12.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-6-1.13">recipient</dt>
+        <dd style="margin-left: 1.5em" id="section-6-1.14">
+          <p id="section-6-1.14.1">The IID in the to field of a message.<a href="#section-6-1.14.1" class="pilcrow">¶</a></p>
+</dd>
+      <dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="protocol">
+<section id="section-7">
+      <h2 id="name-protocol">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-protocol" class="section-name selfRef">Protocol</a>
+      </h2>
+<div id="protocol-scheme">
+<section id="section-7.1">
+        <h3 id="name-protocol-scheme">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-protocol-scheme" class="section-name selfRef">Protocol scheme</a>
+        </h3>
+<p id="section-7.1-1">The protocol assumes an already established transport connection 
+between a sender and a receiver. In most cases both are identity servers 
+representing the sender and recipient IIDs, 
+but messages MAY also be relayed through intermediaries.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">Communication starts with a request sent by the sender. Each request
+receives exactly one response from the receiver. 
+The sender MAY continue sending further requests, each of which
+receives a response in the same order.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-3">Either party MAY close the connection at any time. Closing the connection 
+cancels any outstanding requests.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="special-json-strings">
+<section id="section-7.2">
+        <h3 id="name-special-json-strings">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-special-json-strings" class="section-name selfRef">Special JSON strings</a>
+        </h3>
+<p id="section-7.2-1">Fundamentally, the IID protocol operates on JSON data <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span>.
+To extend the capabilities of JSON, certain string values have 
+special meanings:<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.2-2">String beginning with # are interpreted specially. An implementation MUST recognize these 
+values, for example by performing an additional processing pass after parsing the JSON data,
+or before serializing data to JSON.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.2-3.1">
+            <p id="section-7.2-3.1.1"><code>##...</code> : A JSON string that begins with <code>#</code>, with the first <code>#</code> removed (e.g., <code>##foo</code> -&gt; <code>#foo</code>)<a href="#section-7.2-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-3.2">
+            <p id="section-7.2-3.2.1"><code>#6...</code> : Base64-encoded binary data <span>[<a href="#RFC4648" class="cite xref">RFC4648</a>]</span> without line breaks or padding (e.g., <code>#6WA</code>)<a href="#section-7.2-3.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-3.3">
+            <p id="section-7.2-3.3.1"><code>#x...</code> : Hex-encoded binary data using lowercase hexadecimal digits (e.g., <code>#x585a</code>)<a href="#section-7.2-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-3.4">
+            <p id="section-7.2-3.4.1"><code>#e...</code> : Error token (e.g., <code>#eiid.missing</code>)<a href="#section-7.2-3.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-3.5">
+            <p id="section-7.2-3.5.1"><code>#m...</code> : Action (method) token (e.g., <code>#miid.weblogin</code>)<a href="#section-7.2-3.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-3.6">
+            <p id="section-7.2-3.6.1"><code>#a...</code> : Algorithm token. (e.g., <code>#aiid.md5</code>)<a href="#section-7.2-3.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-3.7">
+            <p id="section-7.2-3.7.1"><code>#r...</code> : Requirement token (e.g., <code>#riid.at</code>)<a href="#section-7.2-3.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-3.8">
+            <p id="section-7.2-3.8.1"><code>#d...</code> : Data token (e.g., <code>#diid.zip</code>)<a href="#section-7.2-3.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-3.9">
+            <p id="section-7.2-3.9.1"><code>#v...</code> : Value token (e.g., <code>#viid.firm</code>)<a href="#section-7.2-3.9.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="json-objects">
+<section id="section-7.3">
+        <h3 id="name-json-objects">
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-json-objects" class="section-name selfRef">JSON objects</a>
+        </h3>
+<p id="section-7.3-1">IID messages use JSON format, and every message is represented as a 
+JSON object <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span>. The structure of these messages and their 
+components is defined in later sections.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
+<p id="section-7.3-2">Any JSON object MAY contain additional fields. If a server or client does not
+understand a message or some of its parts, it MAY either ignore
+the unrecognized part or return an appropriate error token to the sender.<a href="#section-7.3-2" class="pilcrow">¶</a></p>
+<p id="section-7.3-3">If a server requires a field and it is not present, it MUST
+return an error token.<a href="#section-7.3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="type-syntax">
+<section id="section-7.4">
+        <h3 id="name-type-syntax">
+<a href="#section-7.4" class="section-number selfRef">7.4. </a><a href="#name-type-syntax" class="section-name selfRef">Type syntax</a>
+        </h3>
+<p id="section-7.4-1">The following type syntax is used throughout this document.<a href="#section-7.4-1" class="pilcrow">¶</a></p>
+<p id="section-7.4-2">Normalized strings:<a href="#section-7.4-2" class="pilcrow">¶</a></p>
+<p id="section-7.4-3">All strings in JSON data MUST be normalized using Unicode
+Normalization Form C (NFC) <span>[<a href="#UAX15" class="cite xref">UAX15</a>]</span>.<a href="#section-7.4-3" class="pilcrow">¶</a></p>
+<div id="basic-types">
+<section id="section-7.4.1">
+          <h4 id="name-basic-types">
+<a href="#section-7.4.1" class="section-number selfRef">7.4.1. </a><a href="#name-basic-types" class="section-name selfRef">Basic types</a>
+          </h4>
+<ul class="normal">
+<li class="normal" id="section-7.4.1-1.1">
+              <p id="section-7.4.1-1.1.1"><code>%null%</code>: The <code>null</code> value<a href="#section-7.4.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.2">
+              <p id="section-7.4.1-1.2.1"><code>%bool%</code>: Boolean value (<code>true</code>/<code>false</code>)<a href="#section-7.4.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.3">
+              <p id="section-7.4.1-1.3.1"><code>%nat%</code>: Natural number (integer greater than or equal to <code>0</code>)<a href="#section-7.4.1-1.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.4">
+              <p id="section-7.4.1-1.4.1"><code>%int%</code>: Integer<a href="#section-7.4.1-1.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.5">
+              <p id="section-7.4.1-1.5.1"><code>%num%</code>: Integer or floating point value<a href="#section-7.4.1-1.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.6">
+              <p id="section-7.4.1-1.6.1"><code>%ascii%</code>: ASCII text (<code>[0x20-0x7e]+</code>)<a href="#section-7.4.1-1.6.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.7">
+              <p id="section-7.4.1-1.7.1"><code>%str%</code>: Unicode text (with NFC)<a href="#section-7.4.1-1.7.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.8">
+              <p id="section-7.4.1-1.8.1"><code>%stamp%</code>: UTC Unix timestamp in seconds (integer)<a href="#section-7.4.1-1.8.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.9">
+              <p id="section-7.4.1-1.9.1"><code>%iid%</code>: Internet identifier (e.g., <code>foo@bar.org</code>, see details later)<a href="#section-7.4.1-1.9.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.10">
+              <p id="section-7.4.1-1.10.1"><code>%date%</code>: Date without time or timezone (<code>YYYYMMDD</code>)<a href="#section-7.4.1-1.10.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.11">
+              <p id="section-7.4.1-1.11.1"><code>%country%</code>: Country code <span>[<a href="#ISO3166" class="cite xref">ISO3166</a>]</span><a href="#section-7.4.1-1.11.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.12">
+              <p id="section-7.4.1-1.12.1"><code>%phone%</code>: Phone number (<code>+?[0-9]{3,}</code>)<a href="#section-7.4.1-1.12.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.13">
+              <p id="section-7.4.1-1.13.1"><code>%lang%</code>: Language code <span>[<a href="#RFC5646" class="cite xref">RFC5646</a>]</span><a href="#section-7.4.1-1.13.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.14">
+              <p id="section-7.4.1-1.14.1"><code>%bin%</code>: Binary data (e.g., Base-64 or hexadecimal-encoded)<a href="#section-7.4.1-1.14.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.15">
+              <p id="section-7.4.1-1.15.1"><code>%url%</code>: URL (e.g., <code>https://foo.org</code>)<a href="#section-7.4.1-1.15.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.16">
+              <p id="section-7.4.1-1.16.1"><code>%obj%</code>: JSON object with arbitrary fields<a href="#section-7.4.1-1.16.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.17">
+              <p id="section-7.4.1-1.17.1"><code>%#...%</code>: Token or fix token value<a href="#section-7.4.1-1.17.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.4.1-1.18">
+              <p id="section-7.4.1-1.18.1"><code>%any%</code>: Any value<a href="#section-7.4.1-1.18.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-7.4.1-2">New types can be defined from existing types in the following ways.<a href="#section-7.4.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="union">
+<section id="section-7.4.2">
+          <h4 id="name-union">
+<a href="#section-7.4.2" class="section-number selfRef">7.4.2. </a><a href="#name-union" class="section-name selfRef">Union</a>
+          </h4>
+<div class="alignLeft art-text artwork" id="section-7.4.2-1">
+<pre>
+   %a% | %b% | %c%
+</pre><a href="#section-7.4.2-1" class="pilcrow">¶</a>
+</div>
+<p id="section-7.4.2-2">A value of any of the listed types<a href="#section-7.4.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="array">
+<section id="section-7.4.3">
+          <h4 id="name-array">
+<a href="#section-7.4.3" class="section-number selfRef">7.4.3. </a><a href="#name-array" class="section-name selfRef">Array</a>
+          </h4>
+<div class="alignLeft art-text artwork" id="section-7.4.3-1">
+<pre>
+    [%t%]
+</pre><a href="#section-7.4.3-1" class="pilcrow">¶</a>
+</div>
+<p id="section-7.4.3-2">An array whose elements are of type <code>%t%</code>.<a href="#section-7.4.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="array-or-item">
+<section id="section-7.4.4">
+          <h4 id="name-array-or-item">
+<a href="#section-7.4.4" class="section-number selfRef">7.4.4. </a><a href="#name-array-or-item" class="section-name selfRef">Array or item</a>
+          </h4>
+<div class="alignLeft art-text artwork" id="section-7.4.4-1">
+<pre>
+   {%t%}
+</pre><a href="#section-7.4.4-1" class="pilcrow">¶</a>
+</div>
+<p id="section-7.4.4-2">A value of type <code>%t%</code>, or an array whose elements are of type <code>%t%</code>.<a href="#section-7.4.4-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="inheritance">
+<section id="section-7.4.5">
+          <h4 id="name-inheritance">
+<a href="#section-7.4.5" class="section-number selfRef">7.4.5. </a><a href="#name-inheritance" class="section-name selfRef">Inheritance</a>
+          </h4>
+<div class="alignLeft art-text artwork" id="section-7.4.5-1">
+<pre>
+    %a% {
+       !f1: %t1% - comment1
+       f2: %t2% - comment2
+       ...
+    }
+</pre><a href="#section-7.4.5-1" class="pilcrow">¶</a>
+</div>
+<p id="section-7.4.5-2">An object that extends <code>%a%</code>. MAY contain all the fields of <code>%a%</code>,
+   together with field <code>f1</code> of type <code>%t1%</code> (meaning <code>comment1</code>), field <code>f2</code>
+   of type <code>%t2%</code> (meaning <code>comment2</code>) and so on.<a href="#section-7.4.5-2" class="pilcrow">¶</a></p>
+<p id="section-7.4.5-3">If a field name is prefixed with <code>!</code>, it is the default field.
+   In that case the type also allows a scalar value instead of
+   an object. Such value  MUST be interpreted as an object
+   containing only the default field with the specified value.<a href="#section-7.4.5-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="iid-types">
+<section id="section-7.5">
+        <h3 id="name-iid-types">
+<a href="#section-7.5" class="section-number selfRef">7.5. </a><a href="#name-iid-types" class="section-name selfRef">IID types</a>
+        </h3>
+<div id="identity-iid">
+<section id="section-7.5.1">
+          <h4 id="name-identity-iid">
+<a href="#section-7.5.1" class="section-number selfRef">7.5.1. </a><a href="#name-identity-iid" class="section-name selfRef">Identity (%iid%)</a>
+          </h4>
+<p id="section-7.5.1-1">An Internet Identifier (IID) MUST consist of a local part, the <code>@</code> symbol and a
+domain part. It MUST be in normalized (NFC) form. Any unicode characters are allowed
+in the local and domain parts, except the following ones:<a href="#section-7.5.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.5.1-2.1">
+              <p id="section-7.5.1-2.1.1">at sign: <code>@</code> (\u40)<a href="#section-7.5.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.5.1-2.2">
+              <p id="section-7.5.1-2.2.1">control characters: (\u00-\u1f)<a href="#section-7.5.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.5.1-2.3">
+              <p id="section-7.5.1-2.3.1">space (\u20)<a href="#section-7.5.1-2.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.5.1-2.4">
+              <p id="section-7.5.1-2.4.1">brackets: <code>()[]{}</code> (\u28,\u29,\u5b,\u5d,\u7b,\u7d)<a href="#section-7.5.1-2.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.5.1-2.5">
+              <p id="section-7.5.1-2.5.1">quotation mark: <code>"</code> (\u22)<a href="#section-7.5.1-2.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.5.1-2.6">
+              <p id="section-7.5.1-2.6.1">question mark: <code>?</code> (\u3f)<a href="#section-7.5.1-2.6.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.5.1-2.7">
+              <p id="section-7.5.1-2.7.1">semicolon: <code>;</code> (\u3b)<a href="#section-7.5.1-2.7.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.5.1-2.8">
+              <p id="section-7.5.1-2.8.1">backslash: <code>\</code> (\u5c)<a href="#section-7.5.1-2.8.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-7.5.1-3">IID-s are case-sensitive. Two IIDs are equal if and only if all 
+their Unicode code points are identical.<a href="#section-7.5.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="message-iidmessage">
+<section id="section-7.5.2">
+          <h4 id="name-message-iidmessage">
+<a href="#section-7.5.2" class="section-number selfRef">7.5.2. </a><a href="#name-message-iidmessage" class="section-name selfRef">Message (%iid.message%)</a>
+          </h4>
+<p id="section-7.5.2-1">A general message, which can be exchanged between internet identities.<a href="#section-7.5.2-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.2-2">
+<pre>
+%iid.message% : %obj% {
+   at: %stamp% - Time the message was sent
+   from: %iid.subject% - Sender
+   to: %iid.subject% - Recipient
+   error: %iid.error% - Error. If present,
+      the preceding request MUST be considered to have failed.
+   mid: %ascii% - Message identifier
+   sign: {%iid.sign%} - Digital signature
+   encrypted: %iid.encrypted% - Encrypted data
+}
+</pre><a href="#section-7.5.2-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="subject-iidsubject">
+<section id="section-7.5.3">
+          <h4 id="name-subject-iidsubject">
+<a href="#section-7.5.3" class="section-number selfRef">7.5.3. </a><a href="#name-subject-iidsubject" class="section-name selfRef">Subject (%iid.subject%)</a>
+          </h4>
+<p id="section-7.5.3-1">Identifies an internet identity. In most cases this is an internet identifier, but it MAY 
+also be another form of identification.<a href="#section-7.5.3-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.3-2">
+<pre>
+%iid.subject% : %iid% | %obj%
+</pre><a href="#section-7.5.3-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="error-iiderror">
+<section id="section-7.5.4">
+          <h4 id="name-error-iiderror">
+<a href="#section-7.5.4" class="section-number selfRef">7.5.4. </a><a href="#name-error-iiderror" class="section-name selfRef">Error (%iid.error%)</a>
+          </h4>
+<p id="section-7.5.4-1">Represents an error that occurred during message exchange. It can indicate
+a syntax error in the preceding message, invalid data values, insufficient
+permissions, an invalid signature, or any other error condition.
+Common error tokens are defined in a later section.<a href="#section-7.5.4-1" class="pilcrow">¶</a></p>
+<p id="section-7.5.4-2">In most cases, an error is represented by an error token.
+If additional information is available (such as error message), 
+the object form can be used.<a href="#section-7.5.4-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.4-3">
+<pre>
+%iid.error% : %obj% {
+   !error: %#e%
+   message: %str% - Human-readable error message
+}
+</pre><a href="#section-7.5.4-3" class="pilcrow">¶</a>
+</div>
+<p id="section-7.5.4-4">Additional fields MAY be present.<a href="#section-7.5.4-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="signature-iidsign">
+<section id="section-7.5.5">
+          <h4 id="name-signature-iidsign">
+<a href="#section-7.5.5" class="section-number selfRef">7.5.5. </a><a href="#name-signature-iidsign" class="section-name selfRef">Signature (%iid.sign%)</a>
+          </h4>
+<p id="section-7.5.5-1">Represents a digital signature. If the ref field is not present, the signature 
+applies to the object that contains it. The signed data is the JCS
+representation of that object with the sign field omitted <span>[<a href="#RFC8785" class="cite xref">RFC8785</a>]</span>.
+All binary data MUST use the Base64 (<code>#6...</code>) notation without line breaks 
+and without padding.<a href="#section-7.5.5-1" class="pilcrow">¶</a></p>
+<p id="section-7.5.5-2">An object MAY be signed by multiple keys owned by different internet identities. 
+In that case, the sign field contains an array of <code>%iid.sign%</code> objects.<a href="#section-7.5.5-2" class="pilcrow">¶</a></p>
+<p id="section-7.5.5-3">If multiple signatures are present, the signature set is considered valid 
+only if all signatures are valid.<a href="#section-7.5.5-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.5-4">
+<pre>
+%iid.sign% : %obj% {
+   owner: %iid.subject% - Signer
+   key: %iid.key% - Key used for signing
+   ref: %iid.dataref% - Reference to signed data
+      (e.g., identifier, a hash, URL, etc...)
+   sign: %bin% - Digital signature value
+}
+</pre><a href="#section-7.5.5-4" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="encrypted-data-iidencrypted">
+<section id="section-7.5.6">
+          <h4 id="name-encrypted-data-iidencrypted">
+<a href="#section-7.5.6" class="section-number selfRef">7.5.6. </a><a href="#name-encrypted-data-iidencrypted" class="section-name selfRef">Encrypted data (%iid.encrypted%)</a>
+          </h4>
+<p id="section-7.5.6-1">If the transfer channel is not considered secure, or the transmitted data 
+requires additional protection, a message MAY be encapsulated in this form.
+Fields omitted from the encrypted object MAY be inherited from the
+containing object or from the transfer context.<a href="#section-7.5.6-1" class="pilcrow">¶</a></p>
+<p id="section-7.5.6-2">The encoding of the data field is defined by the selected 
+encryption algorithm.<a href="#section-7.5.6-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.6-3">
+<pre>
+%iid.encrypted% : %obj% {
+   !data: %bin% - Encrypted binary data
+   owner: %iid.subject% - Owner of the decryption key
+   key: %iid.key% - Decryption key
+}
+</pre><a href="#section-7.5.6-3" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="key-iidkey">
+<section id="section-7.5.7">
+          <h4 id="name-key-iidkey">
+<a href="#section-7.5.7" class="section-number selfRef">7.5.7. </a><a href="#name-key-iidkey" class="section-name selfRef">Key (%iid.key%)</a>
+          </h4>
+<p id="section-7.5.7-1">Represents a signing or encryption key. In most cases, only the
+key name is used, while the remaining key properties (such as pub, algo, and until)
+can be obtained from the key owner's identity server. 
+A key is globally identified by the owner's IID and the key name.<a href="#section-7.5.7-1" class="pilcrow">¶</a></p>
+<p id="section-7.5.7-2">An identity server MAY revoke, for example in the event of key compromise.
+Once a key has been revoked, the until field MUST NOT be returned.
+Instead, the revoked field MUST be present and indicate the time at which
+the key was revoked.<a href="#section-7.5.7-2" class="pilcrow">¶</a></p>
+<p id="section-7.5.7-3">In the event of key compromise, the revoked timestamp SHOULD indicate
+the latest estimated time before the key was compromised.<a href="#section-7.5.7-3" class="pilcrow">¶</a></p>
+<p id="section-7.5.7-4">Any signature or data encryption after the revoked timestamp MUST be considered invalid.<a href="#section-7.5.7-4" class="pilcrow">¶</a></p>
+<p id="section-7.5.7-5">An identity server MUST NOT generate signatures or encrypt data using a revoked key.<a href="#section-7.5.7-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.7-6">
+<pre>
+%iid.key% : %obj% {
+   !name: %str% - Name of the key
+      (issued by the identity server or the identity)
+   algo: %iid.algo% - Signature or Encryption algorithm
+   pub: %bin% - Public part of the key
+   from: %stamp% - Start of valid period
+   until: %stamp% - End of valid period
+   revoked: %stamp% - Time of key revoke
+}
+</pre><a href="#section-7.5.7-6" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="reference-iidref">
+<section id="section-7.5.8">
+          <h4 id="name-reference-iidref">
+<a href="#section-7.5.8" class="section-number selfRef">7.5.8. </a><a href="#name-reference-iidref" class="section-name selfRef">Reference (%iid.ref%)</a>
+          </h4>
+<p id="section-7.5.8-1">References a piece of data or a document.<a href="#section-7.5.8-1" class="pilcrow">¶</a></p>
+<p id="section-7.5.8-2">It can be a single identifier, defined by the current context,
+or a custom object with values, like an IID message.<a href="#section-7.5.8-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.8-3">
+<pre>
+%iid.ref% : %str% | %obj%
+</pre><a href="#section-7.5.8-3" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="data-reference-iiddataref">
+<section id="section-7.5.9">
+          <h4 id="name-data-reference-iiddataref">
+<a href="#section-7.5.9" class="section-number selfRef">7.5.9. </a><a href="#name-data-reference-iiddataref" class="section-name selfRef">Data reference (%iid.dataref%)</a>
+          </h4>
+<p id="section-7.5.9-1">Reference to some kind of binary data.<a href="#section-7.5.9-1" class="pilcrow">¶</a></p>
+<p id="section-7.5.9-2">If a single identifier is used, the meaning is determined by the context.<a href="#section-7.5.9-2" class="pilcrow">¶</a></p>
+<p id="section-7.5.9-3">When the object form is used, its fields identify the data. 
+All specified field values SHOULD match the referenced data.<a href="#section-7.5.9-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.9-4">
+<pre>
+%iid.dataref% : %obj% {
+   !id: %str% - Data identifier
+   name: %str% - Data name
+   filename: %str% - Filename
+   mime: %ascii% - MIME content type (RFC2045)
+   hash: {%iid.hash%} - Computed hash values
+}
+</pre><a href="#section-7.5.9-4" class="pilcrow">¶</a>
+</div>
+<p id="section-7.5.9-5"><span>[<a href="#RFC2045" class="cite xref">RFC2045</a>]</span><a href="#section-7.5.9-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="algorithm-iidalgo">
+<section id="section-7.5.10">
+          <h4 id="name-algorithm-iidalgo">
+<a href="#section-7.5.10" class="section-number selfRef">7.5.10. </a><a href="#name-algorithm-iidalgo" class="section-name selfRef">Algorithm (%iid.algo%)</a>
+          </h4>
+<p id="section-7.5.10-1">References a cryptographic algorithm. In simple cases, only a token is used
+(like <code>#aiid.md5</code>). The object form can be used if the algorithm requires
+additional parameters.<a href="#section-7.5.10-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.10-2">
+<pre>
+%iid.algo% : %obj% {
+   !algo: %#a%
+}
+</pre><a href="#section-7.5.10-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="request-iidrequest">
+<section id="section-7.5.11">
+          <h4 id="name-request-iidrequest">
+<a href="#section-7.5.11" class="section-number selfRef">7.5.11. </a><a href="#name-request-iidrequest" class="section-name selfRef">Request (%iid.request%)</a>
+          </h4>
+<p id="section-7.5.11-1">An IID request sent to another internet identity. 
+Every request expects exactly one response.<a href="#section-7.5.11-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.11-2">
+<pre>
+%iid.request% : %iid.message% {
+   action: %#m% - Requested action
+   params: %any% - Action parameters
+   requirement: {%iid.requirement%} - Response requirements
+}
+</pre><a href="#section-7.5.11-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="response-iidresponse">
+<section id="section-7.5.12">
+          <h4 id="name-response-iidresponse">
+<a href="#section-7.5.12" class="section-number selfRef">7.5.12. </a><a href="#name-response-iidresponse" class="section-name selfRef">Response (%iid.response%)</a>
+          </h4>
+<p id="section-7.5.12-1">Represents the response to a request.<a href="#section-7.5.12-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.12-2">
+<pre>
+%iid.response% : %iid.message% {
+   ref: %iid.ref% - Reference to the request
+      (e.g., message identifier or hash)
+   value: %any% - Result of the requested action
+   requirement: {%iid.requirement%} - Requirements for
+      the following requests
+}
+</pre><a href="#section-7.5.12-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="hash-value-iidhash">
+<section id="section-7.5.13">
+          <h4 id="name-hash-value-iidhash">
+<a href="#section-7.5.13" class="section-number selfRef">7.5.13. </a><a href="#name-hash-value-iidhash" class="section-name selfRef">Hash value (%iid.hash%)</a>
+          </h4>
+<p id="section-7.5.13-1">A hash, checksum or other value computed from data.<a href="#section-7.5.13-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.13-2">
+<pre>
+%iid.hash% : %obj% {
+   algo: %iid.algo% - Algorithm used
+   value: %bin% | %nat% - Computed value
+}
+</pre><a href="#section-7.5.13-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="requirement-iidrequirement">
+<section id="section-7.5.14">
+          <h4 id="name-requirement-iidrequirement">
+<a href="#section-7.5.14" class="section-number selfRef">7.5.14. </a><a href="#name-requirement-iidrequirement" class="section-name selfRef">Requirement (%iid.requirement%)</a>
+          </h4>
+<p id="section-7.5.14-1">Specifies a requirement that applies to a follow-up message.
+In most cases, the requirement is represented by a single requirement token, 
+but the object form MAY be used when additional parameters are required.<a href="#section-7.5.14-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.14-2">
+<pre>
+%iid.requirement% : %obj% {
+   !requirement: %#r% - Requirement token
+}
+</pre><a href="#section-7.5.14-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="identity-kind-iididkind">
+<section id="section-7.5.15">
+          <h4 id="name-identity-kind-iididkind">
+<a href="#section-7.5.15" class="section-number selfRef">7.5.15. </a><a href="#name-identity-kind-iididkind" class="section-name selfRef">Identity kind (%iid.idkind%)</a>
+          </h4>
+<p id="section-7.5.15-1">Represents the kind of the internet identity, such as a person or a web crawler. 
+The possible values are defined in a later section.<a href="#section-7.5.15-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.15-2">
+<pre>
+%iid.idkind% : %#d%
+</pre><a href="#section-7.5.15-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="image-iidimage">
+<section id="section-7.5.16">
+          <h4 id="name-image-iidimage">
+<a href="#section-7.5.16" class="section-number selfRef">7.5.16. </a><a href="#name-image-iidimage" class="section-name selfRef">Image (%iid.image%)</a>
+          </h4>
+<p id="section-7.5.16-1">Represents a bitmap or vector graphics. Usually an URL is sufficient,
+but in object form, more properties can be present.<a href="#section-7.5.16-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.5.16-2">
+<pre>
+%iid.image% : %obj% {
+   !url: %str% - URL of image
+   name: %str% - Name of the image
+   aspect: %num% - Aspect ratio of image
+   width: %nat% - Image width in pixels
+   height: %nat% - Image height in pixels
+   mime: %ascii% - MIME content type (RFC2045)
+   data: %bin% - Image binary data
+}
+</pre><a href="#section-7.5.16-2" class="pilcrow">¶</a>
+</div>
+<p id="section-7.5.16-3"><span>[<a href="#RFC2045" class="cite xref">RFC2045</a>]</span><a href="#section-7.5.16-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="tokens">
+<section id="section-7.6">
+        <h3 id="name-tokens">
+<a href="#section-7.6" class="section-number selfRef">7.6. </a><a href="#name-tokens" class="section-name selfRef">Tokens</a>
+        </h3>
+<p id="section-7.6-1">The protocol defines some tokens for basic functionality. (<code>#a...</code>, <code>#e...</code>)
+This document describes tokens in the iid. namespace. Other namespaces
+MAY also be used, those can be defined in protocol extensions,
+or by the identity servers themselves.<a href="#section-7.6-1" class="pilcrow">¶</a></p>
+<div id="error-tokens">
+<section id="section-7.6.1">
+          <h4 id="name-error-tokens">
+<a href="#section-7.6.1" class="section-number selfRef">7.6.1. </a><a href="#name-error-tokens" class="section-name selfRef">Error tokens</a>
+          </h4>
+<ul class="normal">
+<li class="normal" id="section-7.6.1-1.1">
+              <p id="section-7.6.1-1.1.1"><code>#eiid.json</code>: JSON syntax error in incoming message<a href="#section-7.6.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.1-1.2">
+              <p id="section-7.6.1-1.2.1"><code>#eiid.time</code>: Message timestamp drifts significantly (too far in past or future)<a href="#section-7.6.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.1-1.3">
+              <p id="section-7.6.1-1.3.1"><code>#eiid.refuse</code>: The requested action was refused by the identity server<a href="#section-7.6.1-1.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.1-1.4">
+              <p id="section-7.6.1-1.4.1"><code>#eiid.repeat</code>: Repeat the request while fulfilling the specified requirements<a href="#section-7.6.1-1.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.1-1.5">
+              <p id="section-7.6.1-1.5.1"><code>#eiid.sign</code>: The digital signature is invalid (revoked, expired, incorrect, etc...)<a href="#section-7.6.1-1.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.1-1.6">
+              <p id="section-7.6.1-1.6.1"><code>#eiid.noverify</code>: Cannot verify the validity of the request<a href="#section-7.6.1-1.6.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.1-1.7">
+              <p id="section-7.6.1-1.7.1"><code>{ error:#eiid.size, limit:%nat% }</code>: Message size exceeds the permitted limit<a href="#section-7.6.1-1.7.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.1-1.8">
+              <p id="section-7.6.1-1.8.1"><code>{ error:#eiid.missing, field:%str% }</code>: A required field is missing<a href="#section-7.6.1-1.8.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.1-1.9">
+              <p id="section-7.6.1-1.9.1"><code>{ error:#eiid.unknown, field:%str% }</code>: An unknown or unsupported field value was encountered<a href="#section-7.6.1-1.9.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.1-1.10">
+              <p id="section-7.6.1-1.10.1"><code>{ error:#eiid.later, after:%stamp% }</code>: Temporary rejection. The request may be repeated later<a href="#section-7.6.1-1.10.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.1-1.11">
+              <p id="section-7.6.1-1.11.1"><code>{ error:#eiid.redirect, url:%str% }</code>: Redirect the user's browser to the specified URL<a href="#section-7.6.1-1.11.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="action-method-tokens">
+<section id="section-7.6.2">
+          <h4 id="name-action-method-tokens">
+<a href="#section-7.6.2" class="section-number selfRef">7.6.2. </a><a href="#name-action-method-tokens" class="section-name selfRef">Action (method) tokens</a>
+          </h4>
+<ul class="normal">
+<li class="normal" id="section-7.6.2-1.1">
+              <p id="section-7.6.2-1.1.1"><code>#miid.login</code>: Request or confirm authentication (sign-in) to a system<a href="#section-7.6.2-1.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.2-1.2">
+              <p id="section-7.6.2-1.2.1"><code>#miid.data</code>: Retrieve attributes and data associated with the identity<a href="#section-7.6.2-1.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.2-1.3">
+              <p id="section-7.6.2-1.3.1"><code>#miid.consent</code>: Request to grant permission for a specific operation (e.g., cookie usage)<a href="#section-7.6.2-1.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.2-1.4">
+              <p id="section-7.6.2-1.4.1"><code>#miid.message</code>: Transmit an instant message<a href="#section-7.6.2-1.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.2-1.5">
+              <p id="section-7.6.2-1.5.1"><code>#miid.sign</code>: Request a digital signature on a document or data payload<a href="#section-7.6.2-1.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.2-1.6">
+              <p id="section-7.6.2-1.6.1"><code>#miid.testify</code>: Attest to or verify the validity of a specific data point or state<a href="#section-7.6.2-1.6.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.2-1.7">
+              <p id="section-7.6.2-1.7.1"><code>#miid.revoke</code>: Revoke a previously granted consent or permission to store data<a href="#section-7.6.2-1.7.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.2-1.8">
+              <p id="section-7.6.2-1.8.1"><code>#miid.key</code>: Retrieve the public cryptographic keys of the identity<a href="#section-7.6.2-1.8.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="algorithm-tokens">
+<section id="section-7.6.3">
+          <h4 id="name-algorithm-tokens">
+<a href="#section-7.6.3" class="section-number selfRef">7.6.3. </a><a href="#name-algorithm-tokens" class="section-name selfRef">Algorithm tokens</a>
+          </h4>
+<p id="section-7.6.3-1">Hash algorithms and checksums<a href="#section-7.6.3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.6.3-2.1">
+              <p id="section-7.6.3-2.1.1"><code>#aiid.size</code>: Data size in bytes<a href="#section-7.6.3-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-2.2">
+              <p id="section-7.6.3-2.2.1"><code>#aiid.crc32</code>: <span>[<a href="#ISO13239" class="cite xref">ISO13239</a>]</span><a href="#section-7.6.3-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-2.3">
+              <p id="section-7.6.3-2.3.1"><code>#aiid.md5</code>: <span>[<a href="#RFC1321" class="cite xref">RFC1321</a>]</span><a href="#section-7.6.3-2.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-2.4">
+              <p id="section-7.6.3-2.4.1"><code>#aiid.sha1</code>: <span>[<a href="#FIPS180-4" class="cite xref">FIPS180-4</a>]</span><a href="#section-7.6.3-2.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-2.5">
+              <p id="section-7.6.3-2.5.1"><code>#aiid.sha256</code>: <span>[<a href="#FIPS180-4" class="cite xref">FIPS180-4</a>]</span><a href="#section-7.6.3-2.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-2.6">
+              <p id="section-7.6.3-2.6.1"><code>#aiid.sha384</code>: <span>[<a href="#FIPS180-4" class="cite xref">FIPS180-4</a>]</span><a href="#section-7.6.3-2.6.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-2.7">
+              <p id="section-7.6.3-2.7.1"><code>#aiid.sha512</code>: <span>[<a href="#FIPS180-4" class="cite xref">FIPS180-4</a>]</span><a href="#section-7.6.3-2.7.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-2.8">
+              <p id="section-7.6.3-2.8.1"><code>#aiid.sha3-256</code>: <span>[<a href="#FIPS202" class="cite xref">FIPS202</a>]</span><a href="#section-7.6.3-2.8.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-2.9">
+              <p id="section-7.6.3-2.9.1"><code>#aiid.sha3-512</code>: <span>[<a href="#FIPS202" class="cite xref">FIPS202</a>]</span><a href="#section-7.6.3-2.9.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-2.10">
+              <p id="section-7.6.3-2.10.1"><code>#aiid.blake2</code>: <span>[<a href="#RFC7693" class="cite xref">RFC7693</a>]</span><a href="#section-7.6.3-2.10.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-7.6.3-3">Encryption<a href="#section-7.6.3-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.6.3-4.1">
+              <p id="section-7.6.3-4.1.1"><code>#aiid.aes</code>: <span>[<a href="#FIPS197" class="cite xref">FIPS197</a>]</span><a href="#section-7.6.3-4.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-4.2">
+              <p id="section-7.6.3-4.2.1"><code>#aiid.chacha20</code>: <span>[<a href="#RFC8439" class="cite xref">RFC8439</a>]</span><a href="#section-7.6.3-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-7.6.3-5">Digital signature<a href="#section-7.6.3-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.6.3-6.1">
+              <p id="section-7.6.3-6.1.1"><code>#aiid.ed25519</code>: <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span><a href="#section-7.6.3-6.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-6.2">
+              <p id="section-7.6.3-6.2.1"><code>#aiid.ecdsa</code>: <span>[<a href="#FIPS186-5" class="cite xref">FIPS186-5</a>]</span><a href="#section-7.6.3-6.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-6.3">
+              <p id="section-7.6.3-6.3.1"><code>#aiid.rsa-pkcs1v15</code>: <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span><a href="#section-7.6.3-6.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-6.4">
+              <p id="section-7.6.3-6.4.1"><code>#aiid.rsa-oaep</code>: <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span><a href="#section-7.6.3-6.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.3-6.5">
+              <p id="section-7.6.3-6.5.1"><code>#aiid.rsa-pss</code>: <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span><a href="#section-7.6.3-6.5.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="data-tokens">
+<section id="section-7.6.4">
+          <h4 id="name-data-tokens">
+<a href="#section-7.6.4" class="section-number selfRef">7.6.4. </a><a href="#name-data-tokens" class="section-name selfRef">Data tokens</a>
+          </h4>
+<ul class="normal">
+<li class="normal" id="section-7.6.4-1.1">
+              <p id="section-7.6.4-1.1.1"><code>#diid.name</code>: Name<a href="#section-7.6.4-1.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.2">
+              <p id="section-7.6.4-1.2.1"><code>#diid.fullname</code>: Full name<a href="#section-7.6.4-1.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.3">
+              <p id="section-7.6.4-1.3.1"><code>#diid.givenname</code>: Given name<a href="#section-7.6.4-1.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.4">
+              <p id="section-7.6.4-1.4.1"><code>#diid.familyname</code>: Family name<a href="#section-7.6.4-1.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.5">
+              <p id="section-7.6.4-1.5.1"><code>#diid.nickname</code>: Nickname<a href="#section-7.6.4-1.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.6">
+              <p id="section-7.6.4-1.6.1"><code>#diid.birthdate</code>: Birth date: <code>%date%</code><a href="#section-7.6.4-1.6.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.7">
+              <p id="section-7.6.4-1.7.1"><code>#diid.birthplace</code>: Birth place<a href="#section-7.6.4-1.7.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.8">
+              <p id="section-7.6.4-1.8.1"><code>#diid.age</code>: Age: <code>%nat%</code><a href="#section-7.6.4-1.8.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.9">
+              <p id="section-7.6.4-1.9.1"><code>#diid.adult</code>: Indicates whether the identity is of an adult: <code>%bool%</code><a href="#section-7.6.4-1.9.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.10">
+              <p id="section-7.6.4-1.10.1"><code>#diid.language</code>: Language: <code>{%lang%}</code><a href="#section-7.6.4-1.10.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.11">
+              <p id="section-7.6.4-1.11.1"><code>#diid.kind</code>: Identity kind: <code>%iid.idkind%</code><a href="#section-7.6.4-1.11.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.12">
+              <p id="section-7.6.4-1.12.1"><code>#diid.address</code>: Address: <code>{%str% | %obj%}</code><a href="#section-7.6.4-1.12.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.13">
+              <p id="section-7.6.4-1.13.1"><code>#diid.postaddress</code>: Postal address: <code>{%str% | %obj%}</code><a href="#section-7.6.4-1.13.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.14">
+              <p id="section-7.6.4-1.14.1"><code>#diid.country</code>: Country: <code>%country%</code><a href="#section-7.6.4-1.14.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.15">
+              <p id="section-7.6.4-1.15.1"><code>#diid.state</code>: State or province<a href="#section-7.6.4-1.15.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.16">
+              <p id="section-7.6.4-1.16.1"><code>#diid.city</code>: City<a href="#section-7.6.4-1.16.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.17">
+              <p id="section-7.6.4-1.17.1"><code>#diid.district</code>: District<a href="#section-7.6.4-1.17.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.18">
+              <p id="section-7.6.4-1.18.1"><code>#diid.zip</code>: Postal code<a href="#section-7.6.4-1.18.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.19">
+              <p id="section-7.6.4-1.19.1"><code>#diid.street</code>: Street<a href="#section-7.6.4-1.19.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.20">
+              <p id="section-7.6.4-1.20.1"><code>#diid.house</code>: House number<a href="#section-7.6.4-1.20.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.21">
+              <p id="section-7.6.4-1.21.1"><code>#diid.floor</code>: Floor<a href="#section-7.6.4-1.21.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.22">
+              <p id="section-7.6.4-1.22.1"><code>#diid.door</code>: Door number<a href="#section-7.6.4-1.22.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.23">
+              <p id="section-7.6.4-1.23.1"><code>#diid.email</code>: Email address<a href="#section-7.6.4-1.23.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.24">
+              <p id="section-7.6.4-1.24.1"><code>#diid.phone</code>: Phone number: <code>{%phone%}</code><a href="#section-7.6.4-1.24.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.25">
+              <p id="section-7.6.4-1.25.1"><code>#diid.website</code>: Website URL<a href="#section-7.6.4-1.25.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.26">
+              <p id="section-7.6.4-1.26.1"><code>#diid.taxid</code>: Tax Identifier<a href="#section-7.6.4-1.26.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.27">
+              <p id="section-7.6.4-1.27.1"><code>#diid.personalid</code>: Personal identifier<a href="#section-7.6.4-1.27.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.28">
+              <p id="section-7.6.4-1.28.1"><code>#diid.companyid</code>: Company identifier<a href="#section-7.6.4-1.28.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.29">
+              <p id="section-7.6.4-1.29.1"><code>#diid.passport</code>: Passport number<a href="#section-7.6.4-1.29.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.30">
+              <p id="section-7.6.4-1.30.1"><code>#diid.company</code>: Employer: <code>{%iid%}</code><a href="#section-7.6.4-1.30.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.31">
+              <p id="section-7.6.4-1.31.1"><code>#diid.department</code>: Department<a href="#section-7.6.4-1.31.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.32">
+              <p id="section-7.6.4-1.32.1"><code>#diid.position</code>: Job title<a href="#section-7.6.4-1.32.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-1.33">
+              <p id="section-7.6.4-1.33.1"><code>#diid.avatar</code>: Avatar image: <code>{%iid.image%}</code><a href="#section-7.6.4-1.33.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-7.6.4-2">Special data tokens<a href="#section-7.6.4-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.6.4-3.1">
+              <p id="section-7.6.4-3.1.1"><code>#diid.attester</code>: Identities that can attest to this identity's data: <code>{%iid%}</code><a href="#section-7.6.4-3.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-3.2">
+              <p id="section-7.6.4-3.2.1"><code>#diid.trusted</code>: Identities trusted by this identity: <code>{%iid%}</code><a href="#section-7.6.4-3.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-3.3">
+              <p id="section-7.6.4-3.3.1"><code>#diid.until</code>: Latest time until which the shared data can be used: <code>%stamp%</code><a href="#section-7.6.4-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="value-tokens">
+<section id="section-7.6.5">
+          <h4 id="name-value-tokens">
+<a href="#section-7.6.5" class="section-number selfRef">7.6.5. </a><a href="#name-value-tokens" class="section-name selfRef">Value tokens</a>
+          </h4>
+<p id="section-7.6.5-1">The following sections define some possible data value tokens<a href="#section-7.6.5-1" class="pilcrow">¶</a></p>
+<div id="identity-kinds">
+<section id="section-7.6.5.1">
+            <h5 id="name-identity-kinds">
+<a href="#section-7.6.5.1" class="section-number selfRef">7.6.5.1. </a><a href="#name-identity-kinds" class="section-name selfRef">Identity kinds</a>
+            </h5>
+<ul class="normal">
+<li class="normal" id="section-7.6.5.1-1.1">
+                <p id="section-7.6.5.1-1.1.1"><code>#viid.person</code>: Natural person<a href="#section-7.6.5.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.6.5.1-1.2">
+                <p id="section-7.6.5.1-1.2.1"><code>#viid.firm</code>: Organization or company<a href="#section-7.6.5.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.6.5.1-1.3">
+                <p id="section-7.6.5.1-1.3.1"><code>#viid.site</code>: Website<a href="#section-7.6.5.1-1.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.6.5.1-1.4">
+                <p id="section-7.6.5.1-1.4.1"><code>#viid.crawler</code>: Web crawler<a href="#section-7.6.5.1-1.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.6.5.1-1.5">
+                <p id="section-7.6.5.1-1.5.1"><code>#viid.aiagent</code>: AI agent<a href="#section-7.6.5.1-1.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</section>
+</div>
+<div id="operations-for-consent">
+<section id="section-7.6.5.2">
+            <h5 id="name-operations-for-consent">
+<a href="#section-7.6.5.2" class="section-number selfRef">7.6.5.2. </a><a href="#name-operations-for-consent" class="section-name selfRef">Operations for consent:</a>
+            </h5>
+<ul class="normal">
+<li class="normal" id="section-7.6.5.2-1.1">
+                <p id="section-7.6.5.2-1.1.1"><code>#viid.newsletter</code>: Newsletter<a href="#section-7.6.5.2-1.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.6.5.2-1.2">
+                <p id="section-7.6.5.2-1.2.1"><code>#viid.cookie.necessary</code>: Strictly necessary cookies<a href="#section-7.6.5.2-1.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.6.5.2-1.3">
+                <p id="section-7.6.5.2-1.3.1"><code>#viid.cookie.session</code>: Session cookies<a href="#section-7.6.5.2-1.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.6.5.2-1.4">
+                <p id="section-7.6.5.2-1.4.1"><code>#viid.cookie.marketing</code>: Marketing cookies<a href="#section-7.6.5.2-1.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.6.5.2-1.5">
+                <p id="section-7.6.5.2-1.5.1"><code>#viid.cookie.analytics</code>: Analytics cookies<a href="#section-7.6.5.2-1.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.6.5.2-1.6">
+                <p id="section-7.6.5.2-1.6.1"><code>#viid.cookie.third</code>: Third-party cookies<a href="#section-7.6.5.2-1.6.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="requirement-tokens">
+<section id="section-7.6.6">
+          <h4 id="name-requirement-tokens">
+<a href="#section-7.6.6" class="section-number selfRef">7.6.6. </a><a href="#name-requirement-tokens" class="section-name selfRef">Requirement tokens</a>
+          </h4>
+<ul class="normal">
+<li class="normal" id="section-7.6.6-1.1">
+              <p id="section-7.6.6-1.1.1"><code>#riid.at</code>: The follow-up message MUST contain the at field<a href="#section-7.6.6-1.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.6-1.2">
+              <p id="section-7.6.6-1.2.1"><code>#riid.from</code>: The follow-up message MUST contain the from field<a href="#section-7.6.6-1.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.6-1.3">
+              <p id="section-7.6.6-1.3.1"><code>#riid.to</code>: The follow-up message MUST contain the to field<a href="#section-7.6.6-1.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.6-1.4">
+              <p id="section-7.6.6-1.4.1"><code>#riid.mid</code>: The follow-up message MUST contain the message identifier<a href="#section-7.6.6-1.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.6-1.5">
+              <p id="section-7.6.6-1.5.1"><code>#riid.sign</code>: The follow-up message MUST be digitally signed<a href="#section-7.6.6-1.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.6-1.6">
+              <p id="section-7.6.6-1.6.1"><code>#riid.encrypted</code>: The follow-up message MUST be encrypted<a href="#section-7.6.6-1.6.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.6-1.7">
+              <p id="section-7.6.6-1.7.1"><code>#riid.echo</code>: The entire request MUST be repeated in response's ref field<a href="#section-7.6.6-1.7.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.6-1.8">
+              <p id="section-7.6.6-1.8.1"><code>{ requirement: #riid.key, key: %iid.key% }</code>: The follow-up message MUST use the specified key.<a href="#section-7.6.6-1.8.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.6-1.9">
+              <p id="section-7.6.6-1.9.1"><code>{ requirement: #riid.url, url: %str% }</code>: Following requests MUST use the specified URL<a href="#section-7.6.6-1.9.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="examples">
+<section id="section-7.7">
+        <h3 id="name-examples">
+<a href="#section-7.7" class="section-number selfRef">7.7. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
+        </h3>
+<p id="section-7.7-1">This section presents examples of IID communication between identity servers 
+in various scenarios. These examples are intended to demonstrate the 
+capabilities and flexibility of the protocol. They are not normative specifications
+of the described cases, which are specified in separate documents.<a href="#section-7.7-1" class="pilcrow">¶</a></p>
+<div id="web-login">
+<section id="section-7.7.1">
+          <h4 id="name-web-login">
+<a href="#section-7.7.1" class="section-number selfRef">7.7.1. </a><a href="#name-web-login" class="section-name selfRef">Web login</a>
+          </h4>
+<p id="section-7.7.1-1">John Doe (<code>john@doe.org</code>) visits a new website: <code>https://foo.org</code>. The website 
+obtains his IID, for example from an HTTP header <span>[<a href="#RFC9110" class="cite xref">RFC9110</a>]</span>, a cookie,
+or by prompting the user.<a href="#section-7.7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.7.1-2">The <code>foo.org</code> server determines the identity server responsible for <code>john@doe.org</code>
+and sends the following request to the designated endpoint:<a href="#section-7.7.1-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.1-3">
+<pre>
+foo.org &gt;&gt;&gt; doe.org {
+   "from": "site@foo.org",
+   "to": "john@doe.org",
+   "action": "#miid.login",
+   "params": {
+      "returnurl":"https://foo.org/onlogin"
+   }
+}
+</pre><a href="#section-7.7.1-3" class="pilcrow">¶</a>
+</div>
+<p id="section-7.7.1-4">The <code>doe.org</code> identity server records that <code>foo.org</code> has requested 
+a login. It generates a nonce value and responds that it wishes to 
+identify the browser:<a href="#section-7.7.1-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.1-5">
+<pre>
+foo.org &lt;&lt;&lt; doe.org {
+   "error": {
+      "error": "#eiid.redirect",
+      "url":"https://doe.org/login",
+      "nonce": "12345678"
+   }
+}
+</pre><a href="#section-7.7.1-5" class="pilcrow">¶</a>
+</div>
+<p id="section-7.7.1-6">The foo.org server records the nonce and 
+redirects John's browser to <code>https://doe.org/login</code>.<a href="#section-7.7.1-6" class="pilcrow">¶</a></p>
+<p id="section-7.7.1-7">If John is not already signed in to his identity server, he is prompted 
+to authenticate. After that, the settings of his doe.org account determine 
+whether any additional confirmation is required.<a href="#section-7.7.1-7" class="pilcrow">¶</a></p>
+<p id="section-7.7.1-8">If not, the process continues immediately. The doe.org server redirects 
+the browser back to <code>https://foo.org/onlogin</code> which causes the following request to be sent:<a href="#section-7.7.1-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.1-9">
+<pre>
+foo.org &gt;&gt;&gt; doe.org {
+   "from": "site@foo.org",
+   "to": "john@doe.org",
+   "action": "#miid.login",
+   "params": {
+      "nonce": "12345678"
+   }
+}
+</pre><a href="#section-7.7.1-9" class="pilcrow">¶</a>
+</div>
+<p id="section-7.7.1-10">The <code>doe.org</code> server has already recorded that the login with the specified nonce 
+has been authorized. It returns a positive response:<a href="#section-7.7.1-10" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.1-11">
+<pre>
+foo.org &lt;&lt;&lt; doe.org {
+   "value": true
+}
+</pre><a href="#section-7.7.1-11" class="pilcrow">¶</a>
+</div>
+<p id="section-7.7.1-12">At this point, the login is complete. The <code>foo.org</code> server signs John in and 
+can present his personalized view. It only needs to store his IID;
+any additional information can be retrieved from doe.org whenever needed.<a href="#section-7.7.1-12" class="pilcrow">¶</a></p>
+<p id="section-7.7.1-13">Subsequent visits are even simpler. Since <code>foo.org</code> can store John's IID in
+a cookie, it can contact <code>doe.org</code> without asking John his IID. While John
+is still signed in to <code>doe.org</code>, and his account settings permit it,
+the identity server can immediately return a positive response
+without requiring further interaction.<a href="#section-7.7.1-13" class="pilcrow">¶</a></p>
+<p id="section-7.7.1-14">Note: the above example assumes a Secure HTTPS transport. When a less secure
+transport is used, or additional security is needed, the protocol
+MAY require digitally signed and/or encrypted messages. 
+See the <em>Security considerations</em> section for details.<a href="#section-7.7.1-14" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="fetch-personal-data">
+<section id="section-7.7.2">
+          <h4 id="name-fetch-personal-data">
+<a href="#section-7.7.2" class="section-number selfRef">7.7.2. </a><a href="#name-fetch-personal-data" class="section-name selfRef">Fetch personal data</a>
+          </h4>
+<p id="section-7.7.2-1">John (<code>john@doe.org</code>) visits a webshop. The webshop obtains his IID in the same way as
+in the previous example. Since it needs to know where to ship John's order, it contacts
+his identity server: <code>doe.org</code>. As a postal address is personal information, it signs
+the request:<a href="#section-7.7.2-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.2-2">
+<pre>
+webshop.com &gt;&gt;&gt; doe.org {
+   "at": 1783473539,
+   "from": "site@webshop.com",
+   "to": "john@doe.org",
+   "action": "#miid.data",
+   "params": [
+      "#diid.fullname",
+      "#diid.postaddress"
+   ],
+   "sign": {
+      "key":"req2026",
+      "sign":"#6..."
+   }
+}
+</pre><a href="#section-7.7.2-2" class="pilcrow">¶</a>
+</div>
+<p id="section-7.7.2-3">At this point, the doe.org identity server MAY retrieve the <code>req2026</code> key from 
+<code>webshop.com</code> and verify the signature (see later). Depending on the settings of
+<code>john@doe.org</code> it MAY authorize the data sharing immediately or 
+redirect the browser to a confirmation page hosted by <code>doe.org</code>.<a href="#section-7.7.2-3" class="pilcrow">¶</a></p>
+<p id="section-7.7.2-4">Assume that the requested data is authorized for sharing with <code>site@webshop.com</code>.
+The identity server responds with the requested values and includes an until 
+timestamp, after which the <code>site@webshop.com</code> SHOULD no longer retain
+the shared data.<a href="#section-7.7.2-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.2-5">
+<pre>
+webshop.com &lt;&lt;&lt; doe.org {
+   "value": {
+      "#diid.fullname":"John Doe",
+      "#diid.postaddress": {
+         "#diid.country":"US",
+         "#diid.state":"New York",
+         "#diid.zip":"10004",
+         "#diid.street":"Liberty",
+         "#diid.house":1
+      },
+      "#diid.until":1783559940
+   }
+}
+</pre><a href="#section-7.7.2-5" class="pilcrow">¶</a>
+</div>
+<p id="section-7.7.2-6">The webshop receives John's postal address together with permission to retain 
+it for one day. This is sufficient to ship the order.<a href="#section-7.7.2-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="consent">
+<section id="section-7.7.3">
+          <h4 id="name-consent">
+<a href="#section-7.7.3" class="section-number selfRef">7.7.3. </a><a href="#name-consent" class="section-name selfRef">Consent</a>
+          </h4>
+<p id="section-7.7.3-1">The webshop requests John's consent to send newsletters, and to store 
+marketing cookies in his browser. Since it wishes to retain proof of
+the consent (for example, for GDPR compliance), it requires the
+response to include both a digital signature and an echo of the original
+request.<a href="#section-7.7.3-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.3-2">
+<pre>
+webshop.com &gt;&gt;&gt; doe.org {
+   "at": 1783473639,
+   "from": "site@webshop.com",
+   "to": "john@doe.org",
+   "action": "#miid.consent",
+   "params": [
+      "#viid.newsletter",
+      "#viid.cookie.marketing"
+   ],
+   "requirement": [
+      "#riid.sign",
+      "#riid.echo"
+   ]
+}
+</pre><a href="#section-7.7.3-2" class="pilcrow">¶</a>
+</div>
+<p id="section-7.7.3-3">Assume that the <code>john@doe.org</code> account is configured to allow
+newsletters but not marketing cookies:<a href="#section-7.7.3-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.3-4">
+<pre>
+webshop.com &lt;&lt;&lt; doe.org {
+   "at": 1783473640,
+   "value": {
+      "#viid.newsletter":true,
+      "#viid.cookie.marketing":false
+   },
+   "ref": {
+      "at":1783473639,
+      ...
+   },
+   "sign":{
+       "key":"data2026",
+       "sign":"#6..."
+   }
+}
+</pre><a href="#section-7.7.3-4" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="revoking-consent">
+<section id="section-7.7.4">
+          <h4 id="name-revoking-consent">
+<a href="#section-7.7.4" class="section-number selfRef">7.7.4. </a><a href="#name-revoking-consent" class="section-name selfRef">Revoking consent</a>
+          </h4>
+<p id="section-7.7.4-1">John wishes to unsubscribe from the newsletter and orders the webshop to forget his phone number:<a href="#section-7.7.4-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.4-2">
+<pre>
+doe.org &gt;&gt;&gt; webshop.com {
+   "at": 1783473739,
+   "from": "john@doe.org",
+   "to": "site@webshop.com",
+   "action": "#miid.revoke",
+   "params": ["#viid.newsletter","#viid.phone"],
+   "sign":{
+      "key":"data2026",
+      "sign":"#6..."
+   }
+}
+</pre><a href="#section-7.7.4-2" class="pilcrow">¶</a>
+</div>
+<p id="section-7.7.4-3">The webshop verifies John's signature, unsubscribes him from the newsletter,
+and deletes the stored phone number.<a href="#section-7.7.4-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.4-4">
+<pre>
+doe.org &lt;&lt;&lt; webshop.com {
+   "value": true
+}
+</pre><a href="#section-7.7.4-4" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="key-fetch-and-attest">
+<section id="section-7.7.5">
+          <h4 id="name-key-fetch-and-attest">
+<a href="#section-7.7.5" class="section-number selfRef">7.7.5. </a><a href="#name-key-fetch-and-attest" class="section-name selfRef">Key fetch and attest</a>
+          </h4>
+<p id="section-7.7.5-1">The <code>foo.org</code> website needs a verifiable confirmation that it
+has the correct copy of John's public key. It sends a request 
+to an attesting identity server:<a href="#section-7.7.5-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.5-2">
+<pre>
+foo.org &gt;&gt;&gt; bar.org {
+   "from": "site@foo.org",
+   "to": "clerk@bar.org",
+   "action": "#miid.testify",
+   "params": {
+      "iid": "john@doe.org",
+      "key": "data2026",
+      "until": 1798761600,
+      "pub": "#xabcd..."
+   },
+   "requirement": [
+      "#riid.sign",
+      "#riid.at",
+      "#riid.echo"
+   ]
+}
+</pre><a href="#section-7.7.5-2" class="pilcrow">¶</a>
+</div>
+<p id="section-7.7.5-3">The <code>bar.org</code> server retrieves the key from <code>doe.org</code>. It requires 
+the response to be signed using the same key:<a href="#section-7.7.5-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.5-4">
+<pre>
+bar.org &gt;&gt;&gt; doe.org {
+   "from": "clerk@bar.org",
+   "to": "john@doe.org",
+   "action": "#miid.key",
+   "params": "data2026",
+   "requirement": [
+      {
+         "requirement":"#riid.key",
+         "key":"data2026"
+      }
+   ]
+}
+</pre><a href="#section-7.7.5-4" class="pilcrow">¶</a>
+</div>
+<p id="section-7.7.5-5">The <code>doe.org</code> identity server returns the key details and signs the response:<a href="#section-7.7.5-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.5-6">
+<pre>
+bar.org &lt;&lt;&lt; doe.org {
+   "at": 1783473841,
+   "from":"john@doe.org",
+   "value": {
+      "name":"data2026",
+      "algo":"#aiid.ed25519",
+      "pub":"#xabcd...",
+      "from": 1767225600,
+      "until": 1798761600
+   },
+   "sign":{
+      "key":"data2026",
+      "sign":"#6..."
+   }
+}
+</pre><a href="#section-7.7.5-6" class="pilcrow">¶</a>
+</div>
+<p id="section-7.7.5-7">The bar.org server verifies the signature. If it is valid, it knows that
+the response was signed by the holder of the private key corresponding
+to <code>data2026</code>. If the public key matches the
+one supplied by <code>foo.org</code>, it returns a positive response:<a href="#section-7.7.5-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.5-8">
+<pre>
+foo.org &lt;&lt;&lt; bar.org {
+   "at": 1783473842,
+   "value": true,
+   "ref": {
+      "from":"site@foo.org",
+      ...
+   },
+   "sign":{
+       "key":"att2026",
+       "sign":"#6..."
+   }
+}
+</pre><a href="#section-7.7.5-8" class="pilcrow">¶</a>
+</div>
+<p id="section-7.7.5-9">Based on the signed confirmation from <code>bar.org</code>, <code>foo.org</code> can trust that it has
+the correct copy of John's public key. It MAY update the last verification timestamp
+associated with John's key.<a href="#section-7.7.5-9" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="instant-message">
+<section id="section-7.7.6">
+          <h4 id="name-instant-message">
+<a href="#section-7.7.6" class="section-number selfRef">7.7.6. </a><a href="#name-instant-message" class="section-name selfRef">Instant message</a>
+          </h4>
+<p id="section-7.7.6-1">John wishes to send an instant message to a company:<a href="#section-7.7.6-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.6-2">
+<pre>
+doe.org &gt;&gt;&gt; firm.org {
+   "from": "john@doe.org",
+   "to": "info@firm.org",
+   "action": "#miid.message",
+   "params": {
+      "data": "Please, inform me of your current open positions.",
+      "mime": "text/plain"
+   }
+}
+</pre><a href="#section-7.7.6-2" class="pilcrow">¶</a>
+</div>
+<p id="section-7.7.6-3">The company accepts the instant message:<a href="#section-7.7.6-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.7.6-4">
+<pre>
+firm.org &gt;&gt;&gt; doe.org {
+   "value": true
+}
+</pre><a href="#section-7.7.6-4" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="implementation">
+<section id="section-8">
+      <h2 id="name-implementation">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-implementation" class="section-name selfRef">Implementation</a>
+      </h2>
+<p id="section-8-1">This protocol does not define implementation details, 
+but it provides some suggestions for implementing identity servers.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<div id="dns-resolution">
+<section id="section-8.1">
+        <h3 id="name-dns-resolution">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-dns-resolution" class="section-name selfRef">DNS resolution</a>
+        </h3>
+<p id="section-8.1-1">The IP address of an identity server SHOULD be obtained through DNS resolution of 
+the domain part of the IID. For example, the server of <code>john@doe.org</code>
+will have the IP resolved from <code>doe.org</code> <span>[<a href="#RFC1034" class="cite xref">RFC1034</a>]</span>.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.1-2">If the domain part of an IID contains characters which the DNS system cannot handle,
+the resolution SHOULD be made in the IDNA format <span>[<a href="#RFC5891" class="cite xref">RFC5891</a>]</span>.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="well-known">
+<section id="section-8.2">
+        <h3 id="name-well-known">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-well-known" class="section-name selfRef">.well-known</a>
+        </h3>
+<p id="section-8.2-1">The HTTPS server of the domain SHOULD have a <code>/.well-known/iid</code> endpoint <span>[<a href="#RFC8615" class="cite xref">RFC8615</a>]</span>.
+That endpoint MAY process IID requests directly or redirect clients to the actual 
+endpoint by returning a response such as:<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-8.2-2">
+<pre>
+{
+   "error":"#eiid.repeat",
+   "requirement":{
+      "requirement":"#riid.url",
+      "url":"https://foo.org/iid"
+   }
+}
+</pre><a href="#section-8.2-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-9">
+      <h2 id="name-security-considerations">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations" class="section-name selfRef">Security considerations</a>
+      </h2>
+<p id="section-9-1">In general, this protocol assumes that IID requests are transmitted over 
+a secure, authenticated, and encrypted channel (such as HTTPS).<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-2">The following examples consider three communication environments:<a href="#section-9-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9-3.1">
+          <p id="section-9-3.1.1">SAFE: Communication takes place over a secure channel where the 
+   endpoints are authenticated and messages cannot be intercepted or modified.<a href="#section-9-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-9-3.2">
+          <p id="section-9-3.2.1">KNOWN: The communicating parties have prior knowledge of each other's public keys.
+   The communicating channel itself may be subject to interception or modification.<a href="#section-9-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-9-3.3">
+          <p id="section-9-3.3.1">INSECURE: The communication channel can be intercepted or modified,
+   and the parties have no prior knowledge of each other's public keys.<a href="#section-9-3.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-9-4">The examples in the following sections demonstrate these conclusions:<a href="#section-9-4" class="pilcrow">¶</a></p>
+<p id="section-9-5">A SAFE environment provides adequate security for IID operations.<a href="#section-9-5" class="pilcrow">¶</a></p>
+<p id="section-9-6">In a KNOWN environment, secure communication can be achieved using additional
+cryptographic techniques.<a href="#section-9-6" class="pilcrow">¶</a></p>
+<p id="section-9-7">In an INSECURE environment, IID alone cannot guarantee secure communication.
+However an INSECURE environment can potentially be upgraded to a KNOWN one
+through a <em>Trust chain discovery</em> mechanism, described later in this document.<a href="#section-9-7" class="pilcrow">¶</a></p>
+<div id="altered-sender-identity">
+<section id="section-9.1">
+        <h3 id="name-altered-sender-identity">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-altered-sender-identity" class="section-name selfRef">Altered sender identity</a>
+        </h3>
+<p id="section-9.1-1">SAFE, KNOWN: If the sender's identity is important and uncertain, the receiver MAY
+   require the request to be digitally signed. Successful signature verification
+   authenticates the sender.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.1-2">INSECURE: The sender's identity cannot be reliably authenticated.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="altered-recipient-identity">
+<section id="section-9.2">
+        <h3 id="name-altered-recipient-identity">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-altered-recipient-identity" class="section-name selfRef">Altered recipient identity</a>
+        </h3>
+<p id="section-9.2-1">SAFE: The channel guarantees that the request is delivered without modification.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-2">KNOWN: The receiver MAY require the request to include the recipient's identity
+   and to be digitally signed by the sender. Successful signature verification 
+   ensures that no data got changed during the transfer.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
+<p id="section-9.2-3">INSECURE: The recipient identity cannot be guaranteed, as it may be modified 
+   during transmission.<a href="#section-9.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="request-replay">
+<section id="section-9.3">
+        <h3 id="name-request-replay">
+<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-request-replay" class="section-name selfRef">Request replay</a>
+        </h3>
+<p id="section-9.3-1">The receiver MAY require requests to include a timestamp. It MAY also limit
+processing to at most one request per second for the same sender and recipient,
+responding with <code>#eiid.later</code> to subsequent duplicates. this prevents
+identical requests from being processed repeatedly.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<p id="section-9.3-2">In many cases authenticating the sender is more important than
+preventing the same response from being returned multiple times.<a href="#section-9.3-2" class="pilcrow">¶</a></p>
+<p id="section-9.3-3">SAFE: Replay attacks by third parties are prevented because requests
+   cannot be intercepted.<a href="#section-9.3-3" class="pilcrow">¶</a></p>
+<p id="section-9.3-4">KNOWN: After the sender has been authenticated, replayed requests usually do
+   not present a security risk. If the timestamp is included in the signed content,
+   modified replays are detected during signature verification.<a href="#section-9.3-4" class="pilcrow">¶</a></p>
+<p id="section-9.3-5">INSECURE: Requiring timestamp, sender and recipient of the requests
+   allows identical replayed requests to be detected. However,
+   if the attacker can modify the request (for example by changing the timestamp),
+   it can no longer be distinguished from a newly generated request, 
+   which may result in the unauthorized disclosure of information.<a href="#section-9.3-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="response-replay">
+<section id="section-9.4">
+        <h3 id="name-response-replay">
+<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-response-replay" class="section-name selfRef">Response replay</a>
+        </h3>
+<p id="section-9.4-1">The sender processes only one response for each request. Any subsequent replayed responses are ignored.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="response-injection">
+<section id="section-9.5">
+        <h3 id="name-response-injection">
+<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-response-injection" class="section-name selfRef">Response injection</a>
+        </h3>
+<p id="section-9.5-1">SAFE: Third parties cannot inject forged responses into the communication channel.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
+<p id="section-9.5-2">KNOWN: The sender MAY require responses to be digitally signed. 
+   Successful signature verification prevents processing forged injected responses
+   from being accepted.<a href="#section-9.5-2" class="pilcrow">¶</a></p>
+<p id="section-9.5-3">INSECURE: Third parties may be able to inject forged responses.<a href="#section-9.5-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="key-compromise">
+<section id="section-9.6">
+        <h3 id="name-key-compromise">
+<a href="#section-9.6" class="section-number selfRef">9.6. </a><a href="#name-key-compromise" class="section-name selfRef">Key compromise</a>
+        </h3>
+<p id="section-9.6-1">If a private key stored by an identity server is compromised, a third party can use it
+to forge requests on behalf of the key's owner.<a href="#section-9.6-1" class="pilcrow">¶</a></p>
+<p id="section-9.6-2">Systems that store public keys of identities are RECOMMENDED to maintain
+a last-verification timestamp for each key. Public keys SHOULD be periodically
+retrieved again from their owner's identity servers to detect revocation
+or replacement following a key compromise.<a href="#section-9.6-2" class="pilcrow">¶</a></p>
+<p id="section-9.6-3">SAFE: Even with a compromised key, third parties cannot give forged answers, because
+   the requests are delivered to the legitimate identity server.<a href="#section-9.6-3" class="pilcrow">¶</a></p>
+<p id="section-9.6-4">KNOWN, INSECURE: A compromised private key allows a third party to 
+   impersonate the corresponding identity either as the senders or the receiver.<a href="#section-9.6-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="man-in-the-middle-attack">
+<section id="section-9.7">
+        <h3 id="name-man-in-the-middle-attack">
+<a href="#section-9.7" class="section-number selfRef">9.7. </a><a href="#name-man-in-the-middle-attack" class="section-name selfRef">Man in the middle attack</a>
+        </h3>
+<p id="section-9.7-1">If a third party gets control over the communication channel, for example
+by changing the DNS resolution, it can cause security risks.<a href="#section-9.7-1" class="pilcrow">¶</a></p>
+<p id="section-9.7-2">The transfer protocol can help the situation, for example, an HTTPS or TLS connection
+does not allow that kind of interception, because the third party does not own
+a certificate for the destination domain.<a href="#section-9.7-2" class="pilcrow">¶</a></p>
+<p id="section-9.7-3">SAFE: A safe environment only allows authenticated endpoints.<a href="#section-9.7-3" class="pilcrow">¶</a></p>
+<p id="section-9.7-4">KNOWN: If all the communication is digitally signed with public keys, third parties cannot
+   alter messages or inject forged ones. However, they can intercept information unless
+   all messages are encrypted.<a href="#section-9.7-4" class="pilcrow">¶</a></p>
+<p id="section-9.7-5">INSECURE: The third party controlling the communication channel can 
+   fully impersonate either communicating party.<a href="#section-9.7-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="confidentiality">
+<section id="section-9.8">
+        <h3 id="name-confidentiality">
+<a href="#section-9.8" class="section-number selfRef">9.8. </a><a href="#name-confidentiality" class="section-name selfRef">Confidentiality</a>
+        </h3>
+<p id="section-9.8-1">SAFE: The communication channel ensures that no third party can read the transmitted data.<a href="#section-9.8-1" class="pilcrow">¶</a></p>
+<p id="section-9.8-2">KNOWN: If the transmitted data is sensitive, it is RECOMMENDED to encrypt it.<a href="#section-9.8-2" class="pilcrow">¶</a></p>
+<p id="section-9.8-3">INSECURE: As the public keys cannot be exchanged securely, there is no way to ensure confidentiality.<a href="#section-9.8-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="flooding-attacks">
+<section id="section-9.9">
+        <h3 id="name-flooding-attacks">
+<a href="#section-9.9" class="section-number selfRef">9.9. </a><a href="#name-flooding-attacks" class="section-name selfRef">Flooding attacks</a>
+        </h3>
+<p id="section-9.9-1">Identity servers may become targets of various flooding attacks,
+especially if they host a large number of identities. However, the structure of IID messages
+allows several mitigation techniques.<a href="#section-9.9-1" class="pilcrow">¶</a></p>
+<p id="section-9.9-2">An identity server MAY reject excessively large messages with <code>#eiid.size</code> without processing them.<a href="#section-9.9-2" class="pilcrow">¶</a></p>
+<p id="section-9.9-3">Requests that do not identify the sender MAY also be rejected.<a href="#section-9.9-3" class="pilcrow">¶</a></p>
+<p id="section-9.9-4">Requests from the same sender within a short time MAY be rejected or deferred by responding with #eiid.later.<a href="#section-9.9-4" class="pilcrow">¶</a></p>
+<p id="section-9.9-5">Encrypted messages require more processing time. However they MAY also be queued per recipient or
+deferred by responding with <code>#eiid.later</code>.<a href="#section-9.9-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="trust-chain-discovery">
+<section id="section-10">
+      <h2 id="name-trust-chain-discovery">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-trust-chain-discovery" class="section-name selfRef">Trust chain discovery</a>
+      </h2>
+<p id="section-10-1">If both communication parties have prior knowledge of one or more attester 
+and trusted identities, and their trust networks overlap, an otherwise
+INSECURE environment can be bootstrapped into a KNOWN one.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-2">Assume two parties, <code>X</code> and <code>Y</code>.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<p id="section-10-3"><code>X</code> maintains a set of its own trusted identities (for example, <code>T1</code>, <code>T2</code>, <code>T3</code>, ...). 
+It can recursively expand this set by including the trusted identities of
+each member of the list (for example <code>T11</code>, and <code>T12</code> are trusted by <code>T1</code>),<a href="#section-10-3" class="pilcrow">¶</a></p>
+<p id="section-10-4">At the same time, <code>X</code> can recursively discover the attesters of <code>Y</code> 
+(for example <code>A1</code>, <code>A2</code>, <code>A3</code>, ...), and the attesters of those identities 
+(<code>A11</code>, <code>A12</code>, <code>A13</code>, ...).<a href="#section-10-4" class="pilcrow">¶</a></p>
+<p id="section-10-5">If the two networks overlap, there exists an identity <code>S</code> that
+is present in both the trusted and the attester network. A trust chain
+can then be constructed from <code>X</code> to <code>Y</code> by ascending through trusted
+identities to <code>S</code> and descending through attesters to <code>Y</code>.<a href="#section-10-5" class="pilcrow">¶</a></p>
+<p id="section-10-6">For example:
+   <code>X</code> -&gt; <code>T2</code> -&gt; <code>T23</code> -&gt; <code>S</code> -&gt; <code>A332</code> -&gt; <code>A33</code> -&gt; <code>A3</code> -&gt; <code>Y</code><a href="#section-10-6" class="pilcrow">¶</a></p>
+<p id="section-10-7">Since <code>X</code> already trusts <code>T2</code>, it possesses a verified copy of <code>T2</code>'s public key. 
+Using that key, <code>X</code> can securely obtain <code>T23</code>'s public key from <code>T2</code>.<a href="#section-10-7" class="pilcrow">¶</a></p>
+<p id="section-10-8">Repeating this process allows <code>X</code> to obtain a correct copy of <code>S</code>'s public key.<a href="#section-10-8" class="pilcrow">¶</a></p>
+<p id="section-10-9">Because <code>S</code> is an attester of <code>A332</code>, <code>X</code> can securely obtain <code>A332</code>'s public key from <code>S</code>.
+The same process can be repeated down the attester chain until <code>X</code> obtains
+an authenticated copy of <code>Y</code>'s public key.<a href="#section-10-9" class="pilcrow">¶</a></p>
+<p id="section-10-10"><code>Y</code> can perform the same procedure independently in the opposite direction.
+After the discovery process completes, both parties possess verified
+copies of each other's public keys and therefore operate in a KNOWN environment.<a href="#section-10-10" class="pilcrow">¶</a></p>
+<p id="section-10-11">Unlike the traditional TLS model, this mechanism does not require 
+globally trusted root certificate authorities. As long as
+the trust networks of the two parties overlap, they can discover a
+trust chain that enables secure communication.<a href="#section-10-11" class="pilcrow">¶</a></p>
+<p id="section-10-12">As with most trust-chain-based systems, the security of this discovery 
+process depends on the weakest link in the chain: if any intermediate 
+identity's key is compromised, it can undermine the trust established 
+through it. This risk can be reduced by periodically re-verifying the 
+trusted keys.<a href="#section-10-12" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-combined-references">
+<section id="section-11">
+      <h2 id="name-references">
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<div id="sec-normative-references">
+<section id="section-11.1">
+        <h3 id="name-normative-references">
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC2119">[RFC2119]</dt>
+        <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+        <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8259">[RFC8259]</dt>
+        <dd>
+<span class="refAuthor">Bray, T., Ed.</span>, <span class="refTitle">"The JavaScript Object Notation (JSON) Data Interchange Format"</span>, <span class="seriesInfo">STD 90</span>, <span class="seriesInfo">RFC 8259</span>, <span class="seriesInfo">DOI 10.17487/RFC8259</span>, <time datetime="2017-12" class="refDate">December 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8259">https://www.rfc-editor.org/info/rfc8259</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="UAX15">[UAX15]</dt>
+        <dd>
+<span class="refAuthor">The Unicode Consortium</span>, <span class="refTitle">"Unicode Standard Annex #15: Unicode Normalization Forms"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.unicode.org/reports/tr15/">https://www.unicode.org/reports/tr15/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8785">[RFC8785]</dt>
+        <dd>
+<span class="refAuthor">Rundgren, A.</span>, <span class="refAuthor">Jordan, B.</span>, and <span class="refAuthor">S. Erdtman</span>, <span class="refTitle">"JSON Canonicalization Scheme (JCS)"</span>, <span class="seriesInfo">RFC 8785</span>, <span class="seriesInfo">DOI 10.17487/RFC8785</span>, <time datetime="2020-06" class="refDate">June 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8785">https://www.rfc-editor.org/info/rfc8785</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4648">[RFC4648]</dt>
+        <dd>
+<span class="refAuthor">Josefsson, S.</span>, <span class="refTitle">"The Base16, Base32, and Base64 Data Encodings"</span>, <span class="seriesInfo">RFC 4648</span>, <span class="seriesInfo">DOI 10.17487/RFC4648</span>, <time datetime="2006-10" class="refDate">October 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4648">https://www.rfc-editor.org/info/rfc4648</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="FIPS180-4">[FIPS180-4]</dt>
+        <dd>
+<span class="refAuthor">National Institute of Standards and Technology (NIST)</span>, <span class="refTitle">"Secure Hash Standard (SHS)"</span>, <time datetime="2015-08" class="refDate">August 2015</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.180-4">https://doi.org/10.6028/NIST.FIPS.180-4</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="FIPS202">[FIPS202]</dt>
+        <dd>
+<span class="refAuthor">National Institute of Standards and Technology (NIST)</span>, <span class="refTitle">"SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions"</span>, <time datetime="2015-08" class="refDate">August 2015</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.202">https://doi.org/10.6028/NIST.FIPS.202</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="FIPS197">[FIPS197]</dt>
+        <dd>
+<span class="refAuthor">National Institute of Standards and Technology (NIST)</span>, <span class="refTitle">"Advanced Encryption Standard (AES)"</span>, <time datetime="2001-11" class="refDate">November 2001</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.197-upd1">https://doi.org/10.6028/NIST.FIPS.197-upd1</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8439">[RFC8439]</dt>
+        <dd>
+<span class="refAuthor">Nir, Y.</span> and <span class="refAuthor">A. Langley</span>, <span class="refTitle">"ChaCha20 and Poly1305 for IETF Protocols"</span>, <span class="seriesInfo">RFC 8439</span>, <span class="seriesInfo">DOI 10.17487/RFC8439</span>, <time datetime="2018-06" class="refDate">June 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8439">https://www.rfc-editor.org/info/rfc8439</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8032">[RFC8032]</dt>
+        <dd>
+<span class="refAuthor">Josefsson, S.</span> and <span class="refAuthor">I. Liusvaara</span>, <span class="refTitle">"Edwards-Curve Digital Signature Algorithm (EdDSA)"</span>, <span class="seriesInfo">RFC 8032</span>, <span class="seriesInfo">DOI 10.17487/RFC8032</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8032">https://www.rfc-editor.org/info/rfc8032</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7693">[RFC7693]</dt>
+        <dd>
+<span class="refAuthor">Saarinen, M., Ed.</span> and <span class="refAuthor">J. Aumasson</span>, <span class="refTitle">"The BLAKE2 Cryptographic Hash and Message Authentication Code (MAC)"</span>, <span class="seriesInfo">RFC 7693</span>, <span class="seriesInfo">DOI 10.17487/RFC7693</span>, <time datetime="2015-11" class="refDate">November 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7693">https://www.rfc-editor.org/info/rfc7693</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="FIPS186-5">[FIPS186-5]</dt>
+        <dd>
+<span class="refAuthor">National Institute of Standards and Technology (NIST)</span>, <span class="refTitle">"Digital Signature Standard (DSS)"</span>, <time datetime="2023-02" class="refDate">February 2023</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.186-5">https://doi.org/10.6028/NIST.FIPS.186-5</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8017">[RFC8017]</dt>
+        <dd>
+<span class="refAuthor">Moriarty, K., Ed.</span>, <span class="refAuthor">Kaliski, B.</span>, <span class="refAuthor">Jonsson, J.</span>, and <span class="refAuthor">A. Rusch</span>, <span class="refTitle">"PKCS #1: RSA Cryptography Specifications Version 2.2"</span>, <span class="seriesInfo">RFC 8017</span>, <span class="seriesInfo">DOI 10.17487/RFC8017</span>, <time datetime="2016-11" class="refDate">November 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8017">https://www.rfc-editor.org/info/rfc8017</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC1321">[RFC1321]</dt>
+        <dd>
+<span class="refAuthor">Rivest, R.</span>, <span class="refTitle">"The MD5 Message-Digest Algorithm"</span>, <span class="seriesInfo">RFC 1321</span>, <span class="seriesInfo">DOI 10.17487/RFC1321</span>, <time datetime="1992-04" class="refDate">April 1992</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc1321">https://www.rfc-editor.org/info/rfc1321</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="ISO13239">[ISO13239]</dt>
+        <dd>
+<span class="refAuthor">International Organization for Standardization</span>, <span class="refTitle">"Information technology -- Telecommunications and information exchange between systems -- High-level data link control (HDLC) procedures"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iso.org/standard/37010.html">https://www.iso.org/standard/37010.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="ISO3166">[ISO3166]</dt>
+      <dd>
+<span class="refAuthor">International Organization for Standardization</span>, <span class="refTitle">"Codes for the representation of names of countries and their subdivisions -- Part 1: Country codes"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iso.org/standard/72482.html">https://www.iso.org/standard/72482.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-11.2">
+        <h3 id="name-informative-references">
+<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC1034">[RFC1034]</dt>
+        <dd>
+<span class="refAuthor">Mockapetris, P.</span>, <span class="refTitle">"Domain names - concepts and facilities"</span>, <span class="seriesInfo">STD 13</span>, <span class="seriesInfo">RFC 1034</span>, <span class="seriesInfo">DOI 10.17487/RFC1034</span>, <time datetime="1987-11" class="refDate">November 1987</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc1034">https://www.rfc-editor.org/info/rfc1034</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5891">[RFC5891]</dt>
+        <dd>
+<span class="refAuthor">Klensin, J.</span>, <span class="refTitle">"Internationalized Domain Names in Applications (IDNA): Protocol"</span>, <span class="seriesInfo">RFC 5891</span>, <span class="seriesInfo">DOI 10.17487/RFC5891</span>, <time datetime="2010-08" class="refDate">August 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5891">https://www.rfc-editor.org/info/rfc5891</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9110">[RFC9110]</dt>
+        <dd>
+<span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Semantics"</span>, <span class="seriesInfo">STD 97</span>, <span class="seriesInfo">RFC 9110</span>, <span class="seriesInfo">DOI 10.17487/RFC9110</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9110">https://www.rfc-editor.org/info/rfc9110</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8615">[RFC8615]</dt>
+        <dd>
+<span class="refAuthor">Nottingham, M.</span>, <span class="refTitle">"Well-Known Uniform Resource Identifiers (URIs)"</span>, <span class="seriesInfo">RFC 8615</span>, <span class="seriesInfo">DOI 10.17487/RFC8615</span>, <time datetime="2019-05" class="refDate">May 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8615">https://www.rfc-editor.org/info/rfc8615</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2045">[RFC2045]</dt>
+        <dd>
+<span class="refAuthor">Freed, N.</span> and <span class="refAuthor">N. Borenstein</span>, <span class="refTitle">"Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies"</span>, <span class="seriesInfo">RFC 2045</span>, <span class="seriesInfo">DOI 10.17487/RFC2045</span>, <time datetime="1996-11" class="refDate">November 1996</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2045">https://www.rfc-editor.org/info/rfc2045</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5646">[RFC5646]</dt>
+        <dd>
+<span class="refAuthor">Phillips, A., Ed.</span> and <span class="refAuthor">M. Davis, Ed.</span>, <span class="refTitle">"Tags for Identifying Languages"</span>, <span class="seriesInfo">BCP 47</span>, <span class="seriesInfo">RFC 5646</span>, <span class="seriesInfo">DOI 10.17487/RFC5646</span>, <time datetime="2009-09" class="refDate">September 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5646">https://www.rfc-editor.org/info/rfc5646</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9112">[RFC9112]</dt>
+        <dd>
+<span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP/1.1"</span>, <span class="seriesInfo">STD 99</span>, <span class="seriesInfo">RFC 9112</span>, <span class="seriesInfo">DOI 10.17487/RFC9112</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9112">https://www.rfc-editor.org/info/rfc9112</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9293">[RFC9293]</dt>
+      <dd>
+<span class="refAuthor">Eddy, W., Ed.</span>, <span class="refTitle">"Transmission Control Protocol (TCP)"</span>, <span class="seriesInfo">STD 7</span>, <span class="seriesInfo">RFC 9293</span>, <span class="seriesInfo">DOI 10.17487/RFC9293</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9293">https://www.rfc-editor.org/info/rfc9293</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-A">
+      <h2 id="name-authors-address">
+<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Várnagy Zoltán</span></div>
+<div dir="auto" class="left"><span class="org">Independent</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:doi6doi@gmail.com" class="email">doi6doi@gmail.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>
