@@ -10,4 +10,4 @@ The protocol is designed to be simple, extensible, platform-independent,
 and human readable. It is transport-agnostic and supports arbitrary
 cryptographic algorithms.
 
-See iid.en.md for details.
+See [this link](https://htmlpreview.github.io/?https://github.com/Doi6doi/iid/blob/main/iid.en.html) for details.
