@@ -44,13 +44,6 @@ normative:
     author:
       org: National Institute of Standards and Technology (NIST)
     date: 2015-08
-  FIPS197:
-    target: https://doi.org/10.6028/NIST.FIPS.197-upd1
-    title: "Advanced Encryption Standard (AES)"
-    author:
-      org: National Institute of Standards and Technology (NIST)
-    date: 2001-11
-  RFC8439:
   RFC8032:
   RFC7693:
   FIPS186-5:
@@ -71,6 +64,18 @@ normative:
     title: "Codes for the representation of names of countries and their subdivisions -- Part 1: Country codes"
     author:
       org: International Organization for Standardization
+  SP800-38D:
+    target: https://csrc.nist.gov/pubs/sp/800/38/d/final
+    title: "Recommendation for Block Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC"
+    author:
+      org: National Institute of Standards and Technology (NIST)
+    date: 2007-11
+  FIPS197:
+    target: https://doi.org/10.6028/NIST.FIPS.197-upd1
+    title: Advanced Encryption Standard (AES)
+    author:
+      org: National Institute of Standards and Technology (NIST)
+    date: 2023-05
 
 informative:
   RFC1034:
@@ -202,15 +207,16 @@ String beginning with # are interpreted specially. An implementation MUST recogn
 values, for example by performing an additional processing pass after parsing the JSON data,
 or before serializing data to JSON. 
 
- + `##...` : A JSON string that begins with `#`, with the first `#` removed (e.g., `##foo` -> `#foo`)
- + `#6...` : Base64-encoded binary data {{RFC4648}} without line breaks or padding (e.g., `#6WA`)
- + `#x...` : Hex-encoded binary data using lowercase hexadecimal digits (e.g., `#x585a`) 
- + `#e...` : Error token (e.g., `#eiid.missing`)
- + `#m...` : Action (method) token (e.g., `#miid.weblogin`)
- + `#a...` : Algorithm token. (e.g., `#aiid.md5`)
- + `#r...` : Requirement token (e.g., `#riid.at`)
- + `#d...` : Data token (e.g., `#diid.zip`)
- + `#v...` : Value token (e.g., `#viid.firm`)
+ - `##...` : A JSON string that begins with `#`, with the first `#` removed (e.g., `##foo` -> `#foo`)
+ - `#6...` : Base64-encoded binary data {{RFC4648}} without line breaks or padding (e.g., `#6WA`)
+ - `#x...` : Hex-encoded binary data using lowercase hexadecimal digits (e.g., `#x585a`) 
+ - `#e...` : Error token (e.g., `#eiid.missing`)
+ - `#m...` : Action (method) token (e.g., `#miid.weblogin`)
+ - `#a...` : Algorithm token. (e.g., `#aiid.md5`)
+ - `#k...` : Key format token (e.g.m `#kiid.rsa.2048`)
+ - `#r...` : Requirement token (e.g., `#riid.at`)
+ - `#d...` : Data token (e.g., `#diid.zip`)
+ - `#v...` : Value token (e.g., `#viid.firm`)
 
 ## JSON objects
 
@@ -376,6 +382,7 @@ only if all signatures are valid.
 %iid.sign% : %obj% {
    owner: %iid.subject% - Signer
    key: %iid.key% - Key used for signing
+   algo: %iid.algo% - Algorithm used for signing
    ref: %iid.dataref% - Reference to signed data 
       (e.g., identifier, a hash, URL, etc...)
    sign: %bin% - Digital signature value
@@ -397,6 +404,7 @@ encryption algorithm.
    !data: %bin% - Encrypted binary data
    owner: %iid.subject% - Owner of the decryption key
    key: %iid.key% - Decryption key
+   algo: %iid.algo% - Encríption algorithm
 }
 ~~~
 
@@ -423,7 +431,7 @@ An identity server MUST NOT generate signatures or encrypt data using a revoked 
 %iid.key% : %obj% {
    !name: %str% - Name of the key 
       (issued by the identity server or the identity)
-   algo: %iid.algo% - Signature or Encryption algorithm
+   format: %#k% - Key format (e.g., #kiid.rsa.2048)
    pub: %bin% - Public part of the key
    from: %stamp% - Start of valid period
    until: %stamp% - End of valid period
@@ -562,13 +570,14 @@ or by the identity servers themselves.
 
  - `#eiid.json`: JSON syntax error in incoming message
  - `#eiid.time`: Message timestamp drifts significantly (too far in past or future)
- - `#eiid.refuse`: The requested action was refused by the identity server
  - `#eiid.repeat`: Repeat the request while fulfilling the specified requirements
  - `#eiid.sign`: The digital signature is invalid (revoked, expired, incorrect, etc...)
  - `#eiid.noverify`: Cannot verify the validity of the request 
+ - `#eiid.incorrect`: Action is refused becasue of incorrect data (e.g., password)
+ - `{ error:#eiid.refuse, reason:%any% }`: The requested action was refused with a reason
  - `{ error:#eiid.size, limit:%nat% }`: Message size exceeds the permitted limit
  - `{ error:#eiid.missing, field:%str% }`: A required field is missing
- - `{ error:#eiid.unknown, field:%str% }`: An unknown or unsupported field value was encountered
+ - `{ error:#eiid.unknown, field:%str%, value:%any% }`: An unknown or unsupported field value was encountered
  - `{ error:#eiid.later, after:%stamp% }`: Temporary rejection. The request may be repeated later
  - `{ error:#eiid.redirect, url:%str% }`: Redirect the user's browser to the specified URL
 
@@ -583,33 +592,66 @@ or by the identity servers themselves.
  - `#miid.revoke`: Revoke a previously granted consent or permission to store data
  - `#miid.key`: Retrieve the public cryptographic keys of the identity
 
+### Key format tokens
+
+A single-word identifier usually denotes a key format family. 
+More specific formats are identified by 
+dot-separated suffixes (e.g., #kiid.rsa.2048). 
+
+ - `#kiid.rsa`: {{RFC8017}}
+ - `#kiid.ecdsa`: {{FIPS186-5}}
+ - `#kiid.ed25519`: {{RFC8032}}
+
+ - `#kiid.rsa.2048`: 2048 bit RSA key
+ - `#kiid.rsa.3072`: 3072 bit RSA key
+ - `#kiid.rsa.4096`: 4096 bit RSA key
+
+ - `#kiid.ecdsa.p256`: ecdsa p-256 curve key
+
 ### Algorithm tokens
 
-Hash algorithms and checksums
+Hash algorithms and checksums. 
+
+A single-word identifier usually denotes an algorithm family. 
+More specific algorithms are identified by 
+dot-separated suffixes (e.g., #aiid.sha.256). 
+If an algorithm is composed of multiple components, 
+the components are separated by dashes 
+(e.g., #aiid.ecdsa.p256-sha.512).
 
  - `#aiid.size`: Data size in bytes
- - `#aiid.crc32`: {{ISO13239}}
+ - `#aiid.crc`: {{ISO13239}}
  - `#aiid.md5`: {{RFC1321}}
- - `#aiid.sha1`: {{FIPS180-4}}
- - `#aiid.sha256`: {{FIPS180-4}}
- - `#aiid.sha384`: {{FIPS180-4}}
- - `#aiid.sha512`: {{FIPS180-4}}
- - `#aiid.sha3-256`: {{FIPS202}}
- - `#aiid.sha3-512`: {{FIPS202}}
+ - `#aiid.sha`: {{FIPS180-4}}
+ - `#aiid.sha3`: {{FIPS202}}
  - `#aiid.blake2`: {{RFC7693}}
+
+ - `#aiid.crc.32`: CRC-32
+ - `#aiid.sha.256`: SHA-256
+ - `#aiid.sha.384`: SHA-384
+ - `#aiid.sha.512`: SHA-512
+ - `#aiid.sha3.256`: SHA3-256
+ - `#aiid.sha3.512`: SHA3-512
 
 Encryption
 
+ - `#aiid.rsa`: 
+ - `#aiid.oaep`: {{RFC8017}}
  - `#aiid.aes`: {{FIPS197}}
- - `#aiid.chacha20`: {{RFC8439}}
+ - `#aiid.gcm`: {{SP800-38D}}
+
+
+ - `#aiid.oaep-gcm.256` : RSA-OAEP:SHA-256:MGF1(SHA-256) 
+   with AES GCM 256 bit
 
 Digital signature
 
- - `#aiid.ed25519`: {{RFC8032}}
  - `#aiid.ecdsa`: {{FIPS186-5}}
- - `#aiid.rsa-pkcs1v15`: {{RFC8017}}
- - `#aiid.rsa-oaep`: {{RFC8017}}
- - `#aiid.rsa-pss`: {{RFC8017}}
+ - `#aiid.ed25519`: {{RFC8032}}
+ - `#aiid.rsa.pkcs1`: {{RFC8017}}
+ - `#aiid.rsa.pss`: {{RFC8017}}
+
+ - `#aiid.ecdsa.256`: ecdsa p-256 with SHA-256
 
 ### Data tokens
 
@@ -683,7 +725,10 @@ The following sections define some possible data value tokens
  - `#riid.sign`: The follow-up message MUST be digitally signed
  - `#riid.encrypted`: The follow-up message MUST be encrypted
  - `#riid.echo`: The entire request MUST be repeated in response's ref field
- - `{ requirement: #riid.key, key: %iid.key% }`: The follow-up message MUST use the specified key.
+ - `{ requirement: #riid.key, key: {%iid.key%} }`: The follow-up message MUST use 
+   one of the specified keys.
+ - `{ requirement: #riid.algo, key: {%iid.algo%} }`: The follow-up message MUST use 
+   one the specified algorithm.
  - `{ requirement: #riid.url, url: %str% }`: Following requests MUST use the specified URL
 
 ## Examples
@@ -708,7 +753,7 @@ foo.org >>> doe.org {
    "to": "john@doe.org",
    "action": "#miid.login",
    "params": {
-      "returnurl":"https://foo.org/onlogin"
+      "returnurl":"https://foo.org/login"
    }
 }
 ~~~
@@ -735,7 +780,7 @@ to authenticate. After that, the settings of his doe.org account determine
 whether any additional confirmation is required.
 
 If not, the process continues immediately. The doe.org server redirects 
-the browser back to `https://foo.org/onlogin` which causes the following request to be sent:
+the browser back to `https://foo.org/login` which causes the following request to be sent:
 
 ~~~
 foo.org >>> doe.org { 

@@ -4,8 +4,8 @@
 
 Independent Submission                                        Z. Varnagy
 Internet-Draft                                               Independent
-Intended status: Informational                              11 July 2026
-Expires: 12 January 2027
+Intended status: Informational                              18 July 2026
+Expires: 19 January 2027
 
 
                     Internet Identity Protocol (IID)
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 January 2027.
+   This Internet-Draft will expire on 19 January 2027.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Varnagy                  Expires 12 January 2027                [Page 1]
+Varnagy                  Expires 19 January 2027                [Page 1]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -63,7 +63,7 @@ Table of Contents
    1.  Requirements Language . . . . . . . . . . . . . . . . . . . .   3
    2.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   3
    3.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-   4.  Objectives  . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   4.  Objectives  . . . . . . . . . . . . . . . . . . . . . . . . .   4
    5.  Basic idea  . . . . . . . . . . . . . . . . . . . . . . . . .   4
    6.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   4
    7.  Protocol  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
@@ -75,10 +75,10 @@ Table of Contents
        7.4.2.  Union . . . . . . . . . . . . . . . . . . . . . . . .   7
        7.4.3.  Array . . . . . . . . . . . . . . . . . . . . . . . .   7
        7.4.4.  Array or item . . . . . . . . . . . . . . . . . . . .   7
-       7.4.5.  Inheritance . . . . . . . . . . . . . . . . . . . . .   7
+       7.4.5.  Inheritance . . . . . . . . . . . . . . . . . . . . .   8
      7.5.  IID types . . . . . . . . . . . . . . . . . . . . . . . .   8
        7.5.1.  Identity (%iid%)  . . . . . . . . . . . . . . . . . .   8
-       7.5.2.  Message (%iid.message%) . . . . . . . . . . . . . . .   8
+       7.5.2.  Message (%iid.message%) . . . . . . . . . . . . . . .   9
        7.5.3.  Subject (%iid.subject%) . . . . . . . . . . . . . . .   9
        7.5.4.  Error (%iid.error%) . . . . . . . . . . . . . . . . .   9
        7.5.5.  Signature (%iid.sign%)  . . . . . . . . . . . . . . .   9
@@ -86,53 +86,54 @@ Table of Contents
        7.5.7.  Key (%iid.key%) . . . . . . . . . . . . . . . . . . .  10
        7.5.8.  Reference (%iid.ref%) . . . . . . . . . . . . . . . .  11
        7.5.9.  Data reference (%iid.dataref%)  . . . . . . . . . . .  11
-       7.5.10. Algorithm (%iid.algo%)  . . . . . . . . . . . . . . .  11
+       7.5.10. Algorithm (%iid.algo%)  . . . . . . . . . . . . . . .  12
        7.5.11. Request (%iid.request%) . . . . . . . . . . . . . . .  12
        7.5.12. Response (%iid.response%) . . . . . . . . . . . . . .  12
        7.5.13. Hash value (%iid.hash%) . . . . . . . . . . . . . . .  12
        7.5.14. Requirement (%iid.requirement%) . . . . . . . . . . .  12
-       7.5.15. Identity kind (%iid.idkind%)  . . . . . . . . . . . .  12
+       7.5.15. Identity kind (%iid.idkind%)  . . . . . . . . . . . .  13
        7.5.16. Image (%iid.image%) . . . . . . . . . . . . . . . . .  13
      7.6.  Tokens  . . . . . . . . . . . . . . . . . . . . . . . . .  13
        7.6.1.  Error tokens  . . . . . . . . . . . . . . . . . . . .  13
        7.6.2.  Action (method) tokens  . . . . . . . . . . . . . . .  14
-       7.6.3.  Algorithm tokens  . . . . . . . . . . . . . . . . . .  14
-       7.6.4.  Data tokens . . . . . . . . . . . . . . . . . . . . .  15
-       7.6.5.  Value tokens  . . . . . . . . . . . . . . . . . . . .  17
-       7.6.6.  Requirement tokens  . . . . . . . . . . . . . . . . .  17
-     7.7.  Examples  . . . . . . . . . . . . . . . . . . . . . . . .  18
-       7.7.1.  Web login . . . . . . . . . . . . . . . . . . . . . .  18
-       7.7.2.  Fetch personal data . . . . . . . . . . . . . . . . .  20
-       7.7.3.  Consent . . . . . . . . . . . . . . . . . . . . . . .  21
-       7.7.4.  Revoking consent  . . . . . . . . . . . . . . . . . .  22
-       7.7.5.  Key fetch and attest  . . . . . . . . . . . . . . . .  22
+       7.6.3.  Key format tokens . . . . . . . . . . . . . . . . . .  15
+       7.6.4.  Algorithm tokens  . . . . . . . . . . . . . . . . . .  15
+       7.6.5.  Data tokens . . . . . . . . . . . . . . . . . . . . .  16
+       7.6.6.  Value tokens  . . . . . . . . . . . . . . . . . . . .  18
+       7.6.7.  Requirement tokens  . . . . . . . . . . . . . . . . .  18
+     7.7.  Examples  . . . . . . . . . . . . . . . . . . . . . . . .  19
+       7.7.1.  Web login . . . . . . . . . . . . . . . . . . . . . .  19
+       7.7.2.  Fetch personal data . . . . . . . . . . . . . . . . .  21
+       7.7.3.  Consent . . . . . . . . . . . . . . . . . . . . . . .  22
+       7.7.4.  Revoking consent  . . . . . . . . . . . . . . . . . .  23
 
 
 
-Varnagy                  Expires 12 January 2027                [Page 2]
+Varnagy                  Expires 19 January 2027                [Page 2]
 
 Internet-Draft                IID Protocol                     July 2026
 
 
-       7.7.6.  Instant message . . . . . . . . . . . . . . . . . . .  24
-   8.  Implementation  . . . . . . . . . . . . . . . . . . . . . . .  25
-     8.1.  DNS resolution  . . . . . . . . . . . . . . . . . . . . .  25
-     8.2.  .well-known . . . . . . . . . . . . . . . . . . . . . . .  25
-   9.  Security considerations . . . . . . . . . . . . . . . . . . .  26
-     9.1.  Altered sender identity . . . . . . . . . . . . . . . . .  26
-     9.2.  Altered recipient identity  . . . . . . . . . . . . . . .  26
-     9.3.  Request replay  . . . . . . . . . . . . . . . . . . . . .  27
-     9.4.  Response replay . . . . . . . . . . . . . . . . . . . . .  27
-     9.5.  Response injection  . . . . . . . . . . . . . . . . . . .  27
-     9.6.  Key compromise  . . . . . . . . . . . . . . . . . . . . .  28
-     9.7.  Man in the middle attack  . . . . . . . . . . . . . . . .  28
-     9.8.  Confidentiality . . . . . . . . . . . . . . . . . . . . .  28
-     9.9.  Flooding attacks  . . . . . . . . . . . . . . . . . . . .  29
-   10. Trust chain discovery . . . . . . . . . . . . . . . . . . . .  29
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  30
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  30
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  32
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  33
+       7.7.5.  Key fetch and attest  . . . . . . . . . . . . . . . .  23
+       7.7.6.  Instant message . . . . . . . . . . . . . . . . . . .  25
+   8.  Implementation  . . . . . . . . . . . . . . . . . . . . . . .  26
+     8.1.  DNS resolution  . . . . . . . . . . . . . . . . . . . . .  26
+     8.2.  .well-known . . . . . . . . . . . . . . . . . . . . . . .  26
+   9.  Security considerations . . . . . . . . . . . . . . . . . . .  27
+     9.1.  Altered sender identity . . . . . . . . . . . . . . . . .  27
+     9.2.  Altered recipient identity  . . . . . . . . . . . . . . .  27
+     9.3.  Request replay  . . . . . . . . . . . . . . . . . . . . .  28
+     9.4.  Response replay . . . . . . . . . . . . . . . . . . . . .  28
+     9.5.  Response injection  . . . . . . . . . . . . . . . . . . .  28
+     9.6.  Key compromise  . . . . . . . . . . . . . . . . . . . . .  29
+     9.7.  Man in the middle attack  . . . . . . . . . . . . . . . .  29
+     9.8.  Confidentiality . . . . . . . . . . . . . . . . . . . . .  29
+     9.9.  Flooding attacks  . . . . . . . . . . . . . . . . . . . .  30
+   10. Trust chain discovery . . . . . . . . . . . . . . . . . . . .  30
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  31
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  31
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  33
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  34
 
 1.  Requirements Language
 
@@ -158,17 +159,21 @@ Internet-Draft                IID Protocol                     July 2026
    separate systems offer only partial compatibility and limited
    interoperability with one another.
 
+
+
+
+
+
+
+Varnagy                  Expires 19 January 2027                [Page 3]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
 4.  Objectives
 
    The primary objective of the protocol is to provide a uniform
    framework for the identity-related operations, including:
-
-
-
-Varnagy                  Expires 12 January 2027                [Page 3]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    *  Authentication (sign-in, SSO)
 
@@ -213,18 +218,19 @@ Internet-Draft                IID Protocol                     July 2026
       operations associated with an internet identity.
 
    internet identifier (IID)  A globally unique identifier consisting of
+
+
+
+Varnagy                  Expires 19 January 2027                [Page 4]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
       a local name and a domain name separated by @. Similar to an
       e-mail address. (for example foo@bar.org)
 
    IID message  A request or response exchanged between internet
       identities.
-
-
-
-Varnagy                  Expires 12 January 2027                [Page 4]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    sender  Depending on the context, either the IID in the from field of
       a message, or the identity server acting on behalf of that
@@ -269,22 +275,23 @@ Internet-Draft                IID Protocol                     July 2026
    *  #6... : Base64-encoded binary data [RFC4648] without line breaks
       or padding (e.g., #6WA)
 
+
+
+Varnagy                  Expires 19 January 2027                [Page 5]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    *  #x... : Hex-encoded binary data using lowercase hexadecimal digits
       (e.g., #x585a)
 
    *  #e... : Error token (e.g., #eiid.missing)
 
-
-
-
-Varnagy                  Expires 12 January 2027                [Page 5]
-
-Internet-Draft                IID Protocol                     July 2026
-
-
    *  #m... : Action (method) token (e.g., #miid.weblogin)
 
    *  #a... : Algorithm token. (e.g., #aiid.md5)
+
+   *  #k... : Key format token (e.g.m #kiid.rsa.2048)
 
    *  #r... : Requirement token (e.g., #riid.at)
 
@@ -323,6 +330,14 @@ Internet-Draft                IID Protocol                     July 2026
 
    *  %nat%: Natural number (integer greater than or equal to 0)
 
+
+
+
+Varnagy                  Expires 19 January 2027                [Page 6]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    *  %int%: Integer
 
    *  %num%: Integer or floating point value
@@ -330,13 +345,6 @@ Internet-Draft                IID Protocol                     July 2026
    *  %ascii%: ASCII text ([0x20-0x7e]+)
 
    *  %str%: Unicode text (with NFC)
-
-
-
-Varnagy                  Expires 12 January 2027                [Page 6]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    *  %stamp%: UTC Unix timestamp in seconds (integer)
 
@@ -378,21 +386,17 @@ Internet-Draft                IID Protocol                     July 2026
 
       {%t%}
 
-   A value of type %t%, or an array whose elements are of type %t%.
-
-7.4.5.  Inheritance
 
 
 
-
-
-
-
-
-Varnagy                  Expires 12 January 2027                [Page 7]
+Varnagy                  Expires 19 January 2027                [Page 7]
 
 Internet-Draft                IID Protocol                     July 2026
 
+
+   A value of type %t%, or an array whose elements are of type %t%.
+
+7.4.5.  Inheritance
 
        %a% {
           !f1: %t1% - comment1
@@ -437,18 +441,19 @@ Internet-Draft                IID Protocol                     July 2026
    IID-s are case-sensitive.  Two IIDs are equal if and only if all
    their Unicode code points are identical.
 
+
+
+
+
+Varnagy                  Expires 19 January 2027                [Page 8]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
 7.5.2.  Message (%iid.message%)
 
    A general message, which can be exchanged between internet
    identities.
-
-
-
-
-Varnagy                  Expires 12 January 2027                [Page 8]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    %iid.message% : %obj% {
       at: %stamp% - Time the message was sent
@@ -494,17 +499,16 @@ Internet-Draft                IID Protocol                     July 2026
    [RFC8785].  All binary data MUST use the Base64 (#6...) notation
    without line breaks and without padding.
 
-   An object MAY be signed by multiple keys owned by different internet
-   identities.  In that case, the sign field contains an array of
-   %iid.sign% objects.
 
 
-
-
-Varnagy                  Expires 12 January 2027                [Page 9]
+Varnagy                  Expires 19 January 2027                [Page 9]
 
 Internet-Draft                IID Protocol                     July 2026
 
+
+   An object MAY be signed by multiple keys owned by different internet
+   identities.  In that case, the sign field contains an array of
+   %iid.sign% objects.
 
    If multiple signatures are present, the signature set is considered
    valid only if all signatures are valid.
@@ -512,6 +516,7 @@ Internet-Draft                IID Protocol                     July 2026
    %iid.sign% : %obj% {
       owner: %iid.subject% - Signer
       key: %iid.key% - Key used for signing
+      algo: %iid.algo% - Algorithm used for signing
       ref: %iid.dataref% - Reference to signed data
          (e.g., identifier, a hash, URL, etc...)
       sign: %bin% - Digital signature value
@@ -531,6 +536,7 @@ Internet-Draft                IID Protocol                     July 2026
       !data: %bin% - Encrypted binary data
       owner: %iid.subject% - Owner of the decryption key
       key: %iid.key% - Decryption key
+      algo: %iid.algo% - Encríption algorithm
    }
 
 7.5.7.  Key (%iid.key%)
@@ -548,24 +554,24 @@ Internet-Draft                IID Protocol                     July 2026
    In the event of key compromise, the revoked timestamp SHOULD indicate
    the latest estimated time before the key was compromised.
 
+
+
+
+Varnagy                  Expires 19 January 2027               [Page 10]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    Any signature or data encryption after the revoked timestamp MUST be
    considered invalid.
 
    An identity server MUST NOT generate signatures or encrypt data using
    a revoked key.
 
-
-
-
-Varnagy                  Expires 12 January 2027               [Page 10]
-
-Internet-Draft                IID Protocol                     July 2026
-
-
    %iid.key% : %obj% {
       !name: %str% - Name of the key
          (issued by the identity server or the identity)
-      algo: %iid.algo% - Signature or Encryption algorithm
+      format: %#k% - Key format (e.g., #kiid.rsa.2048)
       pub: %bin% - Public part of the key
       from: %stamp% - Start of valid period
       until: %stamp% - End of valid period
@@ -601,6 +607,17 @@ Internet-Draft                IID Protocol                     July 2026
 
    [RFC2045]
 
+
+
+
+
+
+
+Varnagy                  Expires 19 January 2027               [Page 11]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
 7.5.10.  Algorithm (%iid.algo%)
 
    References a cryptographic algorithm.  In simple cases, only a token
@@ -610,13 +627,6 @@ Internet-Draft                IID Protocol                     July 2026
    %iid.algo% : %obj% {
       !algo: %#a%
    }
-
-
-
-Varnagy                  Expires 12 January 2027               [Page 11]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
 7.5.11.  Request (%iid.request%)
 
@@ -657,6 +667,13 @@ Internet-Draft                IID Protocol                     July 2026
    but the object form MAY be used when additional parameters are
    required.
 
+
+
+Varnagy                  Expires 19 January 2027               [Page 12]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    %iid.requirement% : %obj% {
       !requirement: %#r% - Requirement token
    }
@@ -665,14 +682,6 @@ Internet-Draft                IID Protocol                     July 2026
 
    Represents the kind of the internet identity, such as a person or a
    web crawler.  The possible values are defined in a later section.
-
-
-
-
-Varnagy                  Expires 12 January 2027               [Page 12]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    %iid.idkind% : %#d%
 
@@ -707,31 +716,35 @@ Internet-Draft                IID Protocol                     July 2026
    *  #eiid.time: Message timestamp drifts significantly (too far in
       past or future)
 
-   *  #eiid.refuse: The requested action was refused by the identity
-      server
-
    *  #eiid.repeat: Repeat the request while fulfilling the specified
       requirements
 
    *  #eiid.sign: The digital signature is invalid (revoked, expired,
       incorrect, etc...)
 
+
+
+
+Varnagy                  Expires 19 January 2027               [Page 13]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    *  #eiid.noverify: Cannot verify the validity of the request
+
+   *  #eiid.incorrect: Action is refused becasue of incorrect data
+      (e.g., password)
+
+   *  { error:#eiid.refuse, reason:%any% }: The requested action was
+      refused with a reason
 
    *  { error:#eiid.size, limit:%nat% }: Message size exceeds the
       permitted limit
 
    *  { error:#eiid.missing, field:%str% }: A required field is missing
 
-
-
-Varnagy                  Expires 12 January 2027               [Page 13]
-
-Internet-Draft                IID Protocol                     July 2026
-
-
-   *  { error:#eiid.unknown, field:%str% }: An unknown or unsupported
-      field value was encountered
+   *  { error:#eiid.unknown, field:%str%, value:%any% }: An unknown or
+      unsupported field value was encountered
 
    *  { error:#eiid.later, after:%stamp% }: Temporary rejection.  The
       request may be repeated later
@@ -763,56 +776,104 @@ Internet-Draft                IID Protocol                     July 2026
 
    *  #miid.key: Retrieve the public cryptographic keys of the identity
 
-7.6.3.  Algorithm tokens
-
-   Hash algorithms and checksums
-
-   *  #aiid.size: Data size in bytes
-
-   *  #aiid.crc32: [ISO13239]
-
-   *  #aiid.md5: [RFC1321]
-
-   *  #aiid.sha1: [FIPS180-4]
-
-   *  #aiid.sha256: [FIPS180-4]
-
-   *  #aiid.sha384: [FIPS180-4]
 
 
 
-Varnagy                  Expires 12 January 2027               [Page 14]
+
+
+Varnagy                  Expires 19 January 2027               [Page 14]
 
 Internet-Draft                IID Protocol                     July 2026
 
 
-   *  #aiid.sha512: [FIPS180-4]
+7.6.3.  Key format tokens
 
-   *  #aiid.sha3-256: [FIPS202]
+   A single-word identifier usually denotes a key format family.  More
+   specific formats are identified by dot-separated suffixes (e.g.,
+   #kiid.rsa.2048).
 
-   *  #aiid.sha3-512: [FIPS202]
+   *  #kiid.rsa: [RFC8017]
+
+   *  #kiid.ecdsa: [FIPS186-5]
+
+   *  #kiid.ed25519: [RFC8032]
+
+   *  #kiid.rsa.2048: 2048 bit RSA key
+
+   *  #kiid.rsa.3072: 3072 bit RSA key
+
+   *  #kiid.rsa.4096: 4096 bit RSA key
+
+   *  #kiid.ecdsa.p256: ecdsa p-256 curve key
+
+7.6.4.  Algorithm tokens
+
+   Hash algorithms and checksums.
+
+   A single-word identifier usually denotes an algorithm family.  More
+   specific algorithms are identified by dot-separated suffixes (e.g.,
+   #aiid.sha.256).  If an algorithm is composed of multiple components,
+   the components are separated by dashes (e.g.,
+   #aiid.ecdsa.p256-sha.512).
+
+   *  #aiid.size: Data size in bytes
+
+   *  #aiid.crc: [ISO13239]
+
+   *  #aiid.md5: [RFC1321]
+
+   *  #aiid.sha: [FIPS180-4]
+
+   *  #aiid.sha3: [FIPS202]
 
    *  #aiid.blake2: [RFC7693]
 
+   *  #aiid.crc.32: CRC-32
+
+   *  #aiid.sha.256: SHA-256
+
+   *  #aiid.sha.384: SHA-384
+
+
+
+
+Varnagy                  Expires 19 January 2027               [Page 15]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
+   *  #aiid.sha.512: SHA-512
+
+   *  #aiid.sha3.256: SHA3-256
+
+   *  #aiid.sha3.512: SHA3-512
+
    Encryption
+
+   *  #aiid.rsa:
+
+   *  #aiid.oaep: [RFC8017]
 
    *  #aiid.aes: [FIPS197]
 
-   *  #aiid.chacha20: [RFC8439]
+   *  #aiid.gcm: [SP800-38D]
+
+   *  #aiid.oaep-gcm.256 : RSA-OAEP:SHA-256:MGF1(SHA-256) with AES GCM
+      256 bit
 
    Digital signature
 
-   *  #aiid.ed25519: [RFC8032]
-
    *  #aiid.ecdsa: [FIPS186-5]
 
-   *  #aiid.rsa-pkcs1v15: [RFC8017]
+   *  #aiid.ed25519: [RFC8032]
 
-   *  #aiid.rsa-oaep: [RFC8017]
+   *  #aiid.rsa.pkcs1: [RFC8017]
 
-   *  #aiid.rsa-pss: [RFC8017]
+   *  #aiid.rsa.pss: [RFC8017]
 
-7.6.4.  Data tokens
+   *  #aiid.ecdsa.256: ecdsa p-256 with SHA-256
+
+7.6.5.  Data tokens
 
    *  #diid.name: Name
 
@@ -830,17 +891,16 @@ Internet-Draft                IID Protocol                     July 2026
 
    *  #diid.age: Age: %nat%
 
-   *  #diid.adult: Indicates whether the identity is of an adult: %bool%
-
-   *  #diid.language: Language: {%lang%}
 
 
-
-
-Varnagy                  Expires 12 January 2027               [Page 15]
+Varnagy                  Expires 19 January 2027               [Page 16]
 
 Internet-Draft                IID Protocol                     July 2026
 
+
+   *  #diid.adult: Indicates whether the identity is of an adult: %bool%
+
+   *  #diid.language: Language: {%lang%}
 
    *  #diid.kind: Identity kind: %iid.idkind%
 
@@ -886,17 +946,17 @@ Internet-Draft                IID Protocol                     July 2026
 
    *  #diid.position: Job title
 
-   *  #diid.avatar: Avatar image: {%iid.image%}
-
-   Special data tokens
 
 
 
-
-Varnagy                  Expires 12 January 2027               [Page 16]
+Varnagy                  Expires 19 January 2027               [Page 17]
 
 Internet-Draft                IID Protocol                     July 2026
 
+
+   *  #diid.avatar: Avatar image: {%iid.image%}
+
+   Special data tokens
 
    *  #diid.attester: Identities that can attest to this identity's
       data: {%iid%}
@@ -906,11 +966,11 @@ Internet-Draft                IID Protocol                     July 2026
    *  #diid.until: Latest time until which the shared data can be used:
       %stamp%
 
-7.6.5.  Value tokens
+7.6.6.  Value tokens
 
    The following sections define some possible data value tokens
 
-7.6.5.1.  Identity kinds
+7.6.6.1.  Identity kinds
 
    *  #viid.person: Natural person
 
@@ -922,7 +982,7 @@ Internet-Draft                IID Protocol                     July 2026
 
    *  #viid.aiagent: AI agent
 
-7.6.5.2.  Operations for consent:
+7.6.6.2.  Operations for consent:
 
    *  #viid.newsletter: Newsletter
 
@@ -936,23 +996,24 @@ Internet-Draft                IID Protocol                     July 2026
 
    *  #viid.cookie.third: Third-party cookies
 
-7.6.6.  Requirement tokens
+7.6.7.  Requirement tokens
 
    *  #riid.at: The follow-up message MUST contain the at field
 
    *  #riid.from: The follow-up message MUST contain the from field
 
+
+
+
+Varnagy                  Expires 19 January 2027               [Page 18]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    *  #riid.to: The follow-up message MUST contain the to field
 
    *  #riid.mid: The follow-up message MUST contain the message
       identifier
-
-
-
-Varnagy                  Expires 12 January 2027               [Page 17]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    *  #riid.sign: The follow-up message MUST be digitally signed
 
@@ -961,8 +1022,11 @@ Internet-Draft                IID Protocol                     July 2026
    *  #riid.echo: The entire request MUST be repeated in response's ref
       field
 
-   *  { requirement: #riid.key, key: %iid.key% }: The follow-up message
-      MUST use the specified key.
+   *  { requirement: #riid.key, key: {%iid.key%} }: The follow-up
+      message MUST use one of the specified keys.
+
+   *  { requirement: #riid.algo, key: {%iid.algo%} }: The follow-up
+      message MUST use one the specified algorithm.
 
    *  { requirement: #riid.url, url: %str% }: Following requests MUST
       use the specified URL
@@ -990,25 +1054,21 @@ Internet-Draft                IID Protocol                     July 2026
       "to": "john@doe.org",
       "action": "#miid.login",
       "params": {
-         "returnurl":"https://foo.org/onlogin"
+         "returnurl":"https://foo.org/login"
       }
    }
+
+
+
+
+Varnagy                  Expires 19 January 2027               [Page 19]
+
+Internet-Draft                IID Protocol                     July 2026
+
 
    The doe.org identity server records that foo.org has requested a
    login.  It generates a nonce value and responds that it wishes to
    identify the browser:
-
-
-
-
-
-
-
-
-Varnagy                  Expires 12 January 2027               [Page 18]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    foo.org <<< doe.org {
       "error": {
@@ -1026,8 +1086,8 @@ Internet-Draft                IID Protocol                     July 2026
    account determine whether any additional confirmation is required.
 
    If not, the process continues immediately.  The doe.org server
-   redirects the browser back to https://foo.org/onlogin which causes
-   the following request to be sent:
+   redirects the browser back to https://foo.org/login which causes the
+   following request to be sent:
 
    foo.org >>> doe.org {
       "from": "site@foo.org",
@@ -1050,21 +1110,23 @@ Internet-Draft                IID Protocol                     July 2026
    IID; any additional information can be retrieved from doe.org
    whenever needed.
 
+
+
+
+
+
+
+
+Varnagy                  Expires 19 January 2027               [Page 20]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    Subsequent visits are even simpler.  Since foo.org can store John's
    IID in a cookie, it can contact doe.org without asking John his IID.
    While John is still signed in to doe.org, and his account settings
    permit it, the identity server can immediately return a positive
    response without requiring further interaction.
-
-
-
-
-
-
-Varnagy                  Expires 12 January 2027               [Page 19]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    Note: the above example assumes a Secure HTTPS transport.  When a
    less secure transport is used, or additional security is needed, the
@@ -1111,13 +1173,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-
-
-
-
-
-
-Varnagy                  Expires 12 January 2027               [Page 20]
+Varnagy                  Expires 19 January 2027               [Page 21]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1173,7 +1229,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 12 January 2027               [Page 21]
+Varnagy                  Expires 19 January 2027               [Page 22]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1229,7 +1285,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 12 January 2027               [Page 22]
+Varnagy                  Expires 19 January 2027               [Page 23]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1285,7 +1341,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 12 January 2027               [Page 23]
+Varnagy                  Expires 19 January 2027               [Page 24]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1341,7 +1397,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 12 January 2027               [Page 24]
+Varnagy                  Expires 19 January 2027               [Page 25]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1397,7 +1453,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 12 January 2027               [Page 25]
+Varnagy                  Expires 19 January 2027               [Page 26]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1453,7 +1509,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 12 January 2027               [Page 26]
+Varnagy                  Expires 19 January 2027               [Page 27]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1509,7 +1565,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 12 January 2027               [Page 27]
+Varnagy                  Expires 19 January 2027               [Page 28]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1565,7 +1621,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 12 January 2027               [Page 28]
+Varnagy                  Expires 19 January 2027               [Page 29]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1621,7 +1677,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 12 January 2027               [Page 29]
+Varnagy                  Expires 19 January 2027               [Page 30]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1677,7 +1733,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 12 January 2027               [Page 30]
+Varnagy                  Expires 19 January 2027               [Page 31]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1695,14 +1751,6 @@ Internet-Draft                IID Protocol                     July 2026
               "SHA-3 Standard: Permutation-Based Hash and Extendable-
               Output Functions", August 2015,
               <https://doi.org/10.6028/NIST.FIPS.202>.
-
-   [FIPS197]  National Institute of Standards and Technology (NIST),
-              "Advanced Encryption Standard (AES)", November 2001,
-              <https://doi.org/10.6028/NIST.FIPS.197-upd1>.
-
-   [RFC8439]  Nir, Y. and A. Langley, "ChaCha20 and Poly1305 for IETF
-              Protocols", RFC 8439, DOI 10.17487/RFC8439, June 2018,
-              <https://www.rfc-editor.org/info/rfc8439>.
 
    [RFC8032]  Josefsson, S. and I. Liusvaara, "Edwards-Curve Digital
               Signature Algorithm (EdDSA)", RFC 8032,
@@ -1728,16 +1776,6 @@ Internet-Draft                IID Protocol                     July 2026
               DOI 10.17487/RFC1321, April 1992,
               <https://www.rfc-editor.org/info/rfc1321>.
 
-
-
-
-
-
-Varnagy                  Expires 12 January 2027               [Page 31]
-
-Internet-Draft                IID Protocol                     July 2026
-
-
    [ISO13239] International Organization for Standardization,
               "Information technology -- Telecommunications and
               information exchange between systems -- High-level data
@@ -1748,6 +1786,23 @@ Internet-Draft                IID Protocol                     July 2026
               the representation of names of countries and their
               subdivisions -- Part 1: Country codes", n.d.,
               <https://www.iso.org/standard/72482.html>.
+
+
+
+Varnagy                  Expires 19 January 2027               [Page 32]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
+   [SP800-38D]
+              National Institute of Standards and Technology (NIST),
+              "Recommendation for Block Cipher Modes of Operation:
+              Galois/Counter Mode (GCM) and GMAC", November 2007,
+              <https://csrc.nist.gov/pubs/sp/800/38/d/final>.
+
+   [FIPS197]  National Institute of Standards and Technology (NIST),
+              "Advanced Encryption Standard (AES)", May 2023,
+              <https://doi.org/10.6028/NIST.FIPS.197-upd1>.
 
 11.2.  Informative References
 
@@ -1789,7 +1844,8 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 12 January 2027               [Page 32]
+
+Varnagy                  Expires 19 January 2027               [Page 33]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1845,4 +1901,4 @@ Author's Address
 
 
 
-Varnagy                  Expires 12 January 2027               [Page 33]
+Varnagy                  Expires 19 January 2027               [Page 34]

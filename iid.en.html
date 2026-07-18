@@ -1230,7 +1230,7 @@ li > p:last-of-type:only-child {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Varnagy</td>
-<td class="center">Expires 12 January 2027</td>
+<td class="center">Expires 19 January 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1243,12 +1243,12 @@ li > p:last-of-type:only-child {
 <dd class="internet-draft">draft-varnagy-iid-protocol-00</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-07-11" class="published">11 July 2026</time>
+<time datetime="2026-07-18" class="published">18 July 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-01-12">12 January 2027</time></dd>
+<dd class="expires"><time datetime="2027-01-19">19 January 2027</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1289,7 +1289,7 @@ cryptographic algorithms.<a href="#section-abstract-2" class="pilcrow">¶</a></p
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 12 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 19 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1428,16 +1428,19 @@ cryptographic algorithms.<a href="#section-abstract-2" class="pilcrow">¶</a></p
                     <p id="section-toc.1-1.7.2.6.2.2.1"><a href="#section-7.6.2" class="auto internal xref">7.6.2</a>.  <a href="#name-action-method-tokens" class="internal xref">Action (method) tokens</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6.2.3">
-                    <p id="section-toc.1-1.7.2.6.2.3.1"><a href="#section-7.6.3" class="auto internal xref">7.6.3</a>.  <a href="#name-algorithm-tokens" class="internal xref">Algorithm tokens</a></p>
+                    <p id="section-toc.1-1.7.2.6.2.3.1"><a href="#section-7.6.3" class="auto internal xref">7.6.3</a>.  <a href="#name-key-format-tokens" class="internal xref">Key format tokens</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6.2.4">
-                    <p id="section-toc.1-1.7.2.6.2.4.1"><a href="#section-7.6.4" class="auto internal xref">7.6.4</a>.  <a href="#name-data-tokens" class="internal xref">Data tokens</a></p>
+                    <p id="section-toc.1-1.7.2.6.2.4.1"><a href="#section-7.6.4" class="auto internal xref">7.6.4</a>.  <a href="#name-algorithm-tokens" class="internal xref">Algorithm tokens</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6.2.5">
-                    <p id="section-toc.1-1.7.2.6.2.5.1"><a href="#section-7.6.5" class="auto internal xref">7.6.5</a>.  <a href="#name-value-tokens" class="internal xref">Value tokens</a></p>
+                    <p id="section-toc.1-1.7.2.6.2.5.1"><a href="#section-7.6.5" class="auto internal xref">7.6.5</a>.  <a href="#name-data-tokens" class="internal xref">Data tokens</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6.2.6">
-                    <p id="section-toc.1-1.7.2.6.2.6.1"><a href="#section-7.6.6" class="auto internal xref">7.6.6</a>.  <a href="#name-requirement-tokens" class="internal xref">Requirement tokens</a></p>
+                    <p id="section-toc.1-1.7.2.6.2.6.1"><a href="#section-7.6.6" class="auto internal xref">7.6.6</a>.  <a href="#name-value-tokens" class="internal xref">Value tokens</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6.2.7">
+                    <p id="section-toc.1-1.7.2.6.2.7.1"><a href="#section-7.6.7" class="auto internal xref">7.6.7</a>.  <a href="#name-requirement-tokens" class="internal xref">Requirement tokens</a></p>
 </li>
                 </ul>
 </li>
@@ -1712,13 +1715,16 @@ or before serializing data to JSON.<a href="#section-7.2-2" class="pilcrow">¶</
             <p id="section-7.2-3.6.1"><code>#a...</code> : Algorithm token. (e.g., <code>#aiid.md5</code>)<a href="#section-7.2-3.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-3.7">
-            <p id="section-7.2-3.7.1"><code>#r...</code> : Requirement token (e.g., <code>#riid.at</code>)<a href="#section-7.2-3.7.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-3.7.1"><code>#k...</code> : Key format token (e.g.m <code>#kiid.rsa.2048</code>)<a href="#section-7.2-3.7.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-3.8">
-            <p id="section-7.2-3.8.1"><code>#d...</code> : Data token (e.g., <code>#diid.zip</code>)<a href="#section-7.2-3.8.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-3.8.1"><code>#r...</code> : Requirement token (e.g., <code>#riid.at</code>)<a href="#section-7.2-3.8.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-3.9">
-            <p id="section-7.2-3.9.1"><code>#v...</code> : Value token (e.g., <code>#viid.firm</code>)<a href="#section-7.2-3.9.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-3.9.1"><code>#d...</code> : Data token (e.g., <code>#diid.zip</code>)<a href="#section-7.2-3.9.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-3.10">
+            <p id="section-7.2-3.10.1"><code>#v...</code> : Value token (e.g., <code>#viid.firm</code>)<a href="#section-7.2-3.10.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1996,6 +2002,7 @@ only if all signatures are valid.<a href="#section-7.5.5-3" class="pilcrow">¶</
 %iid.sign% : %obj% {
    owner: %iid.subject% - Signer
    key: %iid.key% - Key used for signing
+   algo: %iid.algo% - Algorithm used for signing
    ref: %iid.dataref% - Reference to signed data
       (e.g., identifier, a hash, URL, etc...)
    sign: %bin% - Digital signature value
@@ -2021,6 +2028,7 @@ encryption algorithm.<a href="#section-7.5.6-2" class="pilcrow">¶</a></p>
    !data: %bin% - Encrypted binary data
    owner: %iid.subject% - Owner of the decryption key
    key: %iid.key% - Decryption key
+   algo: %iid.algo% - Encríption algorithm
 }
 </pre><a href="#section-7.5.6-3" class="pilcrow">¶</a>
 </div>
@@ -2048,7 +2056,7 @@ the latest estimated time before the key was compromised.<a href="#section-7.5.7
 %iid.key% : %obj% {
    !name: %str% - Name of the key
       (issued by the identity server or the identity)
-   algo: %iid.algo% - Signature or Encryption algorithm
+   format: %#k% - Key format (e.g., #kiid.rsa.2048)
    pub: %bin% - Public part of the key
    from: %stamp% - Start of valid period
    until: %stamp% - End of valid period
@@ -2244,31 +2252,34 @@ or by the identity servers themselves.<a href="#section-7.6-1" class="pilcrow">�
               <p id="section-7.6.1-1.2.1"><code>#eiid.time</code>: Message timestamp drifts significantly (too far in past or future)<a href="#section-7.6.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.1-1.3">
-              <p id="section-7.6.1-1.3.1"><code>#eiid.refuse</code>: The requested action was refused by the identity server<a href="#section-7.6.1-1.3.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.1-1.3.1"><code>#eiid.repeat</code>: Repeat the request while fulfilling the specified requirements<a href="#section-7.6.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.1-1.4">
-              <p id="section-7.6.1-1.4.1"><code>#eiid.repeat</code>: Repeat the request while fulfilling the specified requirements<a href="#section-7.6.1-1.4.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.1-1.4.1"><code>#eiid.sign</code>: The digital signature is invalid (revoked, expired, incorrect, etc...)<a href="#section-7.6.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.1-1.5">
-              <p id="section-7.6.1-1.5.1"><code>#eiid.sign</code>: The digital signature is invalid (revoked, expired, incorrect, etc...)<a href="#section-7.6.1-1.5.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.1-1.5.1"><code>#eiid.noverify</code>: Cannot verify the validity of the request<a href="#section-7.6.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.1-1.6">
-              <p id="section-7.6.1-1.6.1"><code>#eiid.noverify</code>: Cannot verify the validity of the request<a href="#section-7.6.1-1.6.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.1-1.6.1"><code>#eiid.incorrect</code>: Action is refused becasue of incorrect data (e.g., password)<a href="#section-7.6.1-1.6.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.1-1.7">
-              <p id="section-7.6.1-1.7.1"><code>{ error:#eiid.size, limit:%nat% }</code>: Message size exceeds the permitted limit<a href="#section-7.6.1-1.7.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.1-1.7.1"><code>{ error:#eiid.refuse, reason:%any% }</code>: The requested action was refused with a reason<a href="#section-7.6.1-1.7.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.1-1.8">
-              <p id="section-7.6.1-1.8.1"><code>{ error:#eiid.missing, field:%str% }</code>: A required field is missing<a href="#section-7.6.1-1.8.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.1-1.8.1"><code>{ error:#eiid.size, limit:%nat% }</code>: Message size exceeds the permitted limit<a href="#section-7.6.1-1.8.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.1-1.9">
-              <p id="section-7.6.1-1.9.1"><code>{ error:#eiid.unknown, field:%str% }</code>: An unknown or unsupported field value was encountered<a href="#section-7.6.1-1.9.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.1-1.9.1"><code>{ error:#eiid.missing, field:%str% }</code>: A required field is missing<a href="#section-7.6.1-1.9.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.1-1.10">
-              <p id="section-7.6.1-1.10.1"><code>{ error:#eiid.later, after:%stamp% }</code>: Temporary rejection. The request may be repeated later<a href="#section-7.6.1-1.10.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.1-1.10.1"><code>{ error:#eiid.unknown, field:%str%, value:%any% }</code>: An unknown or unsupported field value was encountered<a href="#section-7.6.1-1.10.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.1-1.11">
-              <p id="section-7.6.1-1.11.1"><code>{ error:#eiid.redirect, url:%str% }</code>: Redirect the user's browser to the specified URL<a href="#section-7.6.1-1.11.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.1-1.11.1"><code>{ error:#eiid.later, after:%stamp% }</code>: Temporary rejection. The request may be repeated later<a href="#section-7.6.1-1.11.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.1-1.12">
+              <p id="section-7.6.1-1.12.1"><code>{ error:#eiid.redirect, url:%str% }</code>: Redirect the user's browser to the specified URL<a href="#section-7.6.1-1.12.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2306,246 +2317,301 @@ or by the identity servers themselves.<a href="#section-7.6-1" class="pilcrow">�
           </ul>
 </section>
 </div>
-<div id="algorithm-tokens">
+<div id="key-format-tokens">
 <section id="section-7.6.3">
-          <h4 id="name-algorithm-tokens">
-<a href="#section-7.6.3" class="section-number selfRef">7.6.3. </a><a href="#name-algorithm-tokens" class="section-name selfRef">Algorithm tokens</a>
+          <h4 id="name-key-format-tokens">
+<a href="#section-7.6.3" class="section-number selfRef">7.6.3. </a><a href="#name-key-format-tokens" class="section-name selfRef">Key format tokens</a>
           </h4>
-<p id="section-7.6.3-1">Hash algorithms and checksums<a href="#section-7.6.3-1" class="pilcrow">¶</a></p>
+<p id="section-7.6.3-1">A single-word identifier usually denotes a key format family. 
+More specific formats are identified by 
+dot-separated suffixes (e.g., #kiid.rsa.2048).<a href="#section-7.6.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.6.3-2.1">
-              <p id="section-7.6.3-2.1.1"><code>#aiid.size</code>: Data size in bytes<a href="#section-7.6.3-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.3-2.1.1"><code>#kiid.rsa</code>: <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span><a href="#section-7.6.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.3-2.2">
-              <p id="section-7.6.3-2.2.1"><code>#aiid.crc32</code>: <span>[<a href="#ISO13239" class="cite xref">ISO13239</a>]</span><a href="#section-7.6.3-2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.3-2.2.1"><code>#kiid.ecdsa</code>: <span>[<a href="#FIPS186-5" class="cite xref">FIPS186-5</a>]</span><a href="#section-7.6.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.3-2.3">
-              <p id="section-7.6.3-2.3.1"><code>#aiid.md5</code>: <span>[<a href="#RFC1321" class="cite xref">RFC1321</a>]</span><a href="#section-7.6.3-2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.3-2.3.1"><code>#kiid.ed25519</code>: <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span><a href="#section-7.6.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.3-2.4">
-              <p id="section-7.6.3-2.4.1"><code>#aiid.sha1</code>: <span>[<a href="#FIPS180-4" class="cite xref">FIPS180-4</a>]</span><a href="#section-7.6.3-2.4.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.3-2.4.1"><code>#kiid.rsa.2048</code>: 2048 bit RSA key<a href="#section-7.6.3-2.4.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.3-2.5">
-              <p id="section-7.6.3-2.5.1"><code>#aiid.sha256</code>: <span>[<a href="#FIPS180-4" class="cite xref">FIPS180-4</a>]</span><a href="#section-7.6.3-2.5.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.3-2.5.1"><code>#kiid.rsa.3072</code>: 3072 bit RSA key<a href="#section-7.6.3-2.5.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.3-2.6">
-              <p id="section-7.6.3-2.6.1"><code>#aiid.sha384</code>: <span>[<a href="#FIPS180-4" class="cite xref">FIPS180-4</a>]</span><a href="#section-7.6.3-2.6.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.3-2.6.1"><code>#kiid.rsa.4096</code>: 4096 bit RSA key<a href="#section-7.6.3-2.6.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.3-2.7">
-              <p id="section-7.6.3-2.7.1"><code>#aiid.sha512</code>: <span>[<a href="#FIPS180-4" class="cite xref">FIPS180-4</a>]</span><a href="#section-7.6.3-2.7.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-7.6.3-2.8">
-              <p id="section-7.6.3-2.8.1"><code>#aiid.sha3-256</code>: <span>[<a href="#FIPS202" class="cite xref">FIPS202</a>]</span><a href="#section-7.6.3-2.8.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-7.6.3-2.9">
-              <p id="section-7.6.3-2.9.1"><code>#aiid.sha3-512</code>: <span>[<a href="#FIPS202" class="cite xref">FIPS202</a>]</span><a href="#section-7.6.3-2.9.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-7.6.3-2.10">
-              <p id="section-7.6.3-2.10.1"><code>#aiid.blake2</code>: <span>[<a href="#RFC7693" class="cite xref">RFC7693</a>]</span><a href="#section-7.6.3-2.10.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.3-2.7.1"><code>#kiid.ecdsa.p256</code>: ecdsa p-256 curve key<a href="#section-7.6.3-2.7.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-7.6.3-3">Encryption<a href="#section-7.6.3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="algorithm-tokens">
+<section id="section-7.6.4">
+          <h4 id="name-algorithm-tokens">
+<a href="#section-7.6.4" class="section-number selfRef">7.6.4. </a><a href="#name-algorithm-tokens" class="section-name selfRef">Algorithm tokens</a>
+          </h4>
+<p id="section-7.6.4-1">Hash algorithms and checksums.<a href="#section-7.6.4-1" class="pilcrow">¶</a></p>
+<p id="section-7.6.4-2">A single-word identifier usually denotes an algorithm family. 
+More specific algorithms are identified by 
+dot-separated suffixes (e.g., #aiid.sha.256). 
+If an algorithm is composed of multiple components, 
+the components are separated by dashes 
+(e.g., #aiid.ecdsa.p256-sha.512).<a href="#section-7.6.4-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.6.3-4.1">
-              <p id="section-7.6.3-4.1.1"><code>#aiid.aes</code>: <span>[<a href="#FIPS197" class="cite xref">FIPS197</a>]</span><a href="#section-7.6.3-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.6.4-3.1">
+              <p id="section-7.6.4-3.1.1"><code>#aiid.size</code>: Data size in bytes<a href="#section-7.6.4-3.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.3-4.2">
-              <p id="section-7.6.3-4.2.1"><code>#aiid.chacha20</code>: <span>[<a href="#RFC8439" class="cite xref">RFC8439</a>]</span><a href="#section-7.6.3-4.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.4-3.2">
+              <p id="section-7.6.4-3.2.1"><code>#aiid.crc</code>: <span>[<a href="#ISO13239" class="cite xref">ISO13239</a>]</span><a href="#section-7.6.4-3.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-3.3">
+              <p id="section-7.6.4-3.3.1"><code>#aiid.md5</code>: <span>[<a href="#RFC1321" class="cite xref">RFC1321</a>]</span><a href="#section-7.6.4-3.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-3.4">
+              <p id="section-7.6.4-3.4.1"><code>#aiid.sha</code>: <span>[<a href="#FIPS180-4" class="cite xref">FIPS180-4</a>]</span><a href="#section-7.6.4-3.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-3.5">
+              <p id="section-7.6.4-3.5.1"><code>#aiid.sha3</code>: <span>[<a href="#FIPS202" class="cite xref">FIPS202</a>]</span><a href="#section-7.6.4-3.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-3.6">
+              <p id="section-7.6.4-3.6.1"><code>#aiid.blake2</code>: <span>[<a href="#RFC7693" class="cite xref">RFC7693</a>]</span><a href="#section-7.6.4-3.6.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-3.7">
+              <p id="section-7.6.4-3.7.1"><code>#aiid.crc.32</code>: CRC-32<a href="#section-7.6.4-3.7.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-3.8">
+              <p id="section-7.6.4-3.8.1"><code>#aiid.sha.256</code>: SHA-256<a href="#section-7.6.4-3.8.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-3.9">
+              <p id="section-7.6.4-3.9.1"><code>#aiid.sha.384</code>: SHA-384<a href="#section-7.6.4-3.9.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-3.10">
+              <p id="section-7.6.4-3.10.1"><code>#aiid.sha.512</code>: SHA-512<a href="#section-7.6.4-3.10.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-3.11">
+              <p id="section-7.6.4-3.11.1"><code>#aiid.sha3.256</code>: SHA3-256<a href="#section-7.6.4-3.11.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-3.12">
+              <p id="section-7.6.4-3.12.1"><code>#aiid.sha3.512</code>: SHA3-512<a href="#section-7.6.4-3.12.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-7.6.3-5">Digital signature<a href="#section-7.6.3-5" class="pilcrow">¶</a></p>
+<p id="section-7.6.4-4">Encryption<a href="#section-7.6.4-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.6.3-6.1">
-              <p id="section-7.6.3-6.1.1"><code>#aiid.ed25519</code>: <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span><a href="#section-7.6.3-6.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.6.4-5.1">
+              <p id="section-7.6.4-5.1.1"><code>#aiid.rsa</code>:<a href="#section-7.6.4-5.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.3-6.2">
-              <p id="section-7.6.3-6.2.1"><code>#aiid.ecdsa</code>: <span>[<a href="#FIPS186-5" class="cite xref">FIPS186-5</a>]</span><a href="#section-7.6.3-6.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.4-5.2">
+              <p id="section-7.6.4-5.2.1"><code>#aiid.oaep</code>: <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span><a href="#section-7.6.4-5.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.3-6.3">
-              <p id="section-7.6.3-6.3.1"><code>#aiid.rsa-pkcs1v15</code>: <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span><a href="#section-7.6.3-6.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.4-5.3">
+              <p id="section-7.6.4-5.3.1"><code>#aiid.aes</code>: <span>[<a href="#FIPS197" class="cite xref">FIPS197</a>]</span><a href="#section-7.6.4-5.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.3-6.4">
-              <p id="section-7.6.3-6.4.1"><code>#aiid.rsa-oaep</code>: <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span><a href="#section-7.6.3-6.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.4-5.4">
+              <p id="section-7.6.4-5.4.1"><code>#aiid.gcm</code>: <span>[<a href="#SP800-38D" class="cite xref">SP800-38D</a>]</span><a href="#section-7.6.4-5.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.3-6.5">
-              <p id="section-7.6.3-6.5.1"><code>#aiid.rsa-pss</code>: <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span><a href="#section-7.6.3-6.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.4-5.5">
+              <p id="section-7.6.4-5.5.1"><code>#aiid.oaep-gcm.256</code> : RSA-OAEP:SHA-256:MGF1(SHA-256) 
+with AES GCM 256 bit<a href="#section-7.6.4-5.5.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-7.6.4-6">Digital signature<a href="#section-7.6.4-6" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.6.4-7.1">
+              <p id="section-7.6.4-7.1.1"><code>#aiid.ecdsa</code>: <span>[<a href="#FIPS186-5" class="cite xref">FIPS186-5</a>]</span><a href="#section-7.6.4-7.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-7.2">
+              <p id="section-7.6.4-7.2.1"><code>#aiid.ed25519</code>: <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span><a href="#section-7.6.4-7.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-7.3">
+              <p id="section-7.6.4-7.3.1"><code>#aiid.rsa.pkcs1</code>: <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span><a href="#section-7.6.4-7.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-7.4">
+              <p id="section-7.6.4-7.4.1"><code>#aiid.rsa.pss</code>: <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span><a href="#section-7.6.4-7.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.4-7.5">
+              <p id="section-7.6.4-7.5.1"><code>#aiid.ecdsa.256</code>: ecdsa p-256 with SHA-256<a href="#section-7.6.4-7.5.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
 </div>
 <div id="data-tokens">
-<section id="section-7.6.4">
+<section id="section-7.6.5">
           <h4 id="name-data-tokens">
-<a href="#section-7.6.4" class="section-number selfRef">7.6.4. </a><a href="#name-data-tokens" class="section-name selfRef">Data tokens</a>
+<a href="#section-7.6.5" class="section-number selfRef">7.6.5. </a><a href="#name-data-tokens" class="section-name selfRef">Data tokens</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-7.6.4-1.1">
-              <p id="section-7.6.4-1.1.1"><code>#diid.name</code>: Name<a href="#section-7.6.4-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.6.5-1.1">
+              <p id="section-7.6.5-1.1.1"><code>#diid.name</code>: Name<a href="#section-7.6.5-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.2">
-              <p id="section-7.6.4-1.2.1"><code>#diid.fullname</code>: Full name<a href="#section-7.6.4-1.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.2">
+              <p id="section-7.6.5-1.2.1"><code>#diid.fullname</code>: Full name<a href="#section-7.6.5-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.3">
-              <p id="section-7.6.4-1.3.1"><code>#diid.givenname</code>: Given name<a href="#section-7.6.4-1.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.3">
+              <p id="section-7.6.5-1.3.1"><code>#diid.givenname</code>: Given name<a href="#section-7.6.5-1.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.4">
-              <p id="section-7.6.4-1.4.1"><code>#diid.familyname</code>: Family name<a href="#section-7.6.4-1.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.4">
+              <p id="section-7.6.5-1.4.1"><code>#diid.familyname</code>: Family name<a href="#section-7.6.5-1.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.5">
-              <p id="section-7.6.4-1.5.1"><code>#diid.nickname</code>: Nickname<a href="#section-7.6.4-1.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.5">
+              <p id="section-7.6.5-1.5.1"><code>#diid.nickname</code>: Nickname<a href="#section-7.6.5-1.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.6">
-              <p id="section-7.6.4-1.6.1"><code>#diid.birthdate</code>: Birth date: <code>%date%</code><a href="#section-7.6.4-1.6.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.6">
+              <p id="section-7.6.5-1.6.1"><code>#diid.birthdate</code>: Birth date: <code>%date%</code><a href="#section-7.6.5-1.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.7">
-              <p id="section-7.6.4-1.7.1"><code>#diid.birthplace</code>: Birth place<a href="#section-7.6.4-1.7.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.7">
+              <p id="section-7.6.5-1.7.1"><code>#diid.birthplace</code>: Birth place<a href="#section-7.6.5-1.7.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.8">
-              <p id="section-7.6.4-1.8.1"><code>#diid.age</code>: Age: <code>%nat%</code><a href="#section-7.6.4-1.8.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.8">
+              <p id="section-7.6.5-1.8.1"><code>#diid.age</code>: Age: <code>%nat%</code><a href="#section-7.6.5-1.8.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.9">
-              <p id="section-7.6.4-1.9.1"><code>#diid.adult</code>: Indicates whether the identity is of an adult: <code>%bool%</code><a href="#section-7.6.4-1.9.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.9">
+              <p id="section-7.6.5-1.9.1"><code>#diid.adult</code>: Indicates whether the identity is of an adult: <code>%bool%</code><a href="#section-7.6.5-1.9.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.10">
-              <p id="section-7.6.4-1.10.1"><code>#diid.language</code>: Language: <code>{%lang%}</code><a href="#section-7.6.4-1.10.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.10">
+              <p id="section-7.6.5-1.10.1"><code>#diid.language</code>: Language: <code>{%lang%}</code><a href="#section-7.6.5-1.10.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.11">
-              <p id="section-7.6.4-1.11.1"><code>#diid.kind</code>: Identity kind: <code>%iid.idkind%</code><a href="#section-7.6.4-1.11.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.11">
+              <p id="section-7.6.5-1.11.1"><code>#diid.kind</code>: Identity kind: <code>%iid.idkind%</code><a href="#section-7.6.5-1.11.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.12">
-              <p id="section-7.6.4-1.12.1"><code>#diid.address</code>: Address: <code>{%str% | %obj%}</code><a href="#section-7.6.4-1.12.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.12">
+              <p id="section-7.6.5-1.12.1"><code>#diid.address</code>: Address: <code>{%str% | %obj%}</code><a href="#section-7.6.5-1.12.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.13">
-              <p id="section-7.6.4-1.13.1"><code>#diid.postaddress</code>: Postal address: <code>{%str% | %obj%}</code><a href="#section-7.6.4-1.13.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.13">
+              <p id="section-7.6.5-1.13.1"><code>#diid.postaddress</code>: Postal address: <code>{%str% | %obj%}</code><a href="#section-7.6.5-1.13.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.14">
-              <p id="section-7.6.4-1.14.1"><code>#diid.country</code>: Country: <code>%country%</code><a href="#section-7.6.4-1.14.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.14">
+              <p id="section-7.6.5-1.14.1"><code>#diid.country</code>: Country: <code>%country%</code><a href="#section-7.6.5-1.14.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.15">
-              <p id="section-7.6.4-1.15.1"><code>#diid.state</code>: State or province<a href="#section-7.6.4-1.15.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.15">
+              <p id="section-7.6.5-1.15.1"><code>#diid.state</code>: State or province<a href="#section-7.6.5-1.15.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.16">
-              <p id="section-7.6.4-1.16.1"><code>#diid.city</code>: City<a href="#section-7.6.4-1.16.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.16">
+              <p id="section-7.6.5-1.16.1"><code>#diid.city</code>: City<a href="#section-7.6.5-1.16.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.17">
-              <p id="section-7.6.4-1.17.1"><code>#diid.district</code>: District<a href="#section-7.6.4-1.17.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.17">
+              <p id="section-7.6.5-1.17.1"><code>#diid.district</code>: District<a href="#section-7.6.5-1.17.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.18">
-              <p id="section-7.6.4-1.18.1"><code>#diid.zip</code>: Postal code<a href="#section-7.6.4-1.18.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.18">
+              <p id="section-7.6.5-1.18.1"><code>#diid.zip</code>: Postal code<a href="#section-7.6.5-1.18.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.19">
-              <p id="section-7.6.4-1.19.1"><code>#diid.street</code>: Street<a href="#section-7.6.4-1.19.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.19">
+              <p id="section-7.6.5-1.19.1"><code>#diid.street</code>: Street<a href="#section-7.6.5-1.19.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.20">
-              <p id="section-7.6.4-1.20.1"><code>#diid.house</code>: House number<a href="#section-7.6.4-1.20.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.20">
+              <p id="section-7.6.5-1.20.1"><code>#diid.house</code>: House number<a href="#section-7.6.5-1.20.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.21">
-              <p id="section-7.6.4-1.21.1"><code>#diid.floor</code>: Floor<a href="#section-7.6.4-1.21.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.21">
+              <p id="section-7.6.5-1.21.1"><code>#diid.floor</code>: Floor<a href="#section-7.6.5-1.21.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.22">
-              <p id="section-7.6.4-1.22.1"><code>#diid.door</code>: Door number<a href="#section-7.6.4-1.22.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.22">
+              <p id="section-7.6.5-1.22.1"><code>#diid.door</code>: Door number<a href="#section-7.6.5-1.22.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.23">
-              <p id="section-7.6.4-1.23.1"><code>#diid.email</code>: Email address<a href="#section-7.6.4-1.23.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.23">
+              <p id="section-7.6.5-1.23.1"><code>#diid.email</code>: Email address<a href="#section-7.6.5-1.23.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.24">
-              <p id="section-7.6.4-1.24.1"><code>#diid.phone</code>: Phone number: <code>{%phone%}</code><a href="#section-7.6.4-1.24.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.24">
+              <p id="section-7.6.5-1.24.1"><code>#diid.phone</code>: Phone number: <code>{%phone%}</code><a href="#section-7.6.5-1.24.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.25">
-              <p id="section-7.6.4-1.25.1"><code>#diid.website</code>: Website URL<a href="#section-7.6.4-1.25.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.25">
+              <p id="section-7.6.5-1.25.1"><code>#diid.website</code>: Website URL<a href="#section-7.6.5-1.25.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.26">
-              <p id="section-7.6.4-1.26.1"><code>#diid.taxid</code>: Tax Identifier<a href="#section-7.6.4-1.26.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.26">
+              <p id="section-7.6.5-1.26.1"><code>#diid.taxid</code>: Tax Identifier<a href="#section-7.6.5-1.26.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.27">
-              <p id="section-7.6.4-1.27.1"><code>#diid.personalid</code>: Personal identifier<a href="#section-7.6.4-1.27.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.27">
+              <p id="section-7.6.5-1.27.1"><code>#diid.personalid</code>: Personal identifier<a href="#section-7.6.5-1.27.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.28">
-              <p id="section-7.6.4-1.28.1"><code>#diid.companyid</code>: Company identifier<a href="#section-7.6.4-1.28.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.28">
+              <p id="section-7.6.5-1.28.1"><code>#diid.companyid</code>: Company identifier<a href="#section-7.6.5-1.28.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.29">
-              <p id="section-7.6.4-1.29.1"><code>#diid.passport</code>: Passport number<a href="#section-7.6.4-1.29.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.29">
+              <p id="section-7.6.5-1.29.1"><code>#diid.passport</code>: Passport number<a href="#section-7.6.5-1.29.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.30">
-              <p id="section-7.6.4-1.30.1"><code>#diid.company</code>: Employer: <code>{%iid%}</code><a href="#section-7.6.4-1.30.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.30">
+              <p id="section-7.6.5-1.30.1"><code>#diid.company</code>: Employer: <code>{%iid%}</code><a href="#section-7.6.5-1.30.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.31">
-              <p id="section-7.6.4-1.31.1"><code>#diid.department</code>: Department<a href="#section-7.6.4-1.31.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.31">
+              <p id="section-7.6.5-1.31.1"><code>#diid.department</code>: Department<a href="#section-7.6.5-1.31.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.32">
-              <p id="section-7.6.4-1.32.1"><code>#diid.position</code>: Job title<a href="#section-7.6.4-1.32.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.32">
+              <p id="section-7.6.5-1.32.1"><code>#diid.position</code>: Job title<a href="#section-7.6.5-1.32.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-1.33">
-              <p id="section-7.6.4-1.33.1"><code>#diid.avatar</code>: Avatar image: <code>{%iid.image%}</code><a href="#section-7.6.4-1.33.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-1.33">
+              <p id="section-7.6.5-1.33.1"><code>#diid.avatar</code>: Avatar image: <code>{%iid.image%}</code><a href="#section-7.6.5-1.33.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-7.6.4-2">Special data tokens<a href="#section-7.6.4-2" class="pilcrow">¶</a></p>
+<p id="section-7.6.5-2">Special data tokens<a href="#section-7.6.5-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.6.4-3.1">
-              <p id="section-7.6.4-3.1.1"><code>#diid.attester</code>: Identities that can attest to this identity's data: <code>{%iid%}</code><a href="#section-7.6.4-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.6.5-3.1">
+              <p id="section-7.6.5-3.1.1"><code>#diid.attester</code>: Identities that can attest to this identity's data: <code>{%iid%}</code><a href="#section-7.6.5-3.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-3.2">
-              <p id="section-7.6.4-3.2.1"><code>#diid.trusted</code>: Identities trusted by this identity: <code>{%iid%}</code><a href="#section-7.6.4-3.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-3.2">
+              <p id="section-7.6.5-3.2.1"><code>#diid.trusted</code>: Identities trusted by this identity: <code>{%iid%}</code><a href="#section-7.6.5-3.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.4-3.3">
-              <p id="section-7.6.4-3.3.1"><code>#diid.until</code>: Latest time until which the shared data can be used: <code>%stamp%</code><a href="#section-7.6.4-3.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.5-3.3">
+              <p id="section-7.6.5-3.3.1"><code>#diid.until</code>: Latest time until which the shared data can be used: <code>%stamp%</code><a href="#section-7.6.5-3.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
 </div>
 <div id="value-tokens">
-<section id="section-7.6.5">
+<section id="section-7.6.6">
           <h4 id="name-value-tokens">
-<a href="#section-7.6.5" class="section-number selfRef">7.6.5. </a><a href="#name-value-tokens" class="section-name selfRef">Value tokens</a>
+<a href="#section-7.6.6" class="section-number selfRef">7.6.6. </a><a href="#name-value-tokens" class="section-name selfRef">Value tokens</a>
           </h4>
-<p id="section-7.6.5-1">The following sections define some possible data value tokens<a href="#section-7.6.5-1" class="pilcrow">¶</a></p>
+<p id="section-7.6.6-1">The following sections define some possible data value tokens<a href="#section-7.6.6-1" class="pilcrow">¶</a></p>
 <div id="identity-kinds">
-<section id="section-7.6.5.1">
+<section id="section-7.6.6.1">
             <h5 id="name-identity-kinds">
-<a href="#section-7.6.5.1" class="section-number selfRef">7.6.5.1. </a><a href="#name-identity-kinds" class="section-name selfRef">Identity kinds</a>
+<a href="#section-7.6.6.1" class="section-number selfRef">7.6.6.1. </a><a href="#name-identity-kinds" class="section-name selfRef">Identity kinds</a>
             </h5>
 <ul class="normal">
-<li class="normal" id="section-7.6.5.1-1.1">
-                <p id="section-7.6.5.1-1.1.1"><code>#viid.person</code>: Natural person<a href="#section-7.6.5.1-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.6.6.1-1.1">
+                <p id="section-7.6.6.1-1.1.1"><code>#viid.person</code>: Natural person<a href="#section-7.6.6.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.6.5.1-1.2">
-                <p id="section-7.6.5.1-1.2.1"><code>#viid.firm</code>: Organization or company<a href="#section-7.6.5.1-1.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.6.6.1-1.2">
+                <p id="section-7.6.6.1-1.2.1"><code>#viid.firm</code>: Organization or company<a href="#section-7.6.6.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.6.5.1-1.3">
-                <p id="section-7.6.5.1-1.3.1"><code>#viid.site</code>: Website<a href="#section-7.6.5.1-1.3.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.6.6.1-1.3">
+                <p id="section-7.6.6.1-1.3.1"><code>#viid.site</code>: Website<a href="#section-7.6.6.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.6.5.1-1.4">
-                <p id="section-7.6.5.1-1.4.1"><code>#viid.crawler</code>: Web crawler<a href="#section-7.6.5.1-1.4.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.6.6.1-1.4">
+                <p id="section-7.6.6.1-1.4.1"><code>#viid.crawler</code>: Web crawler<a href="#section-7.6.6.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.6.5.1-1.5">
-                <p id="section-7.6.5.1-1.5.1"><code>#viid.aiagent</code>: AI agent<a href="#section-7.6.5.1-1.5.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.6.6.1-1.5">
+                <p id="section-7.6.6.1-1.5.1"><code>#viid.aiagent</code>: AI agent<a href="#section-7.6.6.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </section>
 </div>
 <div id="operations-for-consent">
-<section id="section-7.6.5.2">
+<section id="section-7.6.6.2">
             <h5 id="name-operations-for-consent">
-<a href="#section-7.6.5.2" class="section-number selfRef">7.6.5.2. </a><a href="#name-operations-for-consent" class="section-name selfRef">Operations for consent:</a>
+<a href="#section-7.6.6.2" class="section-number selfRef">7.6.6.2. </a><a href="#name-operations-for-consent" class="section-name selfRef">Operations for consent:</a>
             </h5>
 <ul class="normal">
-<li class="normal" id="section-7.6.5.2-1.1">
-                <p id="section-7.6.5.2-1.1.1"><code>#viid.newsletter</code>: Newsletter<a href="#section-7.6.5.2-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.6.6.2-1.1">
+                <p id="section-7.6.6.2-1.1.1"><code>#viid.newsletter</code>: Newsletter<a href="#section-7.6.6.2-1.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.6.5.2-1.2">
-                <p id="section-7.6.5.2-1.2.1"><code>#viid.cookie.necessary</code>: Strictly necessary cookies<a href="#section-7.6.5.2-1.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.6.6.2-1.2">
+                <p id="section-7.6.6.2-1.2.1"><code>#viid.cookie.necessary</code>: Strictly necessary cookies<a href="#section-7.6.6.2-1.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.6.5.2-1.3">
-                <p id="section-7.6.5.2-1.3.1"><code>#viid.cookie.session</code>: Session cookies<a href="#section-7.6.5.2-1.3.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.6.6.2-1.3">
+                <p id="section-7.6.6.2-1.3.1"><code>#viid.cookie.session</code>: Session cookies<a href="#section-7.6.6.2-1.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.6.5.2-1.4">
-                <p id="section-7.6.5.2-1.4.1"><code>#viid.cookie.marketing</code>: Marketing cookies<a href="#section-7.6.5.2-1.4.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.6.6.2-1.4">
+                <p id="section-7.6.6.2-1.4.1"><code>#viid.cookie.marketing</code>: Marketing cookies<a href="#section-7.6.6.2-1.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.6.5.2-1.5">
-                <p id="section-7.6.5.2-1.5.1"><code>#viid.cookie.analytics</code>: Analytics cookies<a href="#section-7.6.5.2-1.5.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.6.6.2-1.5">
+                <p id="section-7.6.6.2-1.5.1"><code>#viid.cookie.analytics</code>: Analytics cookies<a href="#section-7.6.6.2-1.5.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.6.5.2-1.6">
-                <p id="section-7.6.5.2-1.6.1"><code>#viid.cookie.third</code>: Third-party cookies<a href="#section-7.6.5.2-1.6.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.6.6.2-1.6">
+                <p id="section-7.6.6.2-1.6.1"><code>#viid.cookie.third</code>: Third-party cookies<a href="#section-7.6.6.2-1.6.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </section>
@@ -2553,37 +2619,42 @@ or by the identity servers themselves.<a href="#section-7.6-1" class="pilcrow">�
 </section>
 </div>
 <div id="requirement-tokens">
-<section id="section-7.6.6">
+<section id="section-7.6.7">
           <h4 id="name-requirement-tokens">
-<a href="#section-7.6.6" class="section-number selfRef">7.6.6. </a><a href="#name-requirement-tokens" class="section-name selfRef">Requirement tokens</a>
+<a href="#section-7.6.7" class="section-number selfRef">7.6.7. </a><a href="#name-requirement-tokens" class="section-name selfRef">Requirement tokens</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-7.6.6-1.1">
-              <p id="section-7.6.6-1.1.1"><code>#riid.at</code>: The follow-up message MUST contain the at field<a href="#section-7.6.6-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.6.7-1.1">
+              <p id="section-7.6.7-1.1.1"><code>#riid.at</code>: The follow-up message MUST contain the at field<a href="#section-7.6.7-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.6-1.2">
-              <p id="section-7.6.6-1.2.1"><code>#riid.from</code>: The follow-up message MUST contain the from field<a href="#section-7.6.6-1.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.7-1.2">
+              <p id="section-7.6.7-1.2.1"><code>#riid.from</code>: The follow-up message MUST contain the from field<a href="#section-7.6.7-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.6-1.3">
-              <p id="section-7.6.6-1.3.1"><code>#riid.to</code>: The follow-up message MUST contain the to field<a href="#section-7.6.6-1.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.7-1.3">
+              <p id="section-7.6.7-1.3.1"><code>#riid.to</code>: The follow-up message MUST contain the to field<a href="#section-7.6.7-1.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.6-1.4">
-              <p id="section-7.6.6-1.4.1"><code>#riid.mid</code>: The follow-up message MUST contain the message identifier<a href="#section-7.6.6-1.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.7-1.4">
+              <p id="section-7.6.7-1.4.1"><code>#riid.mid</code>: The follow-up message MUST contain the message identifier<a href="#section-7.6.7-1.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.6-1.5">
-              <p id="section-7.6.6-1.5.1"><code>#riid.sign</code>: The follow-up message MUST be digitally signed<a href="#section-7.6.6-1.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.7-1.5">
+              <p id="section-7.6.7-1.5.1"><code>#riid.sign</code>: The follow-up message MUST be digitally signed<a href="#section-7.6.7-1.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.6-1.6">
-              <p id="section-7.6.6-1.6.1"><code>#riid.encrypted</code>: The follow-up message MUST be encrypted<a href="#section-7.6.6-1.6.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.7-1.6">
+              <p id="section-7.6.7-1.6.1"><code>#riid.encrypted</code>: The follow-up message MUST be encrypted<a href="#section-7.6.7-1.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.6-1.7">
-              <p id="section-7.6.6-1.7.1"><code>#riid.echo</code>: The entire request MUST be repeated in response's ref field<a href="#section-7.6.6-1.7.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.7-1.7">
+              <p id="section-7.6.7-1.7.1"><code>#riid.echo</code>: The entire request MUST be repeated in response's ref field<a href="#section-7.6.7-1.7.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.6-1.8">
-              <p id="section-7.6.6-1.8.1"><code>{ requirement: #riid.key, key: %iid.key% }</code>: The follow-up message MUST use the specified key.<a href="#section-7.6.6-1.8.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.7-1.8">
+              <p id="section-7.6.7-1.8.1"><code>{ requirement: #riid.key, key: {%iid.key%} }</code>: The follow-up message MUST use 
+one of the specified keys.<a href="#section-7.6.7-1.8.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-7.6.6-1.9">
-              <p id="section-7.6.6-1.9.1"><code>{ requirement: #riid.url, url: %str% }</code>: Following requests MUST use the specified URL<a href="#section-7.6.6-1.9.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7.6.7-1.9">
+              <p id="section-7.6.7-1.9.1"><code>{ requirement: #riid.algo, key: {%iid.algo%} }</code>: The follow-up message MUST use 
+one the specified algorithm.<a href="#section-7.6.7-1.9.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-7.6.7-1.10">
+              <p id="section-7.6.7-1.10.1"><code>{ requirement: #riid.url, url: %str% }</code>: Following requests MUST use the specified URL<a href="#section-7.6.7-1.10.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2616,7 +2687,7 @@ foo.org &gt;&gt;&gt; doe.org {
    "to": "john@doe.org",
    "action": "#miid.login",
    "params": {
-      "returnurl":"https://foo.org/onlogin"
+      "returnurl":"https://foo.org/login"
    }
 }
 </pre><a href="#section-7.7.1-3" class="pilcrow">¶</a>
@@ -2641,7 +2712,7 @@ redirects John's browser to <code>https://doe.org/login</code>.<a href="#section
 to authenticate. After that, the settings of his doe.org account determine 
 whether any additional confirmation is required.<a href="#section-7.7.1-7" class="pilcrow">¶</a></p>
 <p id="section-7.7.1-8">If not, the process continues immediately. The doe.org server redirects 
-the browser back to <code>https://foo.org/onlogin</code> which causes the following request to be sent:<a href="#section-7.7.1-8" class="pilcrow">¶</a></p>
+the browser back to <code>https://foo.org/login</code> which causes the following request to be sent:<a href="#section-7.7.1-8" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-7.7.1-9">
 <pre>
 foo.org &gt;&gt;&gt; doe.org {
@@ -3224,14 +3295,6 @@ trusted keys.<a href="#section-10-12" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">National Institute of Standards and Technology (NIST)</span>, <span class="refTitle">"SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions"</span>, <time datetime="2015-08" class="refDate">August 2015</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.202">https://doi.org/10.6028/NIST.FIPS.202</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="FIPS197">[FIPS197]</dt>
-        <dd>
-<span class="refAuthor">National Institute of Standards and Technology (NIST)</span>, <span class="refTitle">"Advanced Encryption Standard (AES)"</span>, <time datetime="2001-11" class="refDate">November 2001</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.197-upd1">https://doi.org/10.6028/NIST.FIPS.197-upd1</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8439">[RFC8439]</dt>
-        <dd>
-<span class="refAuthor">Nir, Y.</span> and <span class="refAuthor">A. Langley</span>, <span class="refTitle">"ChaCha20 and Poly1305 for IETF Protocols"</span>, <span class="seriesInfo">RFC 8439</span>, <span class="seriesInfo">DOI 10.17487/RFC8439</span>, <time datetime="2018-06" class="refDate">June 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8439">https://www.rfc-editor.org/info/rfc8439</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8032">[RFC8032]</dt>
         <dd>
 <span class="refAuthor">Josefsson, S.</span> and <span class="refAuthor">I. Liusvaara</span>, <span class="refTitle">"Edwards-Curve Digital Signature Algorithm (EdDSA)"</span>, <span class="seriesInfo">RFC 8032</span>, <span class="seriesInfo">DOI 10.17487/RFC8032</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8032">https://www.rfc-editor.org/info/rfc8032</a>&gt;</span>. </dd>
@@ -3257,8 +3320,16 @@ trusted keys.<a href="#section-10-12" class="pilcrow">¶</a></p>
 <span class="refAuthor">International Organization for Standardization</span>, <span class="refTitle">"Information technology -- Telecommunications and information exchange between systems -- High-level data link control (HDLC) procedures"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iso.org/standard/37010.html">https://www.iso.org/standard/37010.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="ISO3166">[ISO3166]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">International Organization for Standardization</span>, <span class="refTitle">"Codes for the representation of names of countries and their subdivisions -- Part 1: Country codes"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iso.org/standard/72482.html">https://www.iso.org/standard/72482.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SP800-38D">[SP800-38D]</dt>
+        <dd>
+<span class="refAuthor">National Institute of Standards and Technology (NIST)</span>, <span class="refTitle">"Recommendation for Block Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC"</span>, <time datetime="2007-11" class="refDate">November 2007</time>, <span>&lt;<a href="https://csrc.nist.gov/pubs/sp/800/38/d/final">https://csrc.nist.gov/pubs/sp/800/38/d/final</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="FIPS197">[FIPS197]</dt>
+      <dd>
+<span class="refAuthor">National Institute of Standards and Technology (NIST)</span>, <span class="refTitle">"Advanced Encryption Standard (AES)"</span>, <time datetime="2023-05" class="refDate">May 2023</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.197-upd1">https://doi.org/10.6028/NIST.FIPS.197-upd1</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
