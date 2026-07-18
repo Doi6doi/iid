@@ -2056,7 +2056,7 @@ the latest estimated time before the key was compromised.<a href="#section-7.5.7
 %iid.key% : %obj% {
    !name: %str% - Name of the key
       (issued by the identity server or the identity)
-   format: %#k% - Key format (e.g., #kiid.rsa.2048)
+   format: %#k% - Key format (e.g., `#kiid.rsa.2048`)
    pub: %bin% - Public part of the key
    from: %stamp% - Start of valid period
    until: %stamp% - End of valid period
@@ -2324,7 +2324,7 @@ or by the identity servers themselves.<a href="#section-7.6-1" class="pilcrow">�
           </h4>
 <p id="section-7.6.3-1">A single-word identifier usually denotes a key format family. 
 More specific formats are identified by 
-dot-separated suffixes (e.g., #kiid.rsa.2048).<a href="#section-7.6.3-1" class="pilcrow">¶</a></p>
+dot-separated suffixes (e.g., <code>#kiid.rsa.2048</code>).<a href="#section-7.6.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.6.3-2.1">
               <p id="section-7.6.3-2.1.1"><code>#kiid.rsa</code>: <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span><a href="#section-7.6.3-2.1.1" class="pilcrow">¶</a></p>
@@ -2358,10 +2358,10 @@ dot-separated suffixes (e.g., #kiid.rsa.2048).<a href="#section-7.6.3-1" class="
 <p id="section-7.6.4-1">Hash algorithms and checksums.<a href="#section-7.6.4-1" class="pilcrow">¶</a></p>
 <p id="section-7.6.4-2">A single-word identifier usually denotes an algorithm family. 
 More specific algorithms are identified by 
-dot-separated suffixes (e.g., #aiid.sha.256). 
+dot-separated suffixes (e.g., <code>#aiid.sha.256</code>). 
 If an algorithm is composed of multiple components, 
 the components are separated by dashes 
-(e.g., #aiid.ecdsa.p256-sha.512).<a href="#section-7.6.4-2" class="pilcrow">¶</a></p>
+(e.g., <code>#aiid.ecdsa.p256-sha.256</code>).<a href="#section-7.6.4-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.6.4-3.1">
               <p id="section-7.6.4-3.1.1"><code>#aiid.size</code>: Data size in bytes<a href="#section-7.6.4-3.1.1" class="pilcrow">¶</a></p>
@@ -2415,7 +2415,7 @@ the components are separated by dashes
               <p id="section-7.6.4-5.4.1"><code>#aiid.gcm</code>: <span>[<a href="#SP800-38D" class="cite xref">SP800-38D</a>]</span><a href="#section-7.6.4-5.4.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.4-5.5">
-              <p id="section-7.6.4-5.5.1"><code>#aiid.oaep-gcm.256</code> : RSA-OAEP:SHA-256:MGF1(SHA-256) 
+              <p id="section-7.6.4-5.5.1"><code>#aiid.oaep.256-gcm.256</code> : RSA-OAEP:SHA-256:MGF1(SHA-256) 
 with AES GCM 256 bit<a href="#section-7.6.4-5.5.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
@@ -2434,7 +2434,7 @@ with AES GCM 256 bit<a href="#section-7.6.4-5.5.1" class="pilcrow">¶</a></p>
               <p id="section-7.6.4-7.4.1"><code>#aiid.rsa.pss</code>: <span>[<a href="#RFC8017" class="cite xref">RFC8017</a>]</span><a href="#section-7.6.4-7.4.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-7.6.4-7.5">
-              <p id="section-7.6.4-7.5.1"><code>#aiid.ecdsa.256</code>: ecdsa p-256 with SHA-256<a href="#section-7.6.4-7.5.1" class="pilcrow">¶</a></p>
+              <p id="section-7.6.4-7.5.1"><code>#aiid.ecdsa.p256-sha.256</code>: ecdsa p-256 with SHA-256<a href="#section-7.6.4-7.5.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>

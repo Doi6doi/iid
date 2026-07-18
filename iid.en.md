@@ -431,7 +431,7 @@ An identity server MUST NOT generate signatures or encrypt data using a revoked 
 %iid.key% : %obj% {
    !name: %str% - Name of the key 
       (issued by the identity server or the identity)
-   format: %#k% - Key format (e.g., #kiid.rsa.2048)
+   format: %#k% - Key format (e.g., `#kiid.rsa.2048`)
    pub: %bin% - Public part of the key
    from: %stamp% - Start of valid period
    until: %stamp% - End of valid period
@@ -596,7 +596,7 @@ or by the identity servers themselves.
 
 A single-word identifier usually denotes a key format family. 
 More specific formats are identified by 
-dot-separated suffixes (e.g., #kiid.rsa.2048). 
+dot-separated suffixes (e.g., `#kiid.rsa.2048`). 
 
  - `#kiid.rsa`: {{RFC8017}}
  - `#kiid.ecdsa`: {{FIPS186-5}}
@@ -614,10 +614,10 @@ Hash algorithms and checksums.
 
 A single-word identifier usually denotes an algorithm family. 
 More specific algorithms are identified by 
-dot-separated suffixes (e.g., #aiid.sha.256). 
+dot-separated suffixes (e.g., `#aiid.sha.256`). 
 If an algorithm is composed of multiple components, 
 the components are separated by dashes 
-(e.g., #aiid.ecdsa.p256-sha.512).
+(e.g., `#aiid.ecdsa.p256-sha.256`).
 
  - `#aiid.size`: Data size in bytes
  - `#aiid.crc`: {{ISO13239}}
@@ -640,8 +640,7 @@ Encryption
  - `#aiid.aes`: {{FIPS197}}
  - `#aiid.gcm`: {{SP800-38D}}
 
-
- - `#aiid.oaep-gcm.256` : RSA-OAEP:SHA-256:MGF1(SHA-256) 
+ - `#aiid.oaep.256-gcm.256` : RSA-OAEP:SHA-256:MGF1(SHA-256) 
    with AES GCM 256 bit
 
 Digital signature
@@ -651,7 +650,7 @@ Digital signature
  - `#aiid.rsa.pkcs1`: {{RFC8017}}
  - `#aiid.rsa.pss`: {{RFC8017}}
 
- - `#aiid.ecdsa.256`: ecdsa p-256 with SHA-256
+ - `#aiid.ecdsa.p256-sha.256`: ecdsa p-256 with SHA-256
 
 ### Data tokens
 
