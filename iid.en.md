@@ -56,12 +56,12 @@ normative:
   RFC1321:
   ISO13239:
     target: https://www.iso.org/standard/37010.html
-    title: "Information technology -- Telecommunications and information exchange between systems -- High-level data link control (HDLC) procedures"
+    title: "Information technology - Telecommunications and information exchange between systems - High-level data link control (HDLC) procedures"
     author:
       org: International Organization for Standardization
   ISO3166:
     target: https://www.iso.org/standard/72482.html
-    title: "Codes for the representation of names of countries and their subdivisions -- Part 1: Country codes"
+    title: "Codes for the representation of names of countries and their subdivisions - Part 1: Country codes"
     author:
       org: International Organization for Standardization
   SP800-38D:
@@ -76,6 +76,8 @@ normative:
     author:
       org: National Institute of Standards and Technology (NIST)
     date: 2023-05
+  RFC5958:
+  RFC7468:
 
 informative:
   RFC1034:
@@ -404,7 +406,7 @@ encryption algorithm.
    !data: %bin% - Encrypted binary data
    owner: %iid.subject% - Owner of the decryption key
    key: %iid.key% - Decryption key
-   algo: %iid.algo% - Encríption algorithm
+   algo: %iid.algo% - Encryption algorithm
 }
 ~~~
 
@@ -431,7 +433,7 @@ An identity server MUST NOT generate signatures or encrypt data using a revoked 
 %iid.key% : %obj% {
    !name: %str% - Name of the key 
       (issued by the identity server or the identity)
-   format: %#k% - Key format (e.g., `#kiid.rsa.2048`)
+   format: %#k% - Key format (e.g., `#kiid.der-rsa.2048`)
    pub: %bin% - Public part of the key
    from: %stamp% - Start of valid period
    until: %stamp% - End of valid period
@@ -572,6 +574,8 @@ or by the identity servers themselves.
  - `#eiid.time`: Message timestamp drifts significantly (too far in past or future)
  - `#eiid.repeat`: Repeat the request while fulfilling the specified requirements
  - `#eiid.sign`: The digital signature is invalid (revoked, expired, incorrect, etc...)
+ - `#eiid.network`: Network error in the underlying layers
+ - `#eiid.permission`: Insufficient permissions to perform the action
  - `#eiid.noverify`: Cannot verify the validity of the request 
  - `#eiid.incorrect`: Action is refused becasue of incorrect data (e.g., password)
  - `{ error:#eiid.refuse, reason:%any% }`: The requested action was refused with a reason
@@ -585,6 +589,7 @@ or by the identity servers themselves.
 
  - `#miid.login`: Request or confirm authentication (sign-in) to a system
  - `#miid.data`: Retrieve attributes and data associated with the identity
+ - `#miid.setdata`: Change attributes or data associated with the identity
  - `#miid.consent`: Request to grant permission for a specific operation (e.g., cookie usage)
  - `#miid.message`: Transmit an instant message
  - `#miid.sign`: Request a digital signature on a document or data payload
@@ -598,6 +603,13 @@ A single-word identifier usually denotes a key format family.
 More specific formats are identified by 
 dot-separated suffixes (e.g., `#kiid.rsa.2048`). 
 
+If the key format is composed of multiple components, 
+the components are separated by dashes 
+(e.g., `#kiid.der-ecdsa.p256`).
+
+
+ - `#kiid.der`: {{RFC5958}}
+ - `#kiid.pem`: {{RFC7468}}
  - `#kiid.rsa`: {{RFC8017}}
  - `#kiid.ecdsa`: {{FIPS186-5}}
  - `#kiid.ed25519`: {{RFC8032}}
@@ -606,7 +618,7 @@ dot-separated suffixes (e.g., `#kiid.rsa.2048`).
  - `#kiid.rsa.3072`: 3072 bit RSA key
  - `#kiid.rsa.4096`: 4096 bit RSA key
 
- - `#kiid.ecdsa.p256`: ecdsa p-256 curve key
+ - `#kiid.der-ecdsa.p256`: ecdsa p-256 curve key in DER format
 
 ### Algorithm tokens
 
@@ -615,6 +627,7 @@ Hash algorithms and checksums.
 A single-word identifier usually denotes an algorithm family. 
 More specific algorithms are identified by 
 dot-separated suffixes (e.g., `#aiid.sha.256`). 
+
 If an algorithm is composed of multiple components, 
 the components are separated by dashes 
 (e.g., `#aiid.ecdsa.p256-sha.256`).
@@ -654,6 +667,7 @@ Digital signature
 
 ### Data tokens
 
+ - `#diid.iid`: IID identity: `%iid%`
  - `#diid.name`: Name
  - `#diid.fullname`: Full name
  - `#diid.givenname`: Given name
@@ -690,6 +704,7 @@ Digital signature
 
 Special data tokens
 
+ - `#diid.password`: Password for the current context
  - `#diid.attester`: Identities that can attest to this identity's data: `{%iid%}`
  - `#diid.trusted`: Identities trusted by this identity: `{%iid%}`
  - `#diid.until`: Latest time until which the shared data can be used: `%stamp%`
@@ -1112,9 +1127,11 @@ through a *Trust chain discovery* mechanism, described later in this document.
 
 ## Altered sender identity
 
+In some scenarios, verifying the sender's IP address may be sufficient.
+
 SAFE, KNOWN: If the sender's identity is important and uncertain, the receiver MAY
    require the request to be digitally signed. Successful signature verification
-   authenticates the sender.
+   authenticates the sender. 
 
 INSECURE: The sender's identity cannot be reliably authenticated.
 

@@ -4,8 +4,8 @@
 
 Independent Submission                                        Z. Varnagy
 Internet-Draft                                               Independent
-Intended status: Informational                              18 July 2026
-Expires: 19 January 2027
+Intended status: Informational                              20 July 2026
+Expires: 21 January 2027
 
 
                     Internet Identity Protocol (IID)
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 January 2027.
+   This Internet-Draft will expire on 21 January 2027.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Varnagy                  Expires 19 January 2027                [Page 1]
+Varnagy                  Expires 21 January 2027                [Page 1]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -100,7 +100,7 @@ Table of Contents
        7.6.4.  Algorithm tokens  . . . . . . . . . . . . . . . . . .  15
        7.6.5.  Data tokens . . . . . . . . . . . . . . . . . . . . .  16
        7.6.6.  Value tokens  . . . . . . . . . . . . . . . . . . . .  18
-       7.6.7.  Requirement tokens  . . . . . . . . . . . . . . . . .  18
+       7.6.7.  Requirement tokens  . . . . . . . . . . . . . . . . .  19
      7.7.  Examples  . . . . . . . . . . . . . . . . . . . . . . . .  19
        7.7.1.  Web login . . . . . . . . . . . . . . . . . . . . . .  19
        7.7.2.  Fetch personal data . . . . . . . . . . . . . . . . .  21
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Varnagy                  Expires 19 January 2027                [Page 2]
+Varnagy                  Expires 21 January 2027                [Page 2]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -165,7 +165,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027                [Page 3]
+Varnagy                  Expires 21 January 2027                [Page 3]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -221,7 +221,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027                [Page 4]
+Varnagy                  Expires 21 January 2027                [Page 4]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -277,7 +277,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027                [Page 5]
+Varnagy                  Expires 21 January 2027                [Page 5]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -333,7 +333,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027                [Page 6]
+Varnagy                  Expires 21 January 2027                [Page 6]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -389,7 +389,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027                [Page 7]
+Varnagy                  Expires 21 January 2027                [Page 7]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -445,7 +445,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027                [Page 8]
+Varnagy                  Expires 21 January 2027                [Page 8]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -501,7 +501,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027                [Page 9]
+Varnagy                  Expires 21 January 2027                [Page 9]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -536,7 +536,7 @@ Internet-Draft                IID Protocol                     July 2026
       !data: %bin% - Encrypted binary data
       owner: %iid.subject% - Owner of the decryption key
       key: %iid.key% - Decryption key
-      algo: %iid.algo% - Encríption algorithm
+      algo: %iid.algo% - Encryption algorithm
    }
 
 7.5.7.  Key (%iid.key%)
@@ -557,7 +557,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027               [Page 10]
+Varnagy                  Expires 21 January 2027               [Page 10]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -571,7 +571,7 @@ Internet-Draft                IID Protocol                     July 2026
    %iid.key% : %obj% {
       !name: %str% - Name of the key
          (issued by the identity server or the identity)
-      format: %#k% - Key format (e.g., `#kiid.rsa.2048`)
+      format: %#k% - Key format (e.g., `#kiid.der-rsa.2048`)
       pub: %bin% - Public part of the key
       from: %stamp% - Start of valid period
       until: %stamp% - End of valid period
@@ -613,7 +613,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027               [Page 11]
+Varnagy                  Expires 21 January 2027               [Page 11]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -669,7 +669,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027               [Page 12]
+Varnagy                  Expires 21 January 2027               [Page 12]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -725,10 +725,14 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027               [Page 13]
+Varnagy                  Expires 21 January 2027               [Page 13]
 
 Internet-Draft                IID Protocol                     July 2026
 
+
+   *  #eiid.network: Network error in the underlying layers
+
+   *  #eiid.permission: Insufficient permissions to perform the action
 
    *  #eiid.noverify: Cannot verify the validity of the request
 
@@ -760,6 +764,9 @@ Internet-Draft                IID Protocol                     July 2026
    *  #miid.data: Retrieve attributes and data associated with the
       identity
 
+   *  #miid.setdata: Change attributes or data associated with the
+      identity
+
    *  #miid.consent: Request to grant permission for a specific
       operation (e.g., cookie usage)
 
@@ -771,26 +778,31 @@ Internet-Draft                IID Protocol                     July 2026
    *  #miid.testify: Attest to or verify the validity of a specific data
       point or state
 
+
+
+
+Varnagy                  Expires 21 January 2027               [Page 14]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    *  #miid.revoke: Revoke a previously granted consent or permission to
       store data
 
    *  #miid.key: Retrieve the public cryptographic keys of the identity
-
-
-
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 14]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
 7.6.3.  Key format tokens
 
    A single-word identifier usually denotes a key format family.  More
    specific formats are identified by dot-separated suffixes (e.g.,
    #kiid.rsa.2048).
+
+   If the key format is composed of multiple components, the components
+   are separated by dashes (e.g., #kiid.der-ecdsa.p256).
+
+   *  #kiid.der: [RFC5958]
+
+   *  #kiid.pem: [RFC7468]
 
    *  #kiid.rsa: [RFC8017]
 
@@ -804,7 +816,7 @@ Internet-Draft                IID Protocol                     July 2026
 
    *  #kiid.rsa.4096: 4096 bit RSA key
 
-   *  #kiid.ecdsa.p256: ecdsa p-256 curve key
+   *  #kiid.der-ecdsa.p256: ecdsa p-256 curve key in DER format
 
 7.6.4.  Algorithm tokens
 
@@ -812,15 +824,23 @@ Internet-Draft                IID Protocol                     July 2026
 
    A single-word identifier usually denotes an algorithm family.  More
    specific algorithms are identified by dot-separated suffixes (e.g.,
-   #aiid.sha.256).  If an algorithm is composed of multiple components,
-   the components are separated by dashes (e.g.,
-   #aiid.ecdsa.p256-sha.256).
+   #aiid.sha.256).
+
+   If an algorithm is composed of multiple components, the components
+   are separated by dashes (e.g., #aiid.ecdsa.p256-sha.256).
 
    *  #aiid.size: Data size in bytes
 
    *  #aiid.crc: [ISO13239]
 
    *  #aiid.md5: [RFC1321]
+
+
+
+Varnagy                  Expires 21 January 2027               [Page 15]
+
+Internet-Draft                IID Protocol                     July 2026
+
 
    *  #aiid.sha: [FIPS180-4]
 
@@ -833,14 +853,6 @@ Internet-Draft                IID Protocol                     July 2026
    *  #aiid.sha.256: SHA-256
 
    *  #aiid.sha.384: SHA-384
-
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 15]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    *  #aiid.sha.512: SHA-512
 
@@ -879,6 +891,13 @@ Internet-Draft                IID Protocol                     July 2026
 
    *  #diid.fullname: Full name
 
+
+
+Varnagy                  Expires 21 January 2027               [Page 16]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    *  #diid.givenname: Given name
 
    *  #diid.familyname: Family name
@@ -890,13 +909,6 @@ Internet-Draft                IID Protocol                     July 2026
    *  #diid.birthplace: Birth place
 
    *  #diid.age: Age: %nat%
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 16]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    *  #diid.adult: Indicates whether the identity is of an adult: %bool%
 
@@ -934,6 +946,14 @@ Internet-Draft                IID Protocol                     July 2026
 
    *  #diid.taxid: Tax Identifier
 
+
+
+
+Varnagy                  Expires 21 January 2027               [Page 17]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    *  #diid.personalid: Personal identifier
 
    *  #diid.companyid: Company identifier
@@ -945,14 +965,6 @@ Internet-Draft                IID Protocol                     July 2026
    *  #diid.department: Department
 
    *  #diid.position: Job title
-
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 17]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    *  #diid.avatar: Avatar image: {%iid.image%}
 
@@ -990,6 +1002,14 @@ Internet-Draft                IID Protocol                     July 2026
 
    *  #viid.cookie.session: Session cookies
 
+
+
+
+Varnagy                  Expires 21 January 2027               [Page 18]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    *  #viid.cookie.marketing: Marketing cookies
 
    *  #viid.cookie.analytics: Analytics cookies
@@ -1001,14 +1021,6 @@ Internet-Draft                IID Protocol                     July 2026
    *  #riid.at: The follow-up message MUST contain the at field
 
    *  #riid.from: The follow-up message MUST contain the from field
-
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 18]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    *  #riid.to: The follow-up message MUST contain the to field
 
@@ -1045,6 +1057,15 @@ Internet-Draft                IID Protocol                     July 2026
    website obtains his IID, for example from an HTTP header [RFC9110], a
    cookie, or by prompting the user.
 
+
+
+
+
+Varnagy                  Expires 21 January 2027               [Page 19]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    The foo.org server determines the identity server responsible for
    john@doe.org and sends the following request to the designated
    endpoint:
@@ -1057,14 +1078,6 @@ Internet-Draft                IID Protocol                     July 2026
          "returnurl":"https://foo.org/login"
       }
    }
-
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 19]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    The doe.org identity server records that foo.org has requested a
    login.  It generates a nonce value and responds that it wishes to
@@ -1101,6 +1114,14 @@ Internet-Draft                IID Protocol                     July 2026
    The doe.org server has already recorded that the login with the
    specified nonce has been authorized.  It returns a positive response:
 
+
+
+
+Varnagy                  Expires 21 January 2027               [Page 20]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    foo.org <<< doe.org {
       "value": true
    }
@@ -1109,18 +1130,6 @@ Internet-Draft                IID Protocol                     July 2026
    in and can present his personalized view.  It only needs to store his
    IID; any additional information can be retrieved from doe.org
    whenever needed.
-
-
-
-
-
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 20]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    Subsequent visits are even simpler.  Since foo.org can store John's
    IID in a cookie, it can contact doe.org without asking John his IID.
@@ -1161,22 +1170,18 @@ Internet-Draft                IID Protocol                     July 2026
    immediately or redirect the browser to a confirmation page hosted by
    doe.org.
 
+
+
+
+Varnagy                  Expires 21 January 2027               [Page 21]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    Assume that the requested data is authorized for sharing with
    site@webshop.com.  The identity server responds with the requested
    values and includes an until timestamp, after which the
    site@webshop.com SHOULD no longer retain the shared data.
-
-
-
-
-
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 21]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    webshop.com <<< doe.org {
       "value": {
@@ -1224,12 +1229,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-
-
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 22]
+Varnagy                  Expires 21 January 2027               [Page 22]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1285,7 +1285,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027               [Page 23]
+Varnagy                  Expires 21 January 2027               [Page 23]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1341,7 +1341,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027               [Page 24]
+Varnagy                  Expires 21 January 2027               [Page 24]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1397,7 +1397,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027               [Page 25]
+Varnagy                  Expires 21 January 2027               [Page 25]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1453,7 +1453,7 @@ Internet-Draft                IID Protocol                     July 2026
 
 
 
-Varnagy                  Expires 19 January 2027               [Page 26]
+Varnagy                  Expires 21 January 2027               [Page 26]
 
 Internet-Draft                IID Protocol                     July 2026
 
@@ -1491,6 +1491,9 @@ Internet-Draft                IID Protocol                     July 2026
 
 9.1.  Altered sender identity
 
+   In some scenarios, verifying the sender's IP address may be
+   sufficient.
+
    SAFE, KNOWN: If the sender's identity is important and uncertain, the
    receiver MAY require the request to be digitally signed.  Successful
    signature verification authenticates the sender.
@@ -1502,17 +1505,19 @@ Internet-Draft                IID Protocol                     July 2026
    SAFE: The channel guarantees that the request is delivered without
    modification.
 
+
+
+
+
+Varnagy                  Expires 21 January 2027               [Page 27]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    KNOWN: The receiver MAY require the request to include the
    recipient's identity and to be digitally signed by the sender.
    Successful signature verification ensures that no data got changed
    during the transfer.
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 27]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    INSECURE: The recipient identity cannot be guaranteed, as it may be
    modified during transmission.
@@ -1557,18 +1562,15 @@ Internet-Draft                IID Protocol                     July 2026
    Successful signature verification prevents processing forged injected
    responses from being accepted.
 
-   INSECURE: Third parties may be able to inject forged responses.
 
 
 
-
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 28]
+Varnagy                  Expires 21 January 2027               [Page 28]
 
 Internet-Draft                IID Protocol                     July 2026
 
+
+   INSECURE: Third parties may be able to inject forged responses.
 
 9.6.  Key compromise
 
@@ -1616,15 +1618,16 @@ Internet-Draft                IID Protocol                     July 2026
    KNOWN: If the transmitted data is sensitive, it is RECOMMENDED to
    encrypt it.
 
-   INSECURE: As the public keys cannot be exchanged securely, there is
-   no way to ensure confidentiality.
 
 
 
-Varnagy                  Expires 19 January 2027               [Page 29]
+Varnagy                  Expires 21 January 2027               [Page 29]
 
 Internet-Draft                IID Protocol                     July 2026
 
+
+   INSECURE: As the public keys cannot be exchanged securely, there is
+   no way to ensure confidentiality.
 
 9.9.  Flooding attacks
 
@@ -1672,15 +1675,15 @@ Internet-Draft                IID Protocol                     July 2026
    public key.  Using that key, X can securely obtain T23's public key
    from T2.
 
-   Repeating this process allows X to obtain a correct copy of S's
-   public key.
 
 
-
-Varnagy                  Expires 19 January 2027               [Page 30]
+Varnagy                  Expires 21 January 2027               [Page 30]
 
 Internet-Draft                IID Protocol                     July 2026
 
+
+   Repeating this process allows X to obtain a correct copy of S's
+   public key.
 
    Because S is an attester of A332, X can securely obtain A332's public
    key from S.  The same process can be repeated down the attester chain
@@ -1724,19 +1727,21 @@ Internet-Draft                IID Protocol                     July 2026
               Unicode Normalization Forms", n.d.,
               <https://www.unicode.org/reports/tr15/>.
 
+
+
+
+
+
+
+Varnagy                  Expires 21 January 2027               [Page 31]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    [RFC8785]  Rundgren, A., Jordan, B., and S. Erdtman, "JSON
               Canonicalization Scheme (JCS)", RFC 8785,
               DOI 10.17487/RFC8785, June 2020,
               <https://www.rfc-editor.org/info/rfc8785>.
-
-
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 31]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
               Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
@@ -1777,22 +1782,22 @@ Internet-Draft                IID Protocol                     July 2026
               <https://www.rfc-editor.org/info/rfc1321>.
 
    [ISO13239] International Organization for Standardization,
-              "Information technology -- Telecommunications and
-              information exchange between systems -- High-level data
+              "Information technology - Telecommunications and
+              information exchange between systems - High-level data
               link control (HDLC) procedures", n.d.,
               <https://www.iso.org/standard/37010.html>.
 
-   [ISO3166]  International Organization for Standardization, "Codes for
-              the representation of names of countries and their
-              subdivisions -- Part 1: Country codes", n.d.,
-              <https://www.iso.org/standard/72482.html>.
 
 
-
-Varnagy                  Expires 19 January 2027               [Page 32]
+Varnagy                  Expires 21 January 2027               [Page 32]
 
 Internet-Draft                IID Protocol                     July 2026
 
+
+   [ISO3166]  International Organization for Standardization, "Codes for
+              the representation of names of countries and their
+              subdivisions - Part 1: Country codes", n.d.,
+              <https://www.iso.org/standard/72482.html>.
 
    [SP800-38D]
               National Institute of Standards and Technology (NIST),
@@ -1803,6 +1808,14 @@ Internet-Draft                IID Protocol                     July 2026
    [FIPS197]  National Institute of Standards and Technology (NIST),
               "Advanced Encryption Standard (AES)", May 2023,
               <https://doi.org/10.6028/NIST.FIPS.197-upd1>.
+
+   [RFC5958]  Turner, S., "Asymmetric Key Packages", RFC 5958,
+              DOI 10.17487/RFC5958, August 2010,
+              <https://www.rfc-editor.org/info/rfc5958>.
+
+   [RFC7468]  Josefsson, S. and S. Leonard, "Textual Encodings of PKIX,
+              PKCS, and CMS Structures", RFC 7468, DOI 10.17487/RFC7468,
+              April 2015, <https://www.rfc-editor.org/info/rfc7468>.
 
 11.2.  Informative References
 
@@ -1829,6 +1842,14 @@ Internet-Draft                IID Protocol                     July 2026
               Bodies", RFC 2045, DOI 10.17487/RFC2045, November 1996,
               <https://www.rfc-editor.org/info/rfc2045>.
 
+
+
+
+Varnagy                  Expires 21 January 2027               [Page 33]
+
+Internet-Draft                IID Protocol                     July 2026
+
+
    [RFC5646]  Phillips, A., Ed. and M. Davis, Ed., "Tags for Identifying
               Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646,
               September 2009, <https://www.rfc-editor.org/info/rfc5646>.
@@ -1840,15 +1861,6 @@ Internet-Draft                IID Protocol                     July 2026
    [RFC9293]  Eddy, W., Ed., "Transmission Control Protocol (TCP)",
               STD 7, RFC 9293, DOI 10.17487/RFC9293, August 2022,
               <https://www.rfc-editor.org/info/rfc9293>.
-
-
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 33]
-
-Internet-Draft                IID Protocol                     July 2026
-
 
 Author's Address
 
@@ -1889,16 +1901,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-Varnagy                  Expires 19 January 2027               [Page 34]
+Varnagy                  Expires 21 January 2027               [Page 34]
