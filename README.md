@@ -29,7 +29,7 @@ give or revoke consent, and digitally sign documents. That is IID.
 This repository holds the Internet-Draft `draft-varnagy-iid-protocol-00`, 
 an early working draft. Feedback is welcome, please open an issue.
 
-- [Read the draft (HTML)](https://htmlpreview.github.io/?https%3A%2F%2Fraw.githubusercontent.com%2FDoi6doi%2Fiid%2Frefs%2Fheads%2Fmain%2Fiid.en.html)
+- [Read the draft (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/Doi6doi/iid/refs/heads/main/iid.en.html)
 
 ## Example
 
