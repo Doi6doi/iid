@@ -10,11 +10,11 @@ give or revoke consent, and digitally sign documents. That is IID.
 | Use case | In one line |
 |---|---|
 | **Sign in** | A website asks your identity server who you are. You approve once, the site only needs to store your IID. |
-| **Share data, with an expiry** | A webshop can query your name and address directly from your server. It gets only the approved data. No more filling forms. |
+| **Share data, with an expiry** | A webshop can query your name and address directly from your server. It gets only the approved data. No more filling out forms. |
 | **Consent you can prove** | Newsletters, cookies, marketing. The answer comes back signed. Revoking is one message. |
 | **Instant messages** | You can send an instant message, file, or any type of data to any identity, person or company. Unknown senders can be blocked or queried. You can filter out unwanted messages. |
 | **Agents and crawlers** | AI agents and crawlers can be required to identify themselves or their masters. Your site has control over who scans it. |
-| **Verified claims** | "Is this really John's request or signature?" A third party can attest to it. |
+| **Verified claims** | "Is this really John's signature?" A third party can attest to it. |
 
 ## Why IID
 
@@ -26,7 +26,7 @@ give or revoke consent, and digitally sign documents. That is IID.
 
 ## Specification
 
-This repository holds the Internet-Draft `draft-varnagy-iid-protocol-00`, 
+This repository holds the Internet-Draft `draft-varnagy-iid-protocol-00`,
 an early working draft. Feedback is welcome, please open an issue.
 
 - [Read the draft (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/Doi6doi/iid/refs/heads/main/iid.en.html)
@@ -51,17 +51,13 @@ John's identity server answers with the data and a retention limit:
   "value": {
     "#diid.fullname": "John Doe",
     "#diid.postaddress": { 
-       "#diid.country":"US", 
-       "#diid.zip":"10004",
-       "#diid.street":"Liberty", 
-       "#diid.house":1 
+       "#diid.country": "US", 
+       "#diid.zip": "10004",
+       "#diid.street": "Liberty", 
+       "#diid.house": 1 
     },
     "#diid.until": 1783559940
   }
 }
 ```
-
-
-
-
 
