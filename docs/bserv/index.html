@@ -1,0 +1,245 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+<style>
+body { background-color: #aca; padding: 1em; }
+h1 { text-align: center; }
+th { text-align: right; }
+</style>
+<h1>In-browser IID server</h1>
+<p>
+This is a simple IID server to show how IID calls can work. 
+You can choose one of the custom calls to see the replies to them.
+</p><p>
+Each call can be tried through different scenarios. 
+The connection between the caller and the server can be SAFE, KNOWN, or INSECURE.
+<br>
+Read the <a href="#links">draft</a> for the exact meaning of those.
+</p><p>
+The caller itself can be ANONYMOUS, FOREIGN, KNOWN, TRUSTED. The answers ofthe server
+will be different based on the server's preferences.
+</p>
+<h2>Call</h2>
+<form id="form">
+<table><tr>
+  <th>Connection:</th>
+  <td><select id="conn" required>
+    <option value="safe">SAFE</option>
+    <option value="known">KNOWN</option>
+    <option value="insecure">INSECURE</option>
+  </select></td>
+</tr><tr>
+  <th>Client:</th>
+  <td><select id="user" required>
+    <option value="anon">ANONYMOUS</option>
+    <option value="foreign">FOREIGN</option>
+    <option value="known">KNOWN</option>
+    <option value="trusted" selected>TRUSTED</option>
+  </select></td>
+</tr><tr>
+  <th>Call kind:</th>
+  <td><select id="kind">
+     <option value=""></option>
+     <option value="ping">Ping</option>
+  </select></td>
+</tr><tr>
+  <th>Comment:</th><td id="comment"></td>
+</tr><tr>
+  <th>Request:</th>
+  <td><textarea id="request" rows="8" cols="40" required></textarea>
+</tr><tr>
+  <th></th>
+  <td><input type="submit" id="send" value="Send"></input>
+</tr><tr>
+  <th>Response:</th>
+  <td><textarea id="response" rows="8" cols="40" readonly></textarea>
+</tr></table>
+</form>
+<h2 id="links">Links</h2>
+<ul>
+<li>
+<a target="_blank" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/Doi6doi/iid/refs/heads/main/iid.en.html">IID draft</a>
+</li>
+</ul>
+<script type="module">
+class Dom {
+
+   /// egy érték pontos típusa
+   static type(x) {
+      let ret = typeof x;
+      if ("object" == ret)
+         ret = x.constructor.name;
+      return ret;
+   }
+
+   /// elem by "selector"
+   static elem( x ) {
+      let ret;
+      if ("string" == typeof x ) {
+         switch (x[0]) {
+            case "#": ret = Dom.gei( x.slice(1) ); break;
+            case ":": ret = Dom.qs( "[name="+x.slice(1)+"]" ); break;
+            default: throw "Unknown selector: "+x;
+         }
+      } else if (x instanceof Element 
+         || x instanceof Window
+      ) {
+         ret = x;
+      }
+      if ( ! ret )
+         throw "Element not found: "+x;
+      return ret;
+   }
+
+   /// add event listener
+   static handler( obj, evt, f ) {
+      if (Array.isArray(f))
+         f = Dom.method(f[0],f[1]).bind(f[0]);
+      if (Array.isArray(obj)) {
+         for (let i of obj)
+            Dom.handler(i,evt,f);
+      } else if (Array.isArray(evt)) {
+         for (let i of evt)
+            Dom.handler(obj,i,f);
+      } else {
+         Dom.elem(obj).addEventListener( evt, f );
+      }
+      return f;   
+   }
+
+   /// a method of an object
+   static method(o, m) {
+      if ( ! o )
+         throw "Method of none";
+      if ( "function" != typeof o[m] )
+         throw "Not a method: "+m;
+      return o[m];
+   }
+
+   /// element by id
+   static gei( id ) {
+      return document.getElementById( id );
+   }
+
+   /// query selector
+   static qs( sel ) {
+      return document.querySelector( sel );
+   }
+
+}
+
+class BServ {
+
+   /// initialize system
+   static async init() {
+      Dom.handler( window, "error",(e)=>{
+         alert("Error: "+e.message);
+      });
+      Dom.handler( window, "unhandledrejection",(e)=>{
+         alert("Rejection: "+ e.reason ? e.reason.message ? e.reason.message : e.reason : null );
+      });
+      await BServ.import( ["Iid","IidServer","IidStorage","IidMemStorage"] );
+      return new BServ();
+   }
+
+   /// do imports
+   static async import( x ) {
+      if (Array.isArray( x )) {
+         for (let i of x)
+            await BServ.import( i );
+      } else {
+         const m = await import("./lib/"+x+".js");
+         window[x] = m[x];
+      }
+   }
+
+   constructor() {
+      this.mem = new IidMemStorage();
+      this.fillStorage();
+      this.srv = new IidServer({storage:this.mem});
+      this.addHandlers();
+   }
+
+   /// fill storage props and data
+   fillStorage() {
+      this.mem.setProp( IidStorage.OWNIID, "server@own.org" );
+   }
+
+   /// add event handlers in form
+   addHandlers() {
+      Dom.handler( "#form", "submit", [this,"formSubmit"] );
+      Dom.handler( ["#conn","#kind","#user"], "change", [this,"fillRequest"] );
+   }
+
+   /// when form is about to be submitted
+   formSubmit(e) {
+      e.preventDefault();
+      if ( ! e.target.reportValidity() ) return;
+      let q = JSON.parse( Dom.elem("#request").value );
+      let r = this.srv.process( q );
+      Dom.elem("#response").value = JSON.stringify( r, null, 2 );
+   }
+
+   /// fill request
+   fillRequest(e) {
+      let r = this.getRequest();
+      Dom.elem("#comment").innerText = r[1];
+      let q = ! r[0] ? "" : JSON.stringify( r[0], null, 2 );
+      Dom.elem("#request").value = q;
+      Dom.elem("#response").value = "";
+   }
+
+   /// request by form values
+   getRequest() {
+      let k = Dom.elem("#kind").value;
+      if ( ! k ) return [null,""];
+      let q = {
+         [Iid.ACTION]: this.getAction(),
+         [Iid.FROM]: this.getFrom()
+      };
+      let c = this.getComment();
+      return [q,c];
+   }
+
+   /// action field
+   getAction() {
+      let k = Dom.elem("#kind").value;
+      switch (k) {
+         case "": return undefined;
+         case "ping": return Iid.MPING;
+         default: throw "Unknown kind: "+k;
+      }
+   }
+
+   /// from field
+   getFrom() {
+      let u = Dom.elem("#user").value;
+      switch (u) {
+         case "anon": return undefined;
+         case "foreign": return "john@doe.org";
+         case "known": return "jane@friend.org";
+         case "trusted": return "jack@own.org";
+         default: throw "Unknown user: "+u;
+      }
+   }
+
+   /// comment field
+   getComment() {
+      let k = Dom.elem("#kind").value;
+      switch (k) {
+         case "": return "";
+         case "ping": return "Simple ping to see if server is up";
+         default: throw "Unknown kind: "+k;
+      }
+   }
+
+}
+
+window.bserv = BServ.init();
+   
+</script>
+</body>
+</html>
+
